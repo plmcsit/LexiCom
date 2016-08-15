@@ -1,0 +1,45 @@
+﻿SWITCH STRUCTURE:
+switch (code.ElementAt(index)){
+	case '':
+              index++;
+              if (limit > index){
+				
+			  }
+			  else token = "INVALID";
+	break;
+              default:
+				token = getInvalid(limit, code);
+			  break;
+}
+
+ADDING SET OF CASES:
+	case '':
+				  index++;
+				  if (limit > index){
+				
+				  }
+				  else token = "INVALID";
+	break;
+
+FOR LOOKAHEADS:
+	if (isValid(d., code.ElementAt(index)) == true)
+         token = ;
+    else {
+		token = "INVALID";
+		while(limit > index){
+			if(isEnd(d.delimend, code.ElementAt(index)) == false) index++;
+			else limit = index;
+		}
+	}
+
+
+WITH SIMILAR AND LOOKAHEAD:
+	if (code.ElementAt(index) != 'next switch letter') {
+		<FOR LOOKAHEAD>
+	}
+	else{
+		<FOR ANOTHER SWITCH>
+	}
+	
+
+	/EOF/
