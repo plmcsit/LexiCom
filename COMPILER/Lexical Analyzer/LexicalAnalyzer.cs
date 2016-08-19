@@ -417,7 +417,7 @@ namespace Lexical_Analyzer
                                     lctr++;
                                     foreach (char c in delims)
                                     {
-                                        if((txt.Length - 1) == (lctr + 1))
+                                        if((txt.Length - 1) >= (lctr + 1))
                                         if (txt[lctr + 1] == c)
                                         {
                                             hastoken = true;
