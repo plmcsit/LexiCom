@@ -58,7 +58,7 @@ namespace Lexical_Analyzer
             public List<string> rs_10 = new List<string> { "+", "-", "*", "/", "!", "==", "!=", "<", "<=", ">", ">=", "%=" };
             public List<string> rs_11 = new List<string> { "," };
             public List<string> rs_13 = new List<string> { "++", "--" };
-            public List<string> rs_14 = new List<string> { "(", "'", "+=", "-=", "*=", "/=" };
+            public List<string> rs_14 = new List<string> { "(", "+=", "-=", "*=", "/=" };
             public List<string> rs_15 = new List<string> { ")" };
 
         }
@@ -100,6 +100,11 @@ namespace Lexical_Analyzer
             rsd.delim_end.AddRange(rsd.delim_digit);
             rsd.delim_end.Add('0');
             return rsd;
+        }
+
+        public class Literals
+        {
+            public List<char> nums = new List<char> { '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         }
 
         public class LiteralsDelims

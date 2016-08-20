@@ -373,11 +373,10 @@ namespace Lexical_Analyzer
         public Boolean GetLiterals(string txt)
         {
             TransitionDiagram.LiteralsDelims ld = new TransitionDiagram.LiteralsDelims();
-            List<char> nums = new List<char> { '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            TransitionDiagram.Literals l = new TransitionDiagram.Literals();
             List<char> delims = new List<char>();
-            Boolean hastoken = false;
+            Boolean hastoken = false, validchar = false;
             string literal = "";
-            int count = 0;
             state = 0;
             int lctr = 0;
 
@@ -387,7 +386,7 @@ namespace Lexical_Analyzer
                 state = 2;
             else
             {
-                foreach (char num in nums)
+                foreach (char num in l.nums)
                 {
                     if (txt.ElementAt(lctr) == num)
                         state = 3;
@@ -404,10 +403,9 @@ namespace Lexical_Analyzer
                         {
                             if (txt.Length != 1)
                             {
-                                while ((txt.Length - 1) > lctr && !(txt[lctr + 1] == '"'))
+                                while ((txt.Length - 1) > lctr && !(txt[lctr + 1] == '"') && !(txt[lctr + 1] == '\n'))
                                 {
-                                    literal = txt[lctr].ToString();
-                                    count = literal.Length;
+                                    literal += txt[lctr].ToString();
                                     lctr++;
                                 }
                                 if((txt.Length-1) == lctr && (txt[lctr] != '"') )
@@ -427,13 +425,77 @@ namespace Lexical_Analyzer
                                     if (hastoken)
                                     {
                                         valid++;
-                                        tokens.Add("String Literal");
+                                        tokens.Add("Stringlit");
                                         lexemes.Add(txt.Substring(0, (lctr + 1)));
                                         ctr = lctr + 1;
                                     }
                                 }
                             }
                         }
+
+                        else
+                        {
+                            if (txt.Length != 1)
+                            {
+                               
+                                while ((txt.Length - 1) > lctr && !(txt[lctr + 1] == '\'') && !(txt[lctr + 1] == '\n'))
+                                {
+                                    literal += txt[lctr].ToString();
+                                    lctr++;
+                                }
+                                if (lctr >= 3)
+                                {
+                                    hastoken = false;
+                                    ctr = lctr + 2;
+                                    if (ctr > txt.Length)
+                                        ctr = txt.Length;
+                                }
+                                else
+                                {
+                                    if ((txt[1] == '\\' && lctr == 2) || (lctr == 1 && txt[1] != '\\') || lctr == 0)
+                                        validchar = true;
+                                    else
+                                    {
+                                        validchar = false;
+                                        hastoken = false;
+                                        ctr = lctr + 2;
+                                        if (ctr > txt.Length)
+                                            ctr = txt.Length;
+                                    }
+                                    if (validchar)
+                                    {
+                                        if ((txt.Length - 1) >= (lctr + 1) && txt[lctr + 1] == '\'')
+                                        {
+                                            lctr++;
+                                            foreach (char c in delims)
+                                            {
+                                                if ((txt.Length - 1) >= (lctr + 1))
+                                                    if (txt[lctr + 1] == c)
+                                                    {
+                                                        hastoken = true;
+                                                        break;
+                                                    }
+                                            }
+                                        }
+                                        if (hastoken)
+                                        {
+                                            valid++;
+                                            tokens.Add("Charlit");
+                                            lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                            ctr = lctr + 1;
+                                        }
+                                        else
+                                        {
+
+                                            ctr = lctr + 1;
+                                            if (ctr > txt.Length)
+                                                ctr = lctr;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                         break;
                     case 3:
                         delims = ld.delim_num;
