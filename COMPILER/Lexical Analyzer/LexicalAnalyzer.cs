@@ -375,7 +375,7 @@ namespace Lexical_Analyzer
             TransitionDiagram.LiteralsDelims ld = new TransitionDiagram.LiteralsDelims();
             TransitionDiagram.Literals l = new TransitionDiagram.Literals();
             List<char> delims = new List<char>();
-            Boolean hastoken = false, validchar = false;
+            Boolean hastoken = false, validtxt = false;
             string literal = "";
             state = 0;
             int lctr = 0;
@@ -412,23 +412,33 @@ namespace Lexical_Analyzer
                                     hastoken = false;
                                 else
                                 {
-                                    lctr++;
-                                    foreach (char c in delims)
+                                    if (!(lctr == 1 && txt[lctr] == '\\'))
                                     {
-                                        if((txt.Length - 1) >= (lctr + 1))
-                                        if (txt[lctr + 1] == c)
+                                        validtxt = true;
+                                        lctr++;
+                                        foreach (char c in delims)
                                         {
-                                            hastoken = true;
-                                            break;
+                                            if ((txt.Length - 1) >= (lctr + 1))
+                                                if (txt[lctr + 1] == c)
+                                                {
+                                                    hastoken = true;
+                                                    break;
+                                                }
                                         }
                                     }
-                                    if (hastoken)
+                                    if (hastoken && validtxt)
                                     {
                                         valid++;
                                         tokens.Add("Stringlit");
                                         lexemes.Add(txt.Substring(0, (lctr + 1)));
                                         ctr = lctr + 1;
                                     }
+                                    else if(!validtxt)
+                                    {
+                                        ctr = lctr + 2;
+                                        hastoken = false;
+                                    }
+                                    
                                 }
                             }
                         }
@@ -453,16 +463,16 @@ namespace Lexical_Analyzer
                                 else
                                 {
                                     if ((txt[1] == '\\' && lctr == 2) || (lctr == 1 && txt[1] != '\\') || lctr == 0)
-                                        validchar = true;
+                                        validtxt = true;
                                     else
                                     {
-                                        validchar = false;
+                                        validtxt = false;
                                         hastoken = false;
                                         ctr = lctr + 2;
                                         if (ctr > txt.Length)
                                             ctr = txt.Length;
                                     }
-                                    if (validchar)
+                                    if (validtxt)
                                     {
                                         if ((txt.Length - 1) >= (lctr + 1) && txt[lctr + 1] == '\'')
                                         {
