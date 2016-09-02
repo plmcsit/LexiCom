@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace Lexical_Analyzer
 {
-    public class StartLexical
+    public class Initialize
     {
 
         //INITIALIZATION
-        public LexicalAnalyzer StartLexicalAnalyzer(string txt, LexicalAnalyzer lex)
+        public Analyzer InitializeAnalyzer(string txt, Analyzer lex)
         {
             Boolean hastoken = false;
             txt = txt.TrimStart();
@@ -60,8 +60,8 @@ namespace Lexical_Analyzer
         //GET CTRS
         private int GetCtr(string txt)
         {
-            TransitionDiagram.ReservedWordsDelims rwd = new TransitionDiagram.ReservedWordsDelims();
-            TransitionDiagram td = new TransitionDiagram();
+            Dictionary.ReservedWordsDelims rwd = new Dictionary.ReservedWordsDelims();
+            Dictionary td = new Dictionary();
             rwd = td.AddRange(rwd);
 
             Boolean ifEnd = false;

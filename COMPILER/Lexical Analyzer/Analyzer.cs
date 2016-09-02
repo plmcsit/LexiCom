@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Lexical_Analyzer
 {
-    public class LexicalAnalyzer
+    public class Analyzer
     {  
         public List<String> tokens = new List<String>();
         public List<String> lexemes = new List<String>();
@@ -16,13 +16,13 @@ namespace Lexical_Analyzer
         public int valid = 0;
         public int ctr = 0;
         public byte state = 0;
-        TransitionDiagram td = new TransitionDiagram();
+        Dictionary td = new Dictionary();
         
         //GET TOKENS
         public Boolean GetReservedWords(string txt)
         {
-            TransitionDiagram.ReservedWordsDelims rwd = new TransitionDiagram.ReservedWordsDelims();
-            TransitionDiagram.ReservedWords rw = new TransitionDiagram.ReservedWords();
+            Dictionary.ReservedWordsDelims rwd = new Dictionary.ReservedWordsDelims();
+            Dictionary.ReservedWords rw = new Dictionary.ReservedWords();
             List<String> words;
             List<char> delims;
             List<String> temp;
@@ -188,9 +188,9 @@ namespace Lexical_Analyzer
         }
         public Boolean GetReservedSymbols(string txt)
         {
-            TransitionDiagram td = new TransitionDiagram();
-            TransitionDiagram.ReservedSymbols rs = new TransitionDiagram.ReservedSymbols();
-            TransitionDiagram.ReservedSysmbolsDelims rsd = new TransitionDiagram.ReservedSysmbolsDelims();
+            Dictionary td = new Dictionary();
+            Dictionary.ReservedSymbols rs = new Dictionary.ReservedSymbols();
+            Dictionary.ReservedSysmbolsDelims rsd = new Dictionary.ReservedSysmbolsDelims();
             Boolean found = false, hastoken = false, exitfor = false;
             rsd = td.AddRange(rsd);
             List<String> words;
@@ -336,8 +336,8 @@ namespace Lexical_Analyzer
         }
         public Boolean GetLiterals(string txt)
         {
-            TransitionDiagram.LiteralsDelims ld = new TransitionDiagram.LiteralsDelims();
-            TransitionDiagram.Literals l = new TransitionDiagram.Literals();
+            Dictionary.LiteralsDelims ld = new Dictionary.LiteralsDelims();
+            Dictionary.Literals l = new Dictionary.Literals();
             List<char> delims = new List<char>();
             Boolean hastoken = false, validtxt = false, isEnd = false;
             string literal = "", temp = "";
@@ -511,7 +511,7 @@ namespace Lexical_Analyzer
         }
 
         //IS ENDS
-        public Boolean isEnd(char c, TransitionDiagram.ReservedWordsDelims rwd)
+        public Boolean isEnd(char c, Dictionary.ReservedWordsDelims rwd)
         {
             Boolean result = false;
             foreach (var item in rwd.delim_end)
@@ -524,7 +524,7 @@ namespace Lexical_Analyzer
             }
             return result;
         }
-        public Boolean isEnd(char c, TransitionDiagram.ReservedSysmbolsDelims rsd)
+        public Boolean isEnd(char c, Dictionary.ReservedSysmbolsDelims rsd)
         {
             Boolean result = false;
             foreach (var item in rsd.delim_end)

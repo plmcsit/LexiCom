@@ -24,19 +24,16 @@ namespace LexiCom
         {
 
             //LEXICAL ANALYZER
-            LexicalAnalyzer lex = new LexicalAnalyzer();
-            StartLexical StartLex = new StartLexical();
+            Analyzer lex = new Analyzer();
+            Initialize Lexical = new Initialize();
             string txt = Code.Text.TrimStart();
-            lex = StartLex.StartLexicalAnalyzer(txt, lex);
+            lex = Lexical.InitializeAnalyzer(txt, lex);
 
             //DISPLAY TOKENS
             DisplayTokens(lex);
-
-
-
         }
 
-        private void DisplayTokens(LexicalAnalyzer lex)
+        private void DisplayTokens(Analyzer lex)
         {
             string result = "Successfully Executed...";
             int ctr = 0, id = 0;
@@ -76,5 +73,6 @@ namespace LexiCom
                     Output.Size = new Size(691, Output.Size.Height);
             }
         }
+
     }
 }

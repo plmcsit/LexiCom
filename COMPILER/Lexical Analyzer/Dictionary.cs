@@ -2,7 +2,7 @@
 
 namespace Lexical_Analyzer
 {
-    public class TransitionDiagram
+    public class Dictionary
     {
         //RESERVED WORDS
         public class ReservedWords
@@ -19,7 +19,6 @@ namespace Lexical_Analyzer
             public List<string> rw_colon = new List<string> { "Lead" };
             public List<string> rw_newline = new List<string> { "Do", "Start" };
         }
-
         public class ReservedWordsDelims
         {
             public List<char> delim_1 = new List<char> { ' ', '(' };
@@ -36,7 +35,6 @@ namespace Lexical_Analyzer
                                                            '|', '=', '+', '-', '*', '/', ')', '"', ';', '<', '>', '!', '@', '^', '~', '`', '_'};
             public List<char> delim_digit = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         }
-
         public ReservedWordsDelims AddRange(ReservedWordsDelims rwd)
         {
             ReservedWordsDelims rw = new ReservedWordsDelims();
@@ -64,7 +62,6 @@ namespace Lexical_Analyzer
             public List<string> rs_15 = new List<string> { ")" };
 
         }
-
         public class ReservedSysmbolsDelims
         {
             public List<char> delim_digit = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -84,7 +81,6 @@ namespace Lexical_Analyzer
             public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '\'', '[', ']', '?', '#', '$', '%', '\\',
                                                             ')', '"', ';', '@', '^', '~', '`', '_', '!', '<', '>','*', '/'};
         }
-
         public ReservedSysmbolsDelims AddRange(ReservedSysmbolsDelims rsd)
         {
             ReservedWordsDelims rwd = new ReservedWordsDelims();
@@ -110,7 +106,6 @@ namespace Lexical_Analyzer
         {
             public List<char> nums = new List<char> { '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         }
-
         public class LiteralsDelims
         {
             public List<char> delim_txt = new List<char> { ' ', ';', ',', ')', '.' };
@@ -131,7 +126,6 @@ namespace Lexical_Analyzer
             public List<char> delim_12 = new List<char>();
             public List<char> delim_16 = new List<char> { ' ' };
         }
-
         public Delims AddRange(Delims d)
         {
             ReservedSysmbolsDelims rsd = new ReservedSysmbolsDelims();
