@@ -1,13 +1,15 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
 using System.Drawing;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lexical_Analyzer;
+
+//Unused Libraries
+//using System.Data;
+//using System.Linq;
+//using System.Text;
+//using System.ComponentModel;
+//using System.Threading.Tasks;
+//using System.Collections.Generic;
 
 namespace LexiCom
 {
@@ -26,6 +28,8 @@ namespace LexiCom
             StartLexical StartLex = new StartLexical();
             string txt = Code.Text.TrimStart();
             lex = StartLex.StartLexicalAnalyzer(txt, lex);
+
+            //DISPLAY TOKENS
             DisplayTokens(lex);
 
 

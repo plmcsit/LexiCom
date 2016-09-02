@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Collections.Generic;
 using System.Linq;
+
+//Unused Libraries
 //using System.Text;
 //using System.Threading.Tasks;
+//using System.Collections.Generic;
 
 namespace Lexical_Analyzer
 {
     public class StartLexical
     {
+
+        //INITIALIZATION
         public LexicalAnalyzer StartLexicalAnalyzer(string txt, LexicalAnalyzer lex)
         {
             Boolean hastoken = false;
@@ -53,6 +57,7 @@ namespace Lexical_Analyzer
             return lex;
         }
 
+        //GET CTRS
         private int GetCtr(string txt)
         {
             TransitionDiagram.ReservedWordsDelims rwd = new TransitionDiagram.ReservedWordsDelims();

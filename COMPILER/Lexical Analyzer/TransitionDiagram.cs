@@ -4,6 +4,7 @@ namespace Lexical_Analyzer
 {
     public class TransitionDiagram
     {
+        //RESERVED WORDS
         public class ReservedWords
         { 
             public List<string> rw_1 = new List<string> { "For", "If", "Until" };
@@ -43,8 +44,9 @@ namespace Lexical_Analyzer
             rwd.delim_end.Add('0');
             return rwd;
         }
-        
 
+
+        //RESERVED SYMBOLS
         public class ReservedSymbols
         {
             public List<string> rs_digit = new List<string> { "[" };
@@ -102,6 +104,8 @@ namespace Lexical_Analyzer
             return rsd;
         }
 
+
+        //LITERALS
         public class Literals
         {
             public List<char> nums = new List<char> { '~', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -113,6 +117,8 @@ namespace Lexical_Analyzer
             public List<char> delim_num = new List<char> { '+', '-', '*', '/', '.', ' ', '&', '|', ')' };
         }
 
+
+        //OTHER DELIMITERS
         public class Delims
         {
             public List<char> delim_zero = new List<char> { '0' };

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+//Unused Libraries
 //using System.Text;
 //using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace Lexical_Analyzer
         public byte state = 0;
         TransitionDiagram td = new TransitionDiagram();
         
+        //GET TOKENS
         public Boolean GetReservedWords(string txt)
         {
             TransitionDiagram.ReservedWordsDelims rwd = new TransitionDiagram.ReservedWordsDelims();
@@ -151,9 +154,9 @@ namespace Lexical_Analyzer
                 }
             }
 
+            //IF NOTHING FOUND
             if (found == false)
             {
-                
                     hastoken = false;
                     foreach (var item in rwd.delim_end)
                     {
@@ -183,51 +186,12 @@ namespace Lexical_Analyzer
             
             return hastoken;
         }
-        public Boolean isEnd(char c, TransitionDiagram.ReservedWordsDelims rwd)
-        {
-            Boolean result = false;
-            foreach (var item in rwd.delim_end)
-            {
-                if (item == c)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }
-        public Boolean isEnd(char c, TransitionDiagram.ReservedSysmbolsDelims rsd)
-        {
-            Boolean result = false;
-            foreach (var item in rsd.delim_end)
-            {
-                if (item == c)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }
-        public Boolean isEnd(char c, List<char> ld)
-        {
-            Boolean result = false;
-            foreach (var item in ld)
-            {
-                if (item == c)
-                {
-                    result = true;
-                    break;
-                }
-            }
-            return result;
-        }
         public Boolean GetReservedSymbols(string txt)
         {
             TransitionDiagram td = new TransitionDiagram();
             TransitionDiagram.ReservedSymbols rs = new TransitionDiagram.ReservedSymbols();
             TransitionDiagram.ReservedSysmbolsDelims rsd = new TransitionDiagram.ReservedSysmbolsDelims();
-            Boolean found = false, hastoken = false, exitfor = false, ifEnd = false;
+            Boolean found = false, hastoken = false, exitfor = false;
             rsd = td.AddRange(rsd);
             List<String> words;
             List<char> delims;
@@ -375,8 +339,8 @@ namespace Lexical_Analyzer
             TransitionDiagram.LiteralsDelims ld = new TransitionDiagram.LiteralsDelims();
             TransitionDiagram.Literals l = new TransitionDiagram.Literals();
             List<char> delims = new List<char>();
-            Boolean hastoken = false, validtxt = false;
-            string literal = "";
+            Boolean hastoken = false, validtxt = false, isEnd = false;
+            string literal = "", temp = "";
             state = 0;
             int lctr = 0;
 
@@ -399,6 +363,7 @@ namespace Lexical_Analyzer
                 {
                     case 1: case 2:
                         delims = ld.delim_txt;
+                        //String Literal Analyzer
                         if (state == 1)
                         {
                             if (txt.Length != 1)
@@ -408,7 +373,7 @@ namespace Lexical_Analyzer
                                     literal += txt[lctr].ToString();
                                     lctr++;
                                 }
-                                if((txt.Length-1) == lctr && (txt[lctr] != '"') )
+                                if ((txt.Length - 1) == lctr && (txt[lctr] != '"'))
                                     hastoken = false;
                                 else
                                 {
@@ -433,16 +398,17 @@ namespace Lexical_Analyzer
                                         lexemes.Add(txt.Substring(0, (lctr + 1)));
                                         ctr = lctr + 1;
                                     }
-                                    else if(!validtxt)
+                                    else if (!validtxt)
                                     {
                                         ctr = lctr + 2;
                                         hastoken = false;
                                     }
-                                    
+
                                 }
                             }
                         }
 
+                        //Character Literal Analyzer
                         else
                         {
                             if (txt.Length != 1)
@@ -505,11 +471,34 @@ namespace Lexical_Analyzer
                                 }
                             }
                         }
-                        
                         break;
+
                     case 3:
                         delims = ld.delim_num;
-                        break;
+                        if (txt.Length != 1)
+                        {
+                            while (((txt.Length - 1) > lctr) && !isEnd)
+                            {
+                                foreach (var item in l.nums)
+                                {
+                                    if(txt[lctr] == item)
+                                    {
+                                        literal += txt[lctr].ToString();
+                                        temp = literal;
+                                    }
+                                    if (temp != literal)
+                                        isEnd = true;
+                                }
+                            }
+
+                            while ((txt.Length - 1) > lctr && !(txt[lctr + 1] == '.') && !(txt[lctr + 1] == '\n'))
+                            {
+                                literal += txt[lctr].ToString();
+                                lctr++;
+                            }
+                        }
+
+                            break;
                 }
             }
             return hastoken;
@@ -519,6 +508,47 @@ namespace Lexical_Analyzer
             Boolean hastoken = false;
 
             return hastoken;
+        }
+
+        //IS ENDS
+        public Boolean isEnd(char c, TransitionDiagram.ReservedWordsDelims rwd)
+        {
+            Boolean result = false;
+            foreach (var item in rwd.delim_end)
+            {
+                if (item == c)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+        public Boolean isEnd(char c, TransitionDiagram.ReservedSysmbolsDelims rsd)
+        {
+            Boolean result = false;
+            foreach (var item in rsd.delim_end)
+            {
+                if (item == c)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+        public Boolean isEnd(char c, List<char> ld)
+        {
+            Boolean result = false;
+            foreach (var item in ld)
+            {
+                if (item == c)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }
