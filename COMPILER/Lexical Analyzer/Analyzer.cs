@@ -339,8 +339,8 @@ namespace Lexical_Analyzer
             Dictionary.LiteralsDelims ld = new Dictionary.LiteralsDelims();
             Dictionary.Literals l = new Dictionary.Literals();
             List<char> delims = new List<char>();
-            Boolean hastoken = false, validtxt = false, isEnd = false;
-            string literal = "", temp = "";
+            Boolean hastoken = false, validtxt = false;
+            string literal = "";
             state = 0;
             int lctr = 0;
 
@@ -394,7 +394,7 @@ namespace Lexical_Analyzer
                                     if (hastoken && validtxt)
                                     {
                                         valid++;
-                                        tokens.Add("Stringlit");
+                                        tokens.Add("stringlit");
                                         lexemes.Add(txt.Substring(0, (lctr + 1)));
                                         ctr = lctr + 1;
                                     }
@@ -456,7 +456,7 @@ namespace Lexical_Analyzer
                                         if (hastoken)
                                         {
                                             valid++;
-                                            tokens.Add("Charlit");
+                                            tokens.Add("charlit");
                                             lexemes.Add(txt.Substring(0, (lctr + 1)));
                                             ctr = lctr + 1;
                                         }
@@ -474,39 +474,196 @@ namespace Lexical_Analyzer
                         break;
 
                     case 3:
+                        Dictionary.Identifier id = new Dictionary.Identifier();
                         delims = ld.delim_num;
-                        if (txt.Length != 1)
-                        {
-                            while (((txt.Length - 1) > lctr) && !isEnd)
-                            {
-                                foreach (var item in l.nums)
-                                {
-                                    if(txt[lctr] == item)
-                                    {
-                                        literal += txt[lctr].ToString();
-                                        temp = literal;
-                                    }
-                                    if (temp != literal)
-                                        isEnd = true;
-                                }
-                            }
+                        Boolean isNumNext = true, hasnum = true, hasid = false;
+                        List<char> num = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-                            while ((txt.Length - 1) > lctr && !(txt[lctr + 1] == '.') && !(txt[lctr + 1] == '\n'))
+                        id.id.AddRange(id.delim_caplet);
+                        id.id.AddRange(id.delim_caplet);
+
+                        //If Negative
+                        if (txt.ElementAt(lctr) == '~')
+                        {
+                            hasnum = false;
+                            foreach (char n in num)
                             {
-                                literal += txt[lctr].ToString();
-                                lctr++;
+                                if ((txt.Length - 1) > lctr)
+                                    if (txt.ElementAt(lctr + 1) == n)
+                                    {
+                                        hasnum = true;
+                                        lctr++;
+                                    }
                             }
                         }
 
-                            break;
+                        if (hasnum)
+                        {
+                            while (isNumNext)
+                            {
+                                isNumNext = false;
+                                foreach (char n in num)
+                                {
+                                    if ((txt.Length - 1) > lctr)
+                                        if (txt.ElementAt(lctr + 1) == n)
+                                        {
+                                            lctr++;
+                                            isNumNext = true;
+                                        }
+                                }
+                            }
+
+                            //Double Literal Analyzer
+                            if ((txt.Length - 1) > lctr)
+                                if (txt.ElementAt(lctr + 1) == '.')
+                                {
+                                    lctr++;
+                                    isNumNext = true;
+                                    while (isNumNext)
+                                    {
+                                        isNumNext = false;
+                                        foreach (char n in num)
+                                        {
+                                            if ((txt.Length - 1) > lctr)
+                                                if (txt.ElementAt(lctr + 1) == n)
+                                                {
+                                                    lctr++;
+                                                    isNumNext = true;
+                                                }
+                                        }
+                                    }
+
+                                    foreach (char delim in delims)
+                                    {
+                                        if ((txt.Length - 1) > lctr)
+                                            if (txt.ElementAt(lctr + 1) == delim)
+                                            {
+                                                hastoken = true;
+                                                break;
+                                            }
+                                    }
+
+                                    if (hastoken)
+                                    {
+                                        valid++;
+                                        tokens.Add("doublelit");
+                                        lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                    }
+                                    else
+                                    {
+                                        foreach (char c in id.id)
+                                        {
+                                            if ((txt.Length - 1) > lctr)
+                                                if (txt.ElementAt(lctr + 1) == c)
+                                                {
+                                                    hasid = true;
+                                                }
+                                        }
+                                    }
+
+                                    if (!hasid)
+                                        ctr = lctr + 1;
+                                }
+                                //Integer Literal Analyzer
+                                else
+                                {
+                                    foreach (char delim in delims)
+                                    {
+                                        if (txt.ElementAt(lctr + 1) == delim)
+                                        {
+                                            hastoken = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (hastoken)
+                                    {
+                                        valid++;
+                                        tokens.Add("intlit");
+                                        lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                    }
+                                    else
+                                    {
+                                        foreach (char c in id.id)
+                                        {
+                                            if (txt.ElementAt(lctr + 1) == c)
+                                            {
+                                                hasid = true;
+                                            }
+                                        }
+                                    }
+                                    if (!hasid)
+                                        ctr = lctr + 1;
+                                }
+                        }
+                        break;
                 }
             }
             return hastoken;
         }
         public Boolean GetIdentifiers(string txt)
         {
-            Boolean hastoken = false;
+            Dictionary.Identifier id = new Dictionary.Identifier();
+            Dictionary.IdentifierDelims delims = new Dictionary.IdentifierDelims();
+            Boolean hastoken = false, valID = false, isvalID = true;
+            
+            id.id.AddRange(id.delim_lowlet);
+            id.id.AddRange(id.delim_caplet);
+            id.id.AddRange(id.delim_undscr);
+            id.id.AddRange(id.delim_digit);
 
+            int ictr = 0;
+
+            foreach (char c in id.delim_caplet)
+            {
+                if (txt.ElementAt(ictr) == c)
+                {
+                    valID = true;
+                }
+            }
+
+            if(valID)
+            {
+                ictr++;
+                isvalID = true;
+                while (isvalID)
+                {
+                    isvalID = false;
+                    foreach (char n in id.id)
+                    {
+                        if ((txt.Length - 1) > ictr)
+                            if (txt.ElementAt(ictr + 1) == n)
+                            {
+                                ictr++;
+                                isvalID = true;
+                            }
+                    }
+                    if (ictr > 17)
+                        valID = false;
+                }
+                
+                if (valID)
+                {
+                    foreach (char delim in delims.delim_end)
+                    {
+                        if ((txt.Length - 1) > ictr)
+                            if (txt.ElementAt(ictr + 1) == delim)
+                            {
+                                hastoken = true;
+                                break;
+                            }
+                    }
+                }
+
+                if(hastoken)
+                {
+                    valid++;
+                    tokens.Add("id");
+                    lexemes.Add(txt.Substring(0, (ictr + 1)));
+                }
+
+                ctr = ictr + 1;
+            }
             return hastoken;
         }
 

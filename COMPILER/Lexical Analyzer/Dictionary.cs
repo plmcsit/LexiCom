@@ -17,7 +17,7 @@ namespace Lexical_Analyzer
                                                               "of", "by", "Read", "Response", "Say", "Task", "Var" };
             public List<string> rw_period = new List<string> { "Clear", "End", "EndIf", "Skip", "Stop" };
             public List<string> rw_colon = new List<string> { "Lead" };
-            public List<string> rw_newline = new List<string> { "Do", "Start" };
+            public List<string> rw_newline = new List<string> { "Do", "Start"};
         }
         public class ReservedWordsDelims
         {
@@ -55,7 +55,7 @@ namespace Lexical_Analyzer
             public List<string> rs_7 = new List<string> { "&&", "||" };
             public List<string> rs_8 = new List<string> { "," };
             public List<string> rs_9 = new List<string> { ";" };
-            public List<string> rs_10 = new List<string> { "+", "-", "*", "/", "!", "==", "!=", "<", "<=", ">", ">=", "%=" };
+            public List<string> rs_10 = new List<string> { "+", "-", "*", "/", "!", "=", "==", "!=", "<", "<=", ">", ">=", "%=" };
             public List<string> rs_11 = new List<string> { "," };
             public List<string> rs_13 = new List<string> { "++", "--" };
             public List<string> rs_14 = new List<string> { "(", "+=", "-=", "*=", "/=" };
@@ -109,9 +109,25 @@ namespace Lexical_Analyzer
         public class LiteralsDelims
         {
             public List<char> delim_txt = new List<char> { ' ', ';', ',', ')', '.' };
-            public List<char> delim_num = new List<char> { '+', '-', '*', '/', '.', ' ', '&', '|', ')' };
+            public List<char> delim_num = new List<char> { '+', '-', '*', '/', ',', '.', ' ', '&', '|', ')' };
         }
 
+        //Identifier
+        public class Identifier
+        {
+            public List<char> delim_digit = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+            public List<char> delim_lowlet = new List<char> { 'a','b','c','d','e','f','g','h','i','j','k','l','m',
+                                                       'n','o','p','q','r','s','t','u','v','w','x','y','z' };
+            public List<char> delim_caplet = new List<char> {'A','B','C','D','E','F','G','H','I','J','K','L','M',
+                                                      'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
+            public List<char> delim_undscr = new List<char> { '_' };
+            public List<char> id = new List<char>();
+        }
+        public class IdentifierDelims
+        {
+            public List<char> delim_end = new List<char> { '.', ' ', '\n', '=', '\t','(' , ':', ',', '\'', '[', ']', '?', '#', '$', '%', '\\',
+                                                           ')', '"', ';', '@', '^', '~', '`', '_', '!', '<', '>','*', '/'};
+        }
 
         //OTHER DELIMITERS
         public class Delims
