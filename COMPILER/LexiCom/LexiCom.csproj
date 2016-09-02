@@ -100,6 +100,10 @@
       <Project>{70ddd6d0-45b1-4b63-9a9d-327d744e7316}</Project>
       <Name>Lexical Analyzer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Syntax Analyzer\Syntax Analyzer.csproj">
+      <Project>{51778ac8-5916-41d4-a647-e5e33a320f3e}</Project>
+      <Name>Syntax Analyzer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code Structures.txt" />

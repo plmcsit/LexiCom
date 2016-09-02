@@ -2,14 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Lexical_Analyzer;
-
-//Unused Libraries
-//using System.Data;
-//using System.Linq;
-//using System.Text;
-//using System.ComponentModel;
-//using System.Threading.Tasks;
-//using System.Collections.Generic;
+using Syntax_Analyzer;
 
 namespace LexiCom
 {
@@ -22,20 +15,34 @@ namespace LexiCom
 
         private void LexButton_Click(object sender, EventArgs e)
         {
+            if (Code.Text != "")
+            {
+                //LEXICAL ANALYZER
+                Output.Text = "====== Starting Lexical Analyzer ======\n";
+                Lexical_Analyzer.Analyzer lex = new Lexical_Analyzer.Analyzer();
+                Lexical_Analyzer.Initializer Lexical = new Lexical_Analyzer.Initializer();
+                string txt = Code.Text.TrimStart();
+                lex = Lexical.InitializeAnalyzer(txt, lex);
+                //DISPLAY TOKENS
+                DisplayTokens(lex);
+                Output.Text += "\n====== End of Lexical Analyzer =======\n\n";
 
-            //LEXICAL ANALYZER
-            Analyzer lex = new Analyzer();
-            Initialize Lexical = new Initialize();
-            string txt = Code.Text.TrimStart();
-            lex = Lexical.InitializeAnalyzer(txt, lex);
-
-            //DISPLAY TOKENS
-            DisplayTokens(lex);
+                if (lex.invalid == 0 && lex.tokens.Count != 0)
+                {
+                    //SYNTAX ANALYZER
+                    Output.Text += "\n====== Starting Syntax Analyzer ======\n";
+                    Syntax_Analyzer.Analyzer syn = new Syntax_Analyzer.Analyzer();
+                    Syntax_Analyzer.Initializer Syntax = new Syntax_Analyzer.Initializer();
+                    Boolean parsed = Syntax.InitializeSyntaxAnalyzer(lex.tokens);
+                    Output.Text += parsed.ToString() + "\n";
+                    Output.Text += "\n====== End of Syntax Analyzer =======\n\n";
+                }
+            }
         }
 
-        private void DisplayTokens(Analyzer lex)
+        private void DisplayTokens(Lexical_Analyzer.Analyzer lex)
         {
-            string result = "Successfully Executed...";
+            string result = "Successfully Executed.";
             int ctr = 0, id = 0;
             LexGrid.Rows.Clear();
             foreach (var item in lex.tokens)
@@ -46,12 +53,13 @@ namespace LexiCom
             }
 
             if (lex.invalid != 0)
-                result = "Encountered (" + lex.invalid.ToString() + ") error/s. Please try again...";
+                result = "Encountered " + lex.invalid.ToString() + " error/s.\nPlease try again.";
 
-            Output.Text =
+            Output.Text +=
                 "No. of valid lexemes: " + lex.valid.ToString()
                 + "\nNo. of invalid lexemes: " + lex.invalid.ToString()
                 + "\nLexical Analyzer " + result;
+           
         }
 
         private void LexBtn_Click(object sender, EventArgs e)

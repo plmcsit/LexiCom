@@ -60,16 +60,16 @@ namespace Lexical_Analyzer
             public List<string> rs_13 = new List<string> { "++", "--" };
             public List<string> rs_14 = new List<string> { "(", "+=", "-=", "*=", "/=" };
             public List<string> rs_15 = new List<string> { ")" };
-
+            public List<string> rs_done = new List<string> { "#" };
         }
-        public class ReservedSysmbolsDelims
+        public class ReservedSymbolsDelims
         {
             public List<char> delim_digit = new List<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             public List<char> delim_caplet = new List<char> { 'A','B','C','D','E','F','G','H','I','J','K','L','M',
                                                        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
             public List<char> delim_newline = new List<char> { '\n' };
             public List<char> delim_period = new List<char> { '.' };
-            public List<char> delim_6 = new List<char> { ' ', '\n' };
+            public List<char> delim_6 = new List<char> { ' ', '\n', '#' };
             public List<char> delim_7 = new List<char>();
             public List<char> delim_8 = new List<char> { ' ', '"' };
             public List<char> delim_9 = new List<char> { ' ', '"', '\'', '0' };
@@ -81,7 +81,7 @@ namespace Lexical_Analyzer
             public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '\'', '[', ']', '?', '#', '$', '%', '\\',
                                                             ')', '"', ';', '@', '^', '~', '`', '_', '!', '<', '>','*', '/'};
         }
-        public ReservedSysmbolsDelims AddRange(ReservedSysmbolsDelims rsd)
+        public ReservedSymbolsDelims AddRange(ReservedSymbolsDelims rsd)
         {
             ReservedWordsDelims rwd = new ReservedWordsDelims();
             Delims d = new Delims();
@@ -144,7 +144,7 @@ namespace Lexical_Analyzer
         }
         public Delims AddRange(Delims d)
         {
-            ReservedSysmbolsDelims rsd = new ReservedSysmbolsDelims();
+            ReservedSymbolsDelims rsd = new ReservedSymbolsDelims();
             ReservedWordsDelims rwd = new ReservedWordsDelims();
             d.delim_identifier.AddRange(rsd.delim_caplet);
             d.delim_identifier.AddRange(d.delim_lowlet);

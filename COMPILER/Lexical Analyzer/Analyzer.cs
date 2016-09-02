@@ -26,7 +26,7 @@ namespace Lexical_Analyzer
             List<String> words;
             List<char> delims;
             List<String> temp;
-            Boolean found = false, hastoken = false, exitfor = false, ifEnd = false;
+            Boolean found = false, hastoken = false, exitfor = false, ifEnd = false, nodelim = true;
             int tempctr = 0,limit = 0;
             rwd = td.AddRange(rwd);
 
@@ -118,6 +118,7 @@ namespace Lexical_Analyzer
                                                 if (txt[ctr + 1] == delim)
                                                 {
                                                     hastoken = true;
+                                                    nodelim = false;
                                                     tokens.Add(w);
                                                     lexemes.Add(w);
                                                     valid++;
@@ -129,6 +130,14 @@ namespace Lexical_Analyzer
 
                                         if (hastoken)
                                         {
+                                            break;
+                                        }
+                                        if(nodelim)
+                                        {
+                                            hastoken = true;
+                                            tokens.Add("INVALID");
+                                            lexemes.Add(w);
+                                            invalid++;
                                             break;
                                         }
                                     }
@@ -190,7 +199,7 @@ namespace Lexical_Analyzer
         {
             Dictionary td = new Dictionary();
             Dictionary.ReservedSymbols rs = new Dictionary.ReservedSymbols();
-            Dictionary.ReservedSysmbolsDelims rsd = new Dictionary.ReservedSysmbolsDelims();
+            Dictionary.ReservedSymbolsDelims rsd = new Dictionary.ReservedSymbolsDelims();
             Boolean found = false, hastoken = false, exitfor = false;
             rsd = td.AddRange(rsd);
             List<String> words;
@@ -207,7 +216,7 @@ namespace Lexical_Analyzer
                 tempctr++;
             }
 
-            for (int i = 0; i < 13; i++)
+            for (int i = 0; i < 14; i++)
             {
                 sctr = 0;
                 words = new List<String>();
@@ -267,62 +276,78 @@ namespace Lexical_Analyzer
                         words = rs.rs_15;
                         delims = rsd.delim_15;
                         break;
+                    case 13:
+                        words = rs.rs_done;
+                        break;
                 }
                 //Check Reserved Symbols
-                foreach (char c in txt)
+                if (i != 13)
                 {
-                    limit = words.Count - 1;
-                    temp = new List<string>();
-                    found = false;
-                    foreach (string w in words)
+                    foreach (char c in txt)
                     {
-                        //IF NOT OUT OF RANGE
-                        if((w.Length - 1) >= sctr)
+                        limit = words.Count - 1;
+                        temp = new List<string>();
+                        found = false;
+                        foreach (string w in words)
                         {
-                            if (c == w.ElementAt(sctr))
+                            //IF NOT OUT OF RANGE
+                            if ((w.Length - 1) >= sctr)
                             {
-                                found = true;
-                                //CHECK SIZE OF WORD AND INPUT
-                                if(w.Length == tempctr)
+                                if (c == w.ElementAt(sctr))
                                 {
-                                    //CHECK DELIMITER
-                                    if ((tempctr - 1) == sctr)
+                                    found = true;
+                                    //CHECK SIZE OF WORD AND INPUT
+                                    if (w.Length == tempctr)
                                     {
-                                        foreach (char delim in delims)
+                                        //CHECK DELIMITER
+                                        if ((tempctr - 1) == sctr)
                                         {
-                                            //IF NOT OUT OF RANGE
-                                            if ((txt.Length - 1) > sctr)
+                                            foreach (char delim in delims)
                                             {
-                                                //IF FOUND DELIMITER
-                                                if (txt[sctr + 1] == delim)
+                                                //IF NOT OUT OF RANGE
+                                                if ((txt.Length - 1) > sctr)
                                                 {
-                                                    found = true;
-                                                    hastoken = true;
-                                                    tokens.Add(w);
-                                                    lexemes.Add(w);
-                                                    valid++;
-                                                    break;
+                                                    //IF FOUND DELIMITER
+                                                    if (txt[sctr + 1] == delim)
+                                                    {
+                                                        found = true;
+                                                        hastoken = true;
+                                                        tokens.Add(w);
+                                                        lexemes.Add(w);
+                                                        valid++;
+                                                        break;
 
+                                                    }
                                                 }
+                                                else if (w == words[limit] && hastoken == false) found = false;
                                             }
-                                            else if (w == words[limit] && hastoken == false) found = false;
+
+                                            if (hastoken) break;
+
                                         }
-
-                                        if (hastoken) break;
-
+                                        else temp.Add(w);
                                     }
-                                    else temp.Add(w);
                                 }
                             }
                         }
+                        sctr++;
+                        words = temp;
+                        if (found == false) break;
+                        if (hastoken)
+                        {
+                            exitfor = true;
+                            break;
+                        }
                     }
-                    sctr++;
-                    words = temp;
-                    if (found == false) break;
-                    if (hastoken)
+                }
+                else
+                {
+                    if(txt.ElementAt(sctr) == words[0].ElementAt(0))
                     {
-                        exitfor = true;
-                        break;
+                        sctr = txt.Length;
+                        tokens.Add("#");
+                        lexemes.Add("#");
+                        hastoken = true;
                     }
                 }
                 if (exitfor)
@@ -681,7 +706,7 @@ namespace Lexical_Analyzer
             }
             return result;
         }
-        public Boolean isEnd(char c, Dictionary.ReservedSysmbolsDelims rsd)
+        public Boolean isEnd(char c, Dictionary.ReservedSymbolsDelims rsd)
         {
             Boolean result = false;
             foreach (var item in rsd.delim_end)

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Lexical_Analyzer
 {
-    public class Initialize
+    public class Initializer
     {
 
         //INITIALIZATION
