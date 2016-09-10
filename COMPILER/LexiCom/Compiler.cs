@@ -18,24 +18,26 @@ namespace LexiCom
             if (Code.Text != "")
             {
                 //LEXICAL ANALYZER
-                Output.Text = "====== Starting Lexical Analyzer ======\n";
+                Output.Text = "========== Starting Lexical Analyzer ==========\n";
                 Lexical_Analyzer.Analyzer lex = new Lexical_Analyzer.Analyzer();
                 Lexical_Analyzer.Initializer Lexical = new Lexical_Analyzer.Initializer();
                 string txt = Code.Text.TrimStart();
                 lex = Lexical.InitializeAnalyzer(txt, lex);
                 //DISPLAY TOKENS
                 DisplayTokens(lex);
-                Output.Text += "\n====== End of Lexical Analyzer =======\n\n";
+                Output.Text += "\n========== End of Lexical Analyzer ============\n";
 
                 if (lex.invalid == 0 && lex.tokens.Count != 0)
                 {
                     //SYNTAX ANALYZER
-                    Output.Text += "\n====== Starting Syntax Analyzer ======\n";
+                    Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
                     Syntax_Analyzer.Analyzer syn = new Syntax_Analyzer.Analyzer();
                     Syntax_Analyzer.Initializer Syntax = new Syntax_Analyzer.Initializer();
                     Boolean parsed = Syntax.InitializeSyntaxAnalyzer(lex.tokens);
-                    Output.Text += parsed.ToString() + "\n";
-                    Output.Text += "\n====== End of Syntax Analyzer =======\n\n";
+
+                    Output.Text += parsed.ToString();
+                    Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
+                    Output.Text += Syntax.output;
                 }
             }
         }

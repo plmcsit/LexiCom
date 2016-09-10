@@ -66,7 +66,7 @@
             this.LexGrid.Name = "LexGrid";
             this.LexGrid.ReadOnly = true;
             this.LexGrid.RowHeadersVisible = false;
-            this.LexGrid.Size = new System.Drawing.Size(237, 268);
+            this.LexGrid.Size = new System.Drawing.Size(237, 449);
             this.LexGrid.TabIndex = 1;
             // 
             // id
@@ -93,10 +93,10 @@
             this.Output.BackColor = System.Drawing.SystemColors.ControlText;
             this.Output.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Output.ForeColor = System.Drawing.Color.Lime;
-            this.Output.Location = new System.Drawing.Point(12, 338);
+            this.Output.Location = new System.Drawing.Point(12, 446);
             this.Output.Name = "Output";
             this.Output.ReadOnly = true;
-            this.Output.Size = new System.Drawing.Size(691, 47);
+            this.Output.Size = new System.Drawing.Size(691, 120);
             this.Output.TabIndex = 3;
             this.Output.Text = "";
             // 
@@ -105,9 +105,9 @@
             this.label1.BackColor = System.Drawing.Color.DarkCyan;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(0, 392);
+            this.label1.Location = new System.Drawing.Point(0, 571);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(731, 22);
+            this.label1.Size = new System.Drawing.Size(729, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "version 0.1 (Beta Version)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -120,7 +120,7 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(731, 45);
+            this.label2.Size = new System.Drawing.Size(729, 45);
             this.label2.TabIndex = 5;
             this.label2.Text = "LexiCom (Lexis Compiler)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -131,7 +131,7 @@
             this.LexPanel.Controls.Add(this.LexGrid);
             this.LexPanel.Location = new System.Drawing.Point(743, 87);
             this.LexPanel.Name = "LexPanel";
-            this.LexPanel.Size = new System.Drawing.Size(245, 298);
+            this.LexPanel.Size = new System.Drawing.Size(245, 479);
             this.LexPanel.TabIndex = 9;
             // 
             // label3
@@ -172,7 +172,7 @@
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 45);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(731, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(729, 39);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -212,7 +212,7 @@
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
             this.Code.ShowLineNumbers = true;
-            this.Code.Size = new System.Drawing.Size(691, 245);
+            this.Code.Size = new System.Drawing.Size(691, 353);
             this.Code.TabIndex = 6;
             this.Code.Text = "";
             // 
@@ -220,7 +220,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(731, 414);
+            this.ClientSize = new System.Drawing.Size(729, 593);
             this.Controls.Add(this.LexBtn);
             this.Controls.Add(this.LexPanel);
             this.Controls.Add(this.toolStrip1);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Syntax_Analyzer
 {
@@ -30,12 +26,14 @@ namespace Syntax_Analyzer
             { "Char" };
             public List<string> dtype4 = new List<string>
             { "String" };
-        }
 
+            public List<string> NULL = new List<string>();
+        }
+         
         public class Maps
         {
             public List<string> body = new List<string>
-            { "body1", "body2", "null" };
+            { "body1", "body2", "NULL" };
 
             public List<string> dtype = new List<string>
             { "dtype1", "dtype2", "dtype3", "dtype4" };

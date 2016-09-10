@@ -398,6 +398,7 @@ namespace Lexical_Analyzer
                                     literal += txt[lctr].ToString();
                                     lctr++;
                                 }
+                                
                                 if ((txt.Length - 1) == lctr && (txt[lctr] != '"'))
                                     hastoken = false;
                                 else
@@ -409,11 +410,14 @@ namespace Lexical_Analyzer
                                         foreach (char c in delims)
                                         {
                                             if ((txt.Length - 1) >= (lctr + 1))
+                                            {
                                                 if (txt[lctr + 1] == c)
                                                 {
+
                                                     hastoken = true;
                                                     break;
                                                 }
+                                            }
                                         }
                                     }
                                     if (hastoken && validtxt)
