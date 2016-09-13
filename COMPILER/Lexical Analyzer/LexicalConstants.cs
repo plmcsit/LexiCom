@@ -2,7 +2,7 @@
 
 namespace Lexical_Analyzer
 {
-    public class Dictionary
+    public class LexicalConstants
     {
         //RESERVED WORDS
         public class ReservedWords

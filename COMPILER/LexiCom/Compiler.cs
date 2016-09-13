@@ -19,8 +19,8 @@ namespace LexiCom
             {
                 //LEXICAL ANALYZER
                 Output.Text = "========== Starting Lexical Analyzer ==========\n";
-                Lexical_Analyzer.Analyzer lex = new Lexical_Analyzer.Analyzer();
-                Lexical_Analyzer.Initializer Lexical = new Lexical_Analyzer.Initializer();
+                LexicalAnalyzer lex = new LexicalAnalyzer();
+                LexicalInitializer Lexical = new LexicalInitializer();
                 string txt = Code.Text.TrimStart();
                 lex = Lexical.InitializeAnalyzer(txt, lex);
                 //DISPLAY TOKENS
@@ -30,17 +30,15 @@ namespace LexiCom
                 if (lex.invalid == 0 && lex.tokens.Count != 0)
                 {
                     //SYNTAX ANALYZER
-                    Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
-
                     SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
+                    Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
                     Output.Text += Syntax_Analyzer.Start(lex.tokens);
-                    
                     Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
                 }
             }
         }
 
-        private void DisplayTokens(Lexical_Analyzer.Analyzer lex)
+        private void DisplayTokens(Lexical_Analyzer.LexicalAnalyzer lex)
         {
             string result = "Successfully Executed.";
             int ctr = 0, id = 0;

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Lexical_Analyzer
 {
-    public class Analyzer
+    public class LexicalAnalyzer
     {  
         public List<String> tokens = new List<String>();
         public List<String> lexemes = new List<String>();
@@ -16,13 +16,13 @@ namespace Lexical_Analyzer
         public int valid = 0;
         public int ctr = 0;
         public byte state = 0;
-        Dictionary td = new Dictionary();
+        LexicalConstants td = new LexicalConstants();
         
         //GET TOKENS
         public Boolean GetReservedWords(string txt)
         {
-            Dictionary.ReservedWordsDelims rwd = new Dictionary.ReservedWordsDelims();
-            Dictionary.ReservedWords rw = new Dictionary.ReservedWords();
+            LexicalConstants.ReservedWordsDelims rwd = new LexicalConstants.ReservedWordsDelims();
+            LexicalConstants.ReservedWords rw = new LexicalConstants.ReservedWords();
             List<String> words;
             List<char> delims;
             List<String> temp;
@@ -197,9 +197,9 @@ namespace Lexical_Analyzer
         }
         public Boolean GetReservedSymbols(string txt)
         {
-            Dictionary td = new Dictionary();
-            Dictionary.ReservedSymbols rs = new Dictionary.ReservedSymbols();
-            Dictionary.ReservedSymbolsDelims rsd = new Dictionary.ReservedSymbolsDelims();
+            LexicalConstants td = new LexicalConstants();
+            LexicalConstants.ReservedSymbols rs = new LexicalConstants.ReservedSymbols();
+            LexicalConstants.ReservedSymbolsDelims rsd = new LexicalConstants.ReservedSymbolsDelims();
             Boolean found = false, hastoken = false, exitfor = false;
             rsd = td.AddRange(rsd);
             List<String> words;
@@ -361,8 +361,8 @@ namespace Lexical_Analyzer
         }
         public Boolean GetLiterals(string txt)
         {
-            Dictionary.LiteralsDelims ld = new Dictionary.LiteralsDelims();
-            Dictionary.Literals l = new Dictionary.Literals();
+            LexicalConstants.LiteralsDelims ld = new LexicalConstants.LiteralsDelims();
+            LexicalConstants.Literals l = new LexicalConstants.Literals();
             List<char> delims = new List<char>();
             Boolean hastoken = false, validtxt = false;
             string literal = "";
@@ -503,7 +503,7 @@ namespace Lexical_Analyzer
                         break;
 
                     case 3:
-                        Dictionary.Identifier id = new Dictionary.Identifier();
+                        LexicalConstants.Identifier id = new LexicalConstants.Identifier();
                         delims = ld.delim_num;
                         Boolean isNumNext = true, hasnum = true, hasid = false;
                         List<char> num = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -632,8 +632,8 @@ namespace Lexical_Analyzer
         }
         public Boolean GetIdentifiers(string txt)
         {
-            Dictionary.Identifier id = new Dictionary.Identifier();
-            Dictionary.IdentifierDelims delims = new Dictionary.IdentifierDelims();
+            LexicalConstants.Identifier id = new LexicalConstants.Identifier();
+            LexicalConstants.IdentifierDelims delims = new LexicalConstants.IdentifierDelims();
             Boolean hastoken = false, valID = false, isvalID = true;
             
             id.id.AddRange(id.delim_lowlet);
@@ -697,7 +697,7 @@ namespace Lexical_Analyzer
         }
 
         //IS ENDS
-        public Boolean isEnd(char c, Dictionary.ReservedWordsDelims rwd)
+        public Boolean isEnd(char c, LexicalConstants.ReservedWordsDelims rwd)
         {
             Boolean result = false;
             foreach (var item in rwd.delim_end)
@@ -710,7 +710,7 @@ namespace Lexical_Analyzer
             }
             return result;
         }
-        public Boolean isEnd(char c, Dictionary.ReservedSymbolsDelims rsd)
+        public Boolean isEnd(char c, LexicalConstants.ReservedSymbolsDelims rsd)
         {
             Boolean result = false;
             foreach (var item in rsd.delim_end)
