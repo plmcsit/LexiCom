@@ -31,13 +31,11 @@ namespace LexiCom
                 {
                     //SYNTAX ANALYZER
                     Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
-                    Syntax_Analyzer.Analyzer syn = new Syntax_Analyzer.Analyzer();
-                    Syntax_Analyzer.Initializer Syntax = new Syntax_Analyzer.Initializer();
-                    Boolean parsed = Syntax.InitializeSyntaxAnalyzer(lex.tokens);
 
-                    Output.Text += parsed.ToString();
+                    SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
+                    Output.Text += Syntax_Analyzer.Start(lex.tokens);
+                    
                     Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
-                    Output.Text += Syntax.output;
                 }
             }
         }
