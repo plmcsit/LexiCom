@@ -50,6 +50,11 @@
     <Compile Include="SyntaxParser.cs" />
     <Compile Include="SyntaxTokenizer.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analyzer_v2.cs" />
+    <Compile Include="Dictionary_v2.cs" />
+    <Compile Include="Initializer_v2.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
