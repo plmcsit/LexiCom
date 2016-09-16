@@ -27,6 +27,7 @@ namespace LexiCom
                 DisplayTokens(lex);
                 Output.Text += "\n========== End of Lexical Analyzer ============\n";
 
+                if(syntax_mode.Checked)
                 if (lex.invalid == 0 && lex.tokens.Count != 0)
                 {
                     //SYNTAX ANALYZER
@@ -80,5 +81,12 @@ namespace LexiCom
             }
         }
 
+        private void syntaxAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (syntax_mode.Checked)
+                syntax_mode.Checked = false;
+            else
+                syntax_mode.Checked = true;
+        }
     }
 }

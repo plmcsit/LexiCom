@@ -38,11 +38,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.LexPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.LexButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.LexBtn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.lecsicalAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
+            this.LexButton = new System.Windows.Forms.ToolStripButton();
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
@@ -146,18 +149,6 @@
             this.label3.Text = "LEXICAL ANALYZER";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // LexButton
-            // 
-            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
-            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LexButton.Name = "LexButton";
-            this.LexButton.Size = new System.Drawing.Size(73, 36);
-            this.LexButton.Text = "Start";
-            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -169,12 +160,13 @@
             this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LexButton,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 45);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(729, 39);
             this.toolStrip1.TabIndex = 8;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Text = "Select Mode";
             // 
             // LexBtn
             // 
@@ -195,6 +187,48 @@
             // 
             this.toolTip1.IsBalloon = true;
             this.toolTip1.ToolTipTitle = "Execute Program";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lecsicalAnalyzerToolStripMenuItem,
+            this.syntax_mode});
+            this.toolStripButton1.Image = global::LexiCom.Properties.Resources.mode;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(82, 36);
+            this.toolStripButton1.Text = "Select Mode";
+            // 
+            // lecsicalAnalyzerToolStripMenuItem
+            // 
+            this.lecsicalAnalyzerToolStripMenuItem.Checked = true;
+            this.lecsicalAnalyzerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lecsicalAnalyzerToolStripMenuItem.Enabled = false;
+            this.lecsicalAnalyzerToolStripMenuItem.Name = "lecsicalAnalyzerToolStripMenuItem";
+            this.lecsicalAnalyzerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.lecsicalAnalyzerToolStripMenuItem.Text = "Lecsical Analyzer";
+            // 
+            // syntax_mode
+            // 
+            this.syntax_mode.Checked = true;
+            this.syntax_mode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.syntax_mode.Name = "syntax_mode";
+            this.syntax_mode.Size = new System.Drawing.Size(163, 22);
+            this.syntax_mode.Text = "Syntax Analyzer";
+            this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
+            // 
+            // LexButton
+            // 
+            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
+            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LexButton.Name = "LexButton";
+            this.LexButton.Size = new System.Drawing.Size(73, 36);
+            this.LexButton.Text = "Start";
+            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
             // 
             // Code
             // 
@@ -229,6 +263,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Output);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximumSize = new System.Drawing.Size(745, 632);
+            this.MinimumSize = new System.Drawing.Size(745, 632);
             this.Name = "LexiCom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).EndInit();
@@ -255,6 +291,9 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Button LexBtn;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem lecsicalAnalyzerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem syntax_mode;
     }
 }
 

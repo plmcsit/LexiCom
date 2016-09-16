@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code Structures.txt" />
+    <None Include="Resources\mode.png" />
     <None Include="Resources\start.png" />
     <None Include="Resources\start1.png" />
     <None Include="Resources\start2.png" />

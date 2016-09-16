@@ -1,33 +1,17 @@
 using System.IO;
-using PerCederberg.Grammatica.Runtime;
 
 /**
  * <remarks>A character stream tokenizer.</remarks>
  */
+using PerCederberg.Grammatica.Runtime;
 public class SyntaxTokenizer : Tokenizer {
 
-    /**
-     * <summary>Creates a new tokenizer for the specified input
-     * stream.</summary>
-     *
-     * <param name='input'>the input stream to read</param>
-     *
-     * <exception cref='ParserCreationException'>if the tokenizer
-     * couldn't be initialized correctly</exception>
-     */
     public SyntaxTokenizer(TextReader input)
         : base(input, false) {
 
         CreatePatterns();
     }
 
-    /**
-     * <summary>Initializes the tokenizer by creating all the token
-     * patterns.</summary>
-     *
-     * <exception cref='ParserCreationException'>if the tokenizer
-     * couldn't be initialized correctly</exception>
-     */
     private void CreatePatterns() {
         TokenPattern  pattern;
 
@@ -443,6 +427,18 @@ public class SyntaxTokenizer : Tokenizer {
                                    "AT",
                                    TokenPattern.PatternType.STRING,
                                    "@");
+        AddPattern(pattern);
+
+        pattern = new TokenPattern((int) SyntaxConstants.GEQ,
+                                   "GEQ",
+                                   TokenPattern.PatternType.STRING,
+                                   ">=");
+        AddPattern(pattern);
+
+        pattern = new TokenPattern((int) SyntaxConstants.LEQ,
+                                   "LEQ",
+                                   TokenPattern.PatternType.STRING,
+                                   "<=");
         AddPattern(pattern);
 
         pattern = new TokenPattern((int) SyntaxConstants.NEXT_TOKEN,
