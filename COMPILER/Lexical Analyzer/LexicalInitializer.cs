@@ -7,12 +7,13 @@ namespace Lexical_Analyzer
     public class LexicalInitializer
     {
         public int tokens = 0;
+
         //INITIALIZATION
-        public LexicalAnalyzer InitializeAnalyzer(string txt, LexicalAnalyzer lex)
+        public LexicalAnalyzer Start(string txt, LexicalAnalyzer lex)
         {
             Boolean hastoken = false;
             Tokens t = new Tokens();
-            lex.lex.Clear();
+            lex.token.Clear();
             lex.invalid = 0;
             lex.valid = 0;
 
@@ -33,9 +34,8 @@ namespace Lexical_Analyzer
                     txt = txt.Remove(0, lex.ctr);
                 else
                 {
+                    t = new Tokens();
                     lex.invalid++;
-                    t.setTokens("INVALID");
-                    //lex.tokens.Add("INVALID");
                     if (lex.state != 0)
                     {
                         switch (lex.state)
@@ -47,8 +47,10 @@ namespace Lexical_Analyzer
                     }
                     if (lex.ctr == 0 && txt.Length != 1) lex.ctr = GetCtr(txt);
                     else if (lex.ctr == 0 && txt.Length == 1) lex.ctr = 1;
+                    else if (lex.ctr >= txt.Length) lex.ctr = txt.Length;
+                    t.setTokens("INVALID");
                     t.setLexemes(txt.Substring(0, lex.ctr));
-                    lex.lex.Add(t);
+                    lex.token.Add(t);
                     txt = txt.Remove(0, lex.ctr);
                 }
                 tokens++;
@@ -62,13 +64,13 @@ namespace Lexical_Analyzer
         //GET LINE
         private LexicalAnalyzer setLines(LexicalAnalyzer lex)
         {
-            for (int ctr = 0; ctr < lex.lex.Count; ctr++)
+            for (int ctr = 0; ctr < lex.token.Count; ctr++)
             {
                 for (int i = 0; i < lex.linetokens.Count; i++)
                 {
                     if (ctr + 1 <= lex.linetokens[i])
                     {
-                        lex.lex[ctr].setLines(i + 1);
+                        lex.token[ctr].setLines(i + 1);
                         break;
                     }
                 }
@@ -81,7 +83,6 @@ namespace Lexical_Analyzer
         {
             LexicalConstants.ReservedWordsDelims rwd = new LexicalConstants.ReservedWordsDelims();
             LexicalConstants td = new LexicalConstants();
-            rwd = td.AddRange(rwd);
 
             Boolean ifEnd = false;
             int ctr = 0;

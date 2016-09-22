@@ -13,18 +13,16 @@ namespace Lexical_Analyzer
 
     public class LexicalAnalyzer
     {
-
-        public List<Tokens> lex = new List<Tokens>();
+        //VARIABLES
+        public List<Tokens> token = new List<Tokens>();
         public List<int> linetokens = new List<int>();
         LexicalConstants td = new LexicalConstants();
-        Boolean isReserved = false;
         public int invalid = 0;
         public byte state = 0;
         public int valid = 0;
         int lines = 1;
         public int ctr = 0;
         int idnum = 1;
-
 
         //GET NEWLINES
         public Boolean GetTokenLines(string txt, int tokenctr)
@@ -57,7 +55,7 @@ namespace Lexical_Analyzer
             List<String> temp;
             Boolean found = false, hastoken = false, exitfor = false, ifEnd = false, nodelim = true;
             int tempctr = 0,limit = 0;
-            rwd = td.AddRange(rwd);
+            //rwd = td.AddRange(rwd);
 
             if (txt.Length != 1)
             {
@@ -68,7 +66,7 @@ namespace Lexical_Analyzer
                 tempctr++;
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 6; i++)
             {
                 ctr = 0;
                 words = new List<String>();
@@ -77,45 +75,30 @@ namespace Lexical_Analyzer
                 switch (i)
                 {
                     case 0:
+                        words = rw.rw_whitespace;
+                        delims = rwd.whitespace;
+                        break;
+                    case 1:
                         words = rw.rw_1;
                         delims = rwd.delim_1;
                         break;
-                    case 1:
+                    case 2:
                         words = rw.rw_2;
                         delims = rwd.delim_2;
                         break;
-                    case 2:
+                    case 3:
                         words = rw.rw_3;
                         delims = rwd.delim_3;
                         break;
-                    case 3:
-                        words = rw.rw_4;
-                        delims = rwd.delim_4;
-                        break;
                     case 4:
-                        words = rw.rw_5;
-                        delims = rwd.delim_5;
+                        words = rw.rw_dtype;
+                        delims = rwd.delim_dtype;
                         break;
                     case 5:
-                        words = rw.rw_6;
-                        delims = rwd.delim_6;
+                        words = rw.rw_bool;
+                        delims = rwd.delim_bool;
                         break;
-                    case 6:
-                        words = rw.rw_space;
-                        delims = rwd.delim_space;
-                        break;
-                    case 7:
-                        words = rw.rw_period;
-                        delims = rwd.delim_period;
-                        break;
-                    case 8:
-                        words = rw.rw_colon;
-                        delims = rwd.delim_colon;
-                        break;
-                    case 9:
-                        words = rw.rw_newline;
-                        delims = rwd.delim_newline;
-                        break;
+
                 }
                 //Check Reserved Words
                 foreach (char c in txt)
@@ -151,9 +134,7 @@ namespace Lexical_Analyzer
                                                     t.setTokens(w);
                                                     t.setLexemes(w);
                                                     t.setAttributes(w);
-                                                    lex.Add(t);
-                                                    //tokens.Add(w);
-                                                    //lexemes.Add(w);
+                                                    token.Add(t);
                                                     valid++;
                                                     break;
                                                 }
@@ -162,32 +143,37 @@ namespace Lexical_Analyzer
                                             {
                                                 found = false;
                                             }
-                                            if (hastoken == false)
-                                            {
-                                                hastoken = true;
-                                                nodelim = false;
-                                                t.setTokens("NODELIM");
-                                                t.setLexemes(w);
-                                                t.setAttributes(w);
-                                                lex.Add(t);
-                                                invalid++;
-                                            }
+                                            
+                                        }
+
+                                        if (hastoken == false)
+                                        {
+                                            hastoken = true;
+                                            nodelim = false;
+                                            found = true;
+                                            t.setTokens("NODELIM");
+                                            t.setLexemes(w);
+                                            t.setAttributes(w);
+                                            token.Add(t);
+                                            invalid++;
+                                        }
+                                        else if (nodelim)
+                                        {
+                                            hastoken = true;
+                                            found = true;
+                                            t.setTokens("INVALID");
+                                            t.setLexemes(w);
+                                            t.setAttributes(w);
+                                            token.Add(t);
+                                            invalid++;
+                                            break;
                                         }
 
                                         if (hastoken)
                                         {
                                             break;
                                         }
-                                        if(nodelim)
-                                        {
-                                            hastoken = true;
-                                            t.setTokens("INVALID");
-                                            t.setLexemes(w);
-                                            t.setAttributes(w);
-                                            lex.Add(t);
-                                            invalid++;
-                                            break;
-                                        }
+
                                     }
                                     else temp.Add(w);
                                 }
@@ -265,7 +251,7 @@ namespace Lexical_Analyzer
                 tempctr++;
             }
 
-            for (int i = 0; i < 14; i++)
+            for (int i = 0; i < 12; i++)
             {
                 sctr = 0;
                 words = new List<String>();
@@ -274,63 +260,55 @@ namespace Lexical_Analyzer
                 switch (i)
                 {
                     case 0:
-                        words = rs.rs_digit;
-                        delims = rsd.delim_digit;
+                        words = rs.rs_whitespace;
+                        delims = rsd.whitespace;
                         break;
                     case 1:
                         words = rs.rs_caplet;
                         delims = rsd.delim_caplet;
                         break;
                     case 2:
-                        words = rs.rs_newline;
-                        delims = rsd.delim_newline;
+                        words = rs.rs_concat;
+                        delims = rsd.concat;
                         break;
                     case 3:
-                        words = rs.rs_period;
-                        delims = rsd.delim_period;
+                        words = rs.rs_delim4;
+                        delims = rsd.delim4;
                         break;
                     case 4:
-                        words = rs.rs_6;
-                        delims = rsd.delim_6;
+                        words = rs.rs_delim5;
+                        delims = rsd.delim5;
                         break;
                     case 5:
-                        words = rs.rs_7;
-                        delims = rsd.delim_7;
+                        words = rs.rs_delim6;
+                        delims = rsd.delim6;
                         break;
                     case 6:
-                        words = rs.rs_8;
-                        delims = rsd.delim_8;
+                        words = rs.rs_delim7;
+                        delims = rsd.delim7;
                         break;
                     case 7:
-                        words = rs.rs_9;
-                        delims = rsd.delim_9;
+                        words = rs.rs_delim8;
+                        delims = rsd.delim8;
                         break;
                     case 8:
-                        words = rs.rs_10;
-                        delims = rsd.delim_10;
+                        words = rs.rs_condop;
+                        delims = rsd.condop;
                         break;
                     case 9:
-                        words = rs.rs_11;
-                        delims = rsd.delim_11;
+                        words = rs.rs_relop;
+                        delims = rsd.relop;
                         break;
                     case 10:
-                        words = rs.rs_13;
-                        delims = rsd.delim_13;
+                        words = rs.rs_math;
+                        delims = rsd.math;
                         break;
                     case 11:
-                        words = rs.rs_14;
-                        delims = rsd.delim_14;
-                        break;
-                    case 12:
-                        words = rs.rs_15;
-                        delims = rsd.delim_15;
-                        break;
-                    case 13:
                         words = rs.rs_done;
                         break;
                 }
                 //Check Reserved Symbols
-                if (i != 13)
+                if (i != 11)
                 {
                     foreach (char c in txt)
                     {
@@ -364,7 +342,7 @@ namespace Lexical_Analyzer
                                                         t.setTokens(w);
                                                         t.setLexemes(w);
                                                         t.setAttributes(w);
-                                                        lex.Add(t);
+                                                        token.Add(t);
                                                         valid++;
                                                         break;
 
@@ -399,7 +377,7 @@ namespace Lexical_Analyzer
                         t.setTokens("#");
                         t.setLexemes("#");
                         t.setAttributes("Program End");
-                        lex.Add(t);
+                        token.Add(t);
                         hastoken = true;
                     }
                 }
@@ -480,7 +458,7 @@ namespace Lexical_Analyzer
                                         t.setTokens("stringlit");
                                         t.setLexemes(txt.Substring(0, (lctr + 1)));
                                         t.setAttributes("stringlit");
-                                        lex.Add(t);
+                                        token.Add(t);
                                         ctr = lctr + 1;
                                     }
                                     else if (!validtxt)
@@ -544,7 +522,7 @@ namespace Lexical_Analyzer
                                             t.setTokens("charlit");
                                             t.setLexemes(txt.Substring(0, (lctr + 1)));
                                             t.setAttributes("charlit");
-                                            lex.Add(t);
+                                            token.Add(t);
                                             ctr = lctr + 1;
                                         }
                                         else
@@ -647,7 +625,7 @@ namespace Lexical_Analyzer
                                         t.setTokens("doublelit");
                                         t.setLexemes(txt.Substring(0, (lctr + 1)));
                                         t.setAttributes("doublelit");
-                                        lex.Add(t);
+                                        token.Add(t);
                                 }
                                     else
                                     {
@@ -682,7 +660,7 @@ namespace Lexical_Analyzer
                                         t.setTokens("intlit");
                                         t.setLexemes(txt.Substring(0, (lctr + 1)));
                                         t.setAttributes("intlit");
-                                        lex.Add(t);
+                                        token.Add(t);
                                     }
                                     else
                                     {
@@ -726,7 +704,6 @@ namespace Lexical_Analyzer
 
             if(valID)
             {
-                ictr++;
                 isvalID = true;
                 while (isvalID)
                 {
@@ -763,7 +740,7 @@ namespace Lexical_Analyzer
                     t.setTokens("id");
                     t.setLexemes(txt.Substring(0, (ictr + 1)));
                     t.setAttributes("identifier"+ idnum);
-                    lex.Add(t);
+                    token.Add(t);
                     idnum++;
                 }
 

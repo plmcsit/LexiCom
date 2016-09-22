@@ -6,6 +6,7 @@
         string tokens;
         string lexemes;
         string attributes;
+
         public void setTokens(string token)
         {
             this.tokens = token;
