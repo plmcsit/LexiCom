@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Lexical_Analyzer;
 using Syntax_Analyzer;
+using TokenLibrary;
 using System.Collections.Generic;
 
 namespace LexiCom
@@ -35,18 +36,19 @@ namespace LexiCom
                 Output.Text += "\n========== End of Lexical Analyzer ============\n";
 
                 if (syntax_mode.Checked)
-                if (lex.invalid == 0 && lex.tokens.Count != 0)
+                //if (lex.invalid == 0 && lex.tokens.Count != 0)
+                if (lex.invalid == 0 && lex.lex.Count != 0)
                 {
                     //SYNTAX ANALYZER
                     SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
                     Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
-                    Output.Text += Syntax_Analyzer.Start(lex.tokens);
+                    Output.Text += Syntax_Analyzer.Start(tokenDump(lex.lex));
                     Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
                 }
             }
         }
 
-        private void DisplayTokens(Lexical_Analyzer.LexicalAnalyzer lex)
+        private void DisplayTokens(LexicalAnalyzer lex)
         {
             string result = "Successfully Executed.";
             int ctr = 0, id = 0;
@@ -56,27 +58,27 @@ namespace LexiCom
                 result = "Encountered " + lex.invalid.ToString() + " error/s.\nPlease try again.\n";
             Output.Text += "Lexical Analyzer " + result;
 
-            foreach (string token in lex.tokens)
+            foreach (var token in lex.lex)
             {
-                if (token == "INVALID")
+                if (token.getTokens() == "INVALID")
                 {
 
                     Output.Text += "Invalid input: "
-                                + lex.lexemes[ctr]
+                                + token.getLexemes()
                                 + " on line "
                                 + GetErrorLine(ctr) + "\n";
                 }
-                else if (token == "NODELIM")
+                else if (token.getTokens() == "NODELIM")
                 {
                     Output.Text += "Proper delimiter expected: "
-                                + lex.lexemes[ctr]
+                                + token.getLexemes()
                                 + " on line "
                                 + GetErrorLine(ctr) + "\n";
                 }
                 else
                 {
                     id++;
-                    LexGrid.Rows.Add(id, lex.lexemes[ctr], token);
+                    LexGrid.Rows.Add(id, token.getLexemes(), token.getTokens(), token.getAttributes());
                 }
                 ctr++;
             }
@@ -96,25 +98,25 @@ namespace LexiCom
             return line;
         }
 
-        private void LexBtn_Click(object sender, EventArgs e)
-        {
-            if(LexPanel.Location.X == 743)
-            {
+        //private void LexBtn_Click(object sender, EventArgs e)
+        //{
+        //    if (LexPanel.Location.X == 743)
+        //    {
 
-                    LexPanel.Location = new Point(463, LexPanel.Location.Y);
-                    if (Code.Size.Width != 444)
-                    {
-                        Code.Size = new Size(444, Code.Size.Height);
-                        Output.Size = new Size(444, Output.Size.Height);
-                    }
-            }
-            else if(LexPanel.Location.X == 463)
-            {
-                    LexPanel.Location = new Point(743, LexPanel.Location.Y);
-                    Code.Size = new Size(691, Code.Size.Height);
-                    Output.Size = new Size(691, Output.Size.Height);
-            }
-        }
+        //        LexPanel.Location = new Point(463, LexPanel.Location.Y);
+        //        if (Code.Size.Width != 444)
+        //        {
+        //            Code.Size = new Size(444, Code.Size.Height);
+        //            Output.Size = new Size(444, Output.Size.Height);
+        //        }
+        //    }
+        //    else if (LexPanel.Location.X == 463)
+        //    {
+        //        LexPanel.Location = new Point(743, LexPanel.Location.Y);
+        //        Code.Size = new Size(691, Code.Size.Height);
+        //        Output.Size = new Size(691, Output.Size.Height);
+        //    }
+        //}
 
         private void syntaxAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -122,6 +124,20 @@ namespace LexiCom
                 syntax_mode.Checked = false;
             else
                 syntax_mode.Checked = true;
+        }
+
+        public List<TokenLibrary.TokensClass> tokenDump(List<Lexical_Analyzer.Tokens> tokens) {
+            List<TokenLibrary.TokensClass> t = new List<TokenLibrary.TokensClass>();
+            Tokens token = new Tokens();
+            foreach (var item in tokens)
+            {
+                token.setAttributes(item.getAttributes());
+                token.setLexemes(item.getLexemes());
+                token.setLines(item.getLines());
+                token.setTokens(item.getTokens());
+                t.Add(token);
+            }
+            return t;
         }
     }
 }

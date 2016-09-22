@@ -16,8 +16,10 @@ namespace Lexical_Analyzer
         public LexicalAnalyzer InitializeAnalyzer(string txt, LexicalAnalyzer lex)
         {
             Boolean hastoken = false;
-            lex.tokens.Clear();
-            lex.lexemes.Clear();
+            Tokens t = new Tokens();
+            //lex.tokens.Clear();
+            //lex.lexemes.Clear();
+            lex.lex.Clear();
             lex.invalid = 0;
             lex.valid = 0;
 
@@ -39,7 +41,8 @@ namespace Lexical_Analyzer
                 else
                 {
                     lex.invalid++;
-                    lex.tokens.Add("INVALID");
+                    t.setTokens("INVALID");
+                    //lex.tokens.Add("INVALID");
                     if (lex.state != 0)
                     {
                         switch (lex.state)
@@ -51,7 +54,9 @@ namespace Lexical_Analyzer
                     }
                     if (lex.ctr == 0 && txt.Length != 1) lex.ctr = GetCtr(txt);
                     else if (lex.ctr == 0 && txt.Length == 1) lex.ctr = 1;
-                    lex.lexemes.Add(txt.Substring(0, lex.ctr));
+                    t.setLexemes(txt.Substring(0, lex.ctr));
+                    lex.lex.Add(t);
+                    //lex.lexemes.Add(txt.Substring(0, lex.ctr));
                     txt = txt.Remove(0, lex.ctr);
                 }
                 tokens++;

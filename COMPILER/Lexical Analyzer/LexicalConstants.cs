@@ -18,6 +18,7 @@ namespace Lexical_Analyzer
             public List<string> rw_period = new List<string> { "Clear", "End", "EndIf", "Skip", "Stop" };
             public List<string> rw_colon = new List<string> { "Lead" };
             public List<string> rw_newline = new List<string> { "Do", "Start"};
+
         }
         public class ReservedWordsDelims
         {

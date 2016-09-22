@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TokenLibrary;
 
 //Unused Libraries
 //using System.Text;
@@ -8,10 +9,15 @@ using System.Linq;
 
 namespace Lexical_Analyzer
 {
+    public class Tokens : TokensClass{
+    }
+
     public class LexicalAnalyzer
-    {  
-        public List<String> tokens = new List<String>();
-        public List<String> lexemes = new List<String>();
+    {
+
+        public List<Tokens> lex = new List<Tokens>();
+        //public List<String> tokens = new List<String>();
+        //public List<String> lexemes = new List<String>();
         public List<int> linetokens = new List<int>();
         LexicalConstants td = new LexicalConstants();
         Boolean isReserved = false;
@@ -20,10 +26,11 @@ namespace Lexical_Analyzer
         public int valid = 0;
         public int lines = 1;
         public int ctr = 0;
-        
+        public int idnum = 1;
         //GET NEWLINES
         public Boolean GetTokenLines(string txt, int tokenctr)
         {
+              
             Boolean hastokenlines = false;
             if(txt.ElementAt(0) == '\n')
             {
@@ -45,6 +52,8 @@ namespace Lexical_Analyzer
         {
             LexicalConstants.ReservedWordsDelims rwd = new LexicalConstants.ReservedWordsDelims();
             LexicalConstants.ReservedWords rw = new LexicalConstants.ReservedWords();
+            Tokens t = new Tokens();
+            
             List<String> words;
             List<char> delims;
             List<String> temp;
@@ -141,8 +150,12 @@ namespace Lexical_Analyzer
                                                 {
                                                     hastoken = true;
                                                     nodelim = false;
-                                                    tokens.Add(w);
-                                                    lexemes.Add(w);
+                                                    t.setTokens(w);
+                                                    t.setLexemes(w);
+                                                    t.setAttributes(w);
+                                                    lex.Add(t);
+                                                    //tokens.Add(w);
+                                                    //lexemes.Add(w);
                                                     valid++;
                                                     break;
                                                 }
@@ -155,8 +168,12 @@ namespace Lexical_Analyzer
                                             {
                                                 hastoken = true;
                                                 nodelim = false;
-                                                tokens.Add("NODELIM");
-                                                lexemes.Add(w);
+                                                t.setTokens("NODELIM");
+                                                t.setLexemes(w);
+                                                t.setAttributes(w);
+                                                lex.Add(t);
+                                                //tokens.Add("NODELIM");
+                                                //lexemes.Add(w);
                                                 invalid++;
                                             }
                                         }
@@ -168,8 +185,12 @@ namespace Lexical_Analyzer
                                         if(nodelim)
                                         {
                                             hastoken = true;
-                                            tokens.Add("INVALID");
-                                            lexemes.Add(w);
+                                            t.setTokens("INVALID");
+                                            t.setLexemes(w);
+                                            t.setAttributes(w);
+                                            lex.Add(t);
+                                            //tokens.Add("INVALID");
+                                            //lexemes.Add(w);
                                             invalid++;
                                             break;
                                         }
@@ -234,6 +255,7 @@ namespace Lexical_Analyzer
             LexicalConstants.ReservedSymbols rs = new LexicalConstants.ReservedSymbols();
             LexicalConstants.ReservedSymbolsDelims rsd = new LexicalConstants.ReservedSymbolsDelims();
             Boolean found = false, hastoken = false, exitfor = false;
+            Tokens t = new Tokens();
             rsd = td.AddRange(rsd);
             List<String> words;
             List<char> delims;
@@ -345,8 +367,12 @@ namespace Lexical_Analyzer
                                                     {
                                                         found = true;
                                                         hastoken = true;
-                                                        tokens.Add(w);
-                                                        lexemes.Add(w);
+                                                        t.setTokens(w);
+                                                        t.setLexemes(w);
+                                                        t.setAttributes(w);
+                                                        lex.Add(t);
+                                                        //tokens.Add(w);
+                                                        //lexemes.Add(w);
                                                         valid++;
                                                         break;
 
@@ -378,8 +404,12 @@ namespace Lexical_Analyzer
                     if(txt.ElementAt(sctr) == words[0].ElementAt(0))
                     {
                         sctr = txt.Length;
-                        tokens.Add("#");
-                        lexemes.Add("#");
+                        t.setTokens("#");
+                        t.setLexemes("#");
+                        t.setAttributes("Program End");
+                        lex.Add(t);
+                        //tokens.Add("#");
+                        //lexemes.Add("#");
                         hastoken = true;
                     }
                 }
@@ -396,6 +426,7 @@ namespace Lexical_Analyzer
         {
             LexicalConstants.LiteralsDelims ld = new LexicalConstants.LiteralsDelims();
             LexicalConstants.Literals l = new LexicalConstants.Literals();
+            Tokens t = new Tokens();
             List<char> delims = new List<char>();
             Boolean hastoken = false, validtxt = false;
             string literal = "";
@@ -456,8 +487,12 @@ namespace Lexical_Analyzer
                                     if (hastoken && validtxt)
                                     {
                                         valid++;
-                                        tokens.Add("stringlit");
-                                        lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                        t.setTokens("stringlit");
+                                        t.setLexemes(txt.Substring(0, (lctr + 1)));
+                                        t.setAttributes("stringlit");
+                                        lex.Add(t);
+                                        //tokens.Add("stringlit");
+                                        //lexemes.Add(txt.Substring(0, (lctr + 1)));
                                         ctr = lctr + 1;
                                     }
                                     else if (!validtxt)
@@ -518,8 +553,12 @@ namespace Lexical_Analyzer
                                         if (hastoken)
                                         {
                                             valid++;
-                                            tokens.Add("charlit");
-                                            lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                            t.setTokens("charlit");
+                                            t.setLexemes(txt.Substring(0, (lctr + 1)));
+                                            t.setAttributes("charlit");
+                                            lex.Add(t);
+                                            //tokens.Add("charlit");
+                                            //lexemes.Add(txt.Substring(0, (lctr + 1)));
                                             ctr = lctr + 1;
                                         }
                                         else
@@ -619,9 +658,13 @@ namespace Lexical_Analyzer
                                     if (hastoken)
                                     {
                                         valid++;
-                                        tokens.Add("doublelit");
-                                        lexemes.Add(txt.Substring(0, (lctr + 1)));
-                                    }
+                                        t.setTokens("doublelit");
+                                        t.setLexemes(txt.Substring(0, (lctr + 1)));
+                                        t.setAttributes("doublelit");
+                                        lex.Add(t);
+                                        //tokens.Add("doublelit");
+                                        //lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                }
                                     else
                                     {
                                         foreach (char c in id.id)
@@ -652,8 +695,12 @@ namespace Lexical_Analyzer
                                     if (hastoken)
                                     {
                                         valid++;
-                                        tokens.Add("intlit");
-                                        lexemes.Add(txt.Substring(0, (lctr + 1)));
+                                        t.setTokens("intlit");
+                                        t.setLexemes(txt.Substring(0, (lctr + 1)));
+                                        t.setAttributes("intlit");
+                                        lex.Add(t);
+                                        //tokens.Add("intlit");
+                                        //lexemes.Add(txt.Substring(0, (lctr + 1)));
                                     }
                                     else
                                     {
@@ -679,7 +726,7 @@ namespace Lexical_Analyzer
             LexicalConstants.Identifier id = new LexicalConstants.Identifier();
             LexicalConstants.IdentifierDelims delims = new LexicalConstants.IdentifierDelims();
             Boolean hastoken = false, valID = false, isvalID = true;
-            
+            Tokens t = new Tokens();
             id.id.AddRange(id.delim_lowlet);
             id.id.AddRange(id.delim_caplet);
             id.id.AddRange(id.delim_undscr);
@@ -731,8 +778,13 @@ namespace Lexical_Analyzer
                 if(hastoken)
                 {
                     valid++;
-                    tokens.Add("id");
-                    lexemes.Add(txt.Substring(0, (ictr + 1)));
+                    t.setTokens("id");
+                    t.setLexemes(txt.Substring(0, (ictr + 1)));
+                    t.setAttributes("identifier"+ idnum);
+                    lex.Add(t);
+                    idnum++;
+                    //tokens.Add("id");
+                    //lexemes.Add();
                 }
 
                 ctr = ictr + 1;

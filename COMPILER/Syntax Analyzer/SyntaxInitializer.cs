@@ -2,20 +2,21 @@
 using System.IO;
 using PerCederberg.Grammatica.Runtime;
 using System.Collections.Generic;
+using TokenLibrary;
 
 namespace Syntax_Analyzer
 {
     public class SyntaxInitializer
     {
-        public string Start(List<string> tokens)
-        {
 
+        public string Start(List<TokensClass> tokens)
+        {
             string tokenstream = "";
             string result;
 
-            foreach (string t in tokens)
+            foreach (var t in tokens)
             {
-                tokenstream += t + " ";
+                tokenstream += t.getTokens() + " ";
             }
             tokenstream = tokenstream.TrimEnd();
 

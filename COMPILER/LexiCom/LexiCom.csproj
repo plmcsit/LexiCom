@@ -104,6 +104,10 @@
       <Project>{51778ac8-5916-41d4-a647-e5e33a320f3e}</Project>
       <Name>Syntax Analyzer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj">
+      <Project>{b2a3cf3f-a100-4772-8190-781981b41ebf}</Project>
+      <Name>TokenLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code Structures.txt" />
