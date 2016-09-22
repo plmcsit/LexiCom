@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-
-//Unused Libraries
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Lexical_Analyzer
 {
@@ -17,8 +12,6 @@ namespace Lexical_Analyzer
         {
             Boolean hastoken = false;
             Tokens t = new Tokens();
-            //lex.tokens.Clear();
-            //lex.lexemes.Clear();
             lex.lex.Clear();
             lex.invalid = 0;
             lex.valid = 0;
@@ -56,13 +49,30 @@ namespace Lexical_Analyzer
                     else if (lex.ctr == 0 && txt.Length == 1) lex.ctr = 1;
                     t.setLexemes(txt.Substring(0, lex.ctr));
                     lex.lex.Add(t);
-                    //lex.lexemes.Add(txt.Substring(0, lex.ctr));
                     txt = txt.Remove(0, lex.ctr);
                 }
                 tokens++;
             }
             lex.linetokens.Add(tokens);
+            lex = setLines(lex);
 
+            return lex;
+        }
+
+        //GET LINE
+        private LexicalAnalyzer setLines(LexicalAnalyzer lex)
+        {
+            for (int ctr = 0; ctr < lex.lex.Count; ctr++)
+            {
+                for (int i = 0; i < lex.linetokens.Count; i++)
+                {
+                    if (ctr + 1 <= lex.linetokens[i])
+                    {
+                        lex.lex[ctr].setLines(i + 1);
+                        break;
+                    }
+                }
+            }
             return lex;
         }
 

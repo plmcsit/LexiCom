@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TokenLibrary
+﻿namespace TokenLibrary
 {
     public abstract class TokensClass
     {
@@ -40,11 +38,5 @@ namespace TokenLibrary
         {
             return this.attributes;
         }
-
-        public TokensClass getTokenStream()
-        {
-            return this;
-        }
-
     }
 }

@@ -222,6 +222,7 @@
             this.id.HeaderText = "ID";
             this.id.Name = "id";
             this.id.ReadOnly = true;
+            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.id.Width = 30;
             // 
             // Lexeme_col
@@ -229,18 +230,21 @@
             this.Lexeme_col.HeaderText = "Lexeme";
             this.Lexeme_col.Name = "Lexeme_col";
             this.Lexeme_col.ReadOnly = true;
+            this.Lexeme_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Token_col
             // 
             this.Token_col.HeaderText = "Token";
             this.Token_col.Name = "Token_col";
             this.Token_col.ReadOnly = true;
+            this.Token_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Attribute_col
             // 
             this.Attribute_col.HeaderText = "Description";
             this.Attribute_col.Name = "Attribute_col";
             this.Attribute_col.ReadOnly = true;
+            this.Attribute_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // LexiCom
             // 

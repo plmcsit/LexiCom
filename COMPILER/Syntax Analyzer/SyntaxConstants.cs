@@ -1,8 +1,3 @@
-
-/**
- * <remarks>An enumeration with token and production node
- * constants.</remarks>
- */
 public enum SyntaxConstants {
     TASK = 1001,
     LEAD = 1002,

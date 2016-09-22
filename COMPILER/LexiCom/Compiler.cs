@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
+
 using Lexical_Analyzer;
 using Syntax_Analyzer;
-using TokenLibrary;
-using System.Collections.Generic;
 
 namespace LexiCom
 {
@@ -15,12 +14,8 @@ namespace LexiCom
             InitializeComponent();
         }
 
-        int lines = 0;
-        List<int> linetokens = new List<int>();
         private void LexButton_Click(object sender, EventArgs e)
         {
-            lines = 0;
-            linetokens = new List<int>();
             if (Code.Text != "")
             {
                 //LEXICAL ANALYZER
@@ -29,8 +24,6 @@ namespace LexiCom
                 LexicalInitializer Lexical = new LexicalInitializer();
                 string txt = Code.Text;
                 lex = Lexical.InitializeAnalyzer(txt, lex);
-                lines = lex.lines;
-                linetokens = lex.linetokens;
                 //DISPLAY TOKENS
                 DisplayTokens(lex);
                 Output.Text += "\n========== End of Lexical Analyzer ============\n";
@@ -66,14 +59,14 @@ namespace LexiCom
                     Output.Text += "Invalid input: "
                                 + token.getLexemes()
                                 + " on line "
-                                + GetErrorLine(ctr) + "\n";
+                                + token.getLines() + "\n";
                 }
                 else if (token.getTokens() == "NODELIM")
                 {
                     Output.Text += "Proper delimiter expected: "
                                 + token.getLexemes()
                                 + " on line "
-                                + GetErrorLine(ctr) + "\n";
+                                + token.getLines() + "\n";
                 }
                 else
                 {
@@ -83,19 +76,6 @@ namespace LexiCom
                 ctr++;
             }
            
-        }
-
-        private int GetErrorLine(int ctr)
-        {
-            int line = 0;
-            int cls = 0;
-            for (int i = 0; i < linetokens.Count; i++)
-            {
-                cls = linetokens[i];
-                if (ctr + 1 <= linetokens[i])
-                    return (i + 1);
-            }
-            return line;
         }
 
         //private void LexBtn_Click(object sender, EventArgs e)
@@ -139,5 +119,6 @@ namespace LexiCom
             }
             return t;
         }
+        
     }
 }

@@ -1,4 +1,3 @@
-
 using PerCederberg.Grammatica.Runtime;
 public abstract class SyntaxAnalyzer : Analyzer {
 

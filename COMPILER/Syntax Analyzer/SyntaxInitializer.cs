@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using PerCederberg.Grammatica.Runtime;
 using System.Collections.Generic;
+using PerCederberg.Grammatica.Runtime;
+
 using TokenLibrary;
 
 namespace Syntax_Analyzer
