@@ -12,12 +12,34 @@ namespace Lexical_Analyzer
     {  
         public List<String> tokens = new List<String>();
         public List<String> lexemes = new List<String>();
-        public int invalid = 0;
-        public int valid = 0;
-        public int ctr = 0;
-        public byte state = 0;
+        public List<int> linetokens = new List<int>();
         LexicalConstants td = new LexicalConstants();
+        Boolean isReserved = false;
+        public int invalid = 0;
+        public byte state = 0;
+        public int valid = 0;
+        public int lines = 1;
+        public int ctr = 0;
         
+        //GET NEWLINES
+        public Boolean GetTokenLines(string txt, int tokenctr)
+        {
+            Boolean hastokenlines = false;
+            if(txt.ElementAt(0) == '\n')
+            {
+                lines++;
+                linetokens.Add(tokenctr);
+                hastokenlines = true;
+                ctr = 1;
+            }
+            else if(txt.ElementAt(0) == ' ')
+            {
+                hastokenlines = true;
+                ctr = 1;
+            }
+            return hastokenlines;
+        }
+
         //GET TOKENS
         public Boolean GetReservedWords(string txt)
         {
@@ -125,7 +147,18 @@ namespace Lexical_Analyzer
                                                     break;
                                                 }
                                             }
-                                            else if (w == words[limit] && hastoken == false) found = false;
+                                            else if (w == words[limit] && hastoken == false)
+                                            {
+                                                found = false;
+                                            }
+                                            if (hastoken == false)
+                                            {
+                                                hastoken = true;
+                                                nodelim = false;
+                                                tokens.Add("NODELIM");
+                                                lexemes.Add(w);
+                                                invalid++;
+                                            }
                                         }
 
                                         if (hastoken)
@@ -542,9 +575,20 @@ namespace Lexical_Analyzer
                                 }
                             }
 
+                            Boolean isDouble = false;
+                            if((txt.Length - 1) > lctr)
+                            if(txt.ElementAt(lctr + 1) == '.')
+                            {
+                                    if((txt.Length - 1) > lctr + 1)
+                                    foreach (char n in num)
+                                    {
+                                            if (txt.ElementAt(lctr + 2) == n)
+                                                isDouble = true;
+                                    }
+                            }
+
                             //Double Literal Analyzer
-                            if ((txt.Length - 1) > lctr)
-                                if (txt.ElementAt(lctr + 1) == '.')
+                                if (isDouble)
                                 {
                                     lctr++;
                                     isNumNext = true;
@@ -736,5 +780,6 @@ namespace Lexical_Analyzer
             }
             return result;
         }
+
     }
 }

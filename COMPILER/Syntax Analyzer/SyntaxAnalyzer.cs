@@ -1,6 +1,7 @@
 
 using PerCederberg.Grammatica.Runtime;
 public abstract class SyntaxAnalyzer : Analyzer {
+
     public override void Enter(Node node) {
         switch (node.Id) {
         case (int) SyntaxConstants.TASK:
@@ -986,6 +987,7 @@ public abstract class SyntaxAnalyzer : Analyzer {
         }
         return node;
     }
+
     public override void Child(Production node, Node child) {
         switch (node.Id) {
         case (int) SyntaxConstants.PROD_START_PROGRAM:
@@ -1362,8 +1364,10 @@ public abstract class SyntaxAnalyzer : Analyzer {
             break;
         }
     }
+
     public virtual void EnterTask(Token node) {
     }
+
     public virtual Node ExitTask(Token node) {
         return node;
     }
@@ -1408,6 +1412,7 @@ public abstract class SyntaxAnalyzer : Analyzer {
         return node;
     }
     public virtual void EnterObject(Token node) {
+        
     }
     public virtual Node ExitObject(Token node) {
         return node;

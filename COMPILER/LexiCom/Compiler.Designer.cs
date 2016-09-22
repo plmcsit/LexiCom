@@ -40,12 +40,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.LexBtn = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.LexButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.lecsicalAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
-            this.LexButton = new System.Windows.Forms.ToolStripButton();
+            this.LexBtn = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
@@ -168,25 +168,17 @@
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "Select Mode";
             // 
-            // LexBtn
+            // LexButton
             // 
-            this.LexBtn.BackColor = System.Drawing.Color.DarkCyan;
-            this.LexBtn.FlatAppearance.BorderSize = 0;
-            this.LexBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LexBtn.Font = new System.Drawing.Font("Code Bold", 10F, System.Drawing.FontStyle.Bold);
-            this.LexBtn.ForeColor = System.Drawing.SystemColors.Control;
-            this.LexBtn.Location = new System.Drawing.Point(708, 86);
-            this.LexBtn.Name = "LexBtn";
-            this.LexBtn.Size = new System.Drawing.Size(21, 118);
-            this.LexBtn.TabIndex = 10;
-            this.LexBtn.Text = "LEXICAL";
-            this.LexBtn.UseVisualStyleBackColor = false;
-            this.LexBtn.Click += new System.EventHandler(this.LexBtn_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ToolTipTitle = "Execute Program";
+            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
+            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LexButton.Name = "LexButton";
+            this.LexButton.Size = new System.Drawing.Size(73, 36);
+            this.LexButton.Text = "Start";
+            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
             // 
             // toolStripButton1
             // 
@@ -218,17 +210,25 @@
             this.syntax_mode.Text = "Syntax Analyzer";
             this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
             // 
-            // LexButton
+            // LexBtn
             // 
-            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
-            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LexButton.Name = "LexButton";
-            this.LexButton.Size = new System.Drawing.Size(73, 36);
-            this.LexButton.Text = "Start";
-            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
+            this.LexBtn.BackColor = System.Drawing.Color.DarkCyan;
+            this.LexBtn.FlatAppearance.BorderSize = 0;
+            this.LexBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LexBtn.Font = new System.Drawing.Font("Code Bold", 10F, System.Drawing.FontStyle.Bold);
+            this.LexBtn.ForeColor = System.Drawing.SystemColors.Control;
+            this.LexBtn.Location = new System.Drawing.Point(708, 86);
+            this.LexBtn.Name = "LexBtn";
+            this.LexBtn.Size = new System.Drawing.Size(21, 118);
+            this.LexBtn.TabIndex = 10;
+            this.LexBtn.Text = "LEXICAL";
+            this.LexBtn.UseVisualStyleBackColor = false;
+            this.LexBtn.Click += new System.EventHandler(this.LexBtn_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipTitle = "Execute Program";
             // 
             // Code
             // 

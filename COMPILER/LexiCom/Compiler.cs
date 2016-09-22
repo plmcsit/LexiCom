@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Lexical_Analyzer;
 using Syntax_Analyzer;
+using System.Collections.Generic;
 
 namespace LexiCom
 {
@@ -13,21 +14,27 @@ namespace LexiCom
             InitializeComponent();
         }
 
+        int lines = 0;
+        List<int> linetokens = new List<int>();
         private void LexButton_Click(object sender, EventArgs e)
         {
+            lines = 0;
+            linetokens = new List<int>();
             if (Code.Text != "")
             {
                 //LEXICAL ANALYZER
                 Output.Text = "========== Starting Lexical Analyzer ==========\n";
                 LexicalAnalyzer lex = new LexicalAnalyzer();
                 LexicalInitializer Lexical = new LexicalInitializer();
-                string txt = Code.Text.TrimStart();
+                string txt = Code.Text;
                 lex = Lexical.InitializeAnalyzer(txt, lex);
+                lines = lex.lines;
+                linetokens = lex.linetokens;
                 //DISPLAY TOKENS
                 DisplayTokens(lex);
                 Output.Text += "\n========== End of Lexical Analyzer ============\n";
 
-                if(syntax_mode.Checked)
+                if (syntax_mode.Checked)
                 if (lex.invalid == 0 && lex.tokens.Count != 0)
                 {
                     //SYNTAX ANALYZER
@@ -44,21 +51,49 @@ namespace LexiCom
             string result = "Successfully Executed.";
             int ctr = 0, id = 0;
             LexGrid.Rows.Clear();
-            foreach (var item in lex.tokens)
-            {
-                id++;
-                LexGrid.Rows.Add(id, lex.lexemes[ctr], item);
-                ctr++;
-            }
 
             if (lex.invalid != 0)
-                result = "Encountered " + lex.invalid.ToString() + " error/s.\nPlease try again.";
+                result = "Encountered " + lex.invalid.ToString() + " error/s.\nPlease try again.\n";
+            Output.Text += "Lexical Analyzer " + result;
 
-            Output.Text +=
-                "No. of valid lexemes: " + lex.valid.ToString()
-                + "\nNo. of invalid lexemes: " + lex.invalid.ToString()
-                + "\nLexical Analyzer " + result;
+            foreach (string token in lex.tokens)
+            {
+                if (token == "INVALID")
+                {
+
+                    Output.Text += "Invalid input: "
+                                + lex.lexemes[ctr]
+                                + " on line "
+                                + GetErrorLine(ctr) + "\n";
+                }
+                else if (token == "NODELIM")
+                {
+                    Output.Text += "Proper delimiter expected: "
+                                + lex.lexemes[ctr]
+                                + " on line "
+                                + GetErrorLine(ctr) + "\n";
+                }
+                else
+                {
+                    id++;
+                    LexGrid.Rows.Add(id, lex.lexemes[ctr], token);
+                }
+                ctr++;
+            }
            
+        }
+
+        private int GetErrorLine(int ctr)
+        {
+            int line = 0;
+            int cls = 0;
+            for (int i = 0; i < linetokens.Count; i++)
+            {
+                cls = linetokens[i];
+                if (ctr + 1 <= linetokens[i])
+                    return (i + 1);
+            }
+            return line;
         }
 
         private void LexBtn_Click(object sender, EventArgs e)

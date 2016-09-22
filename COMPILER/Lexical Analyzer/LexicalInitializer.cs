@@ -11,20 +11,24 @@ namespace Lexical_Analyzer
 {
     public class LexicalInitializer
     {
-
+        public int tokens = 0;
         //INITIALIZATION
         public LexicalAnalyzer InitializeAnalyzer(string txt, LexicalAnalyzer lex)
         {
             Boolean hastoken = false;
-            txt = txt.TrimStart();
             lex.tokens.Clear();
             lex.lexemes.Clear();
             lex.invalid = 0;
             lex.valid = 0;
+
             while (txt != "")
             {
-
-                if (hastoken = lex.GetReservedWords(txt))
+                if (hastoken = lex.GetTokenLines(txt, tokens))
+                {
+                    txt = txt.Remove(0, lex.ctr);
+                    tokens--;
+                }
+                else if (hastoken = lex.GetReservedWords(txt))
                     txt = txt.Remove(0, lex.ctr);
                 else if (hastoken = lex.GetReservedSymbols(txt))
                     txt = txt.Remove(0, lex.ctr);
@@ -49,10 +53,10 @@ namespace Lexical_Analyzer
                     else if (lex.ctr == 0 && txt.Length == 1) lex.ctr = 1;
                     lex.lexemes.Add(txt.Substring(0, lex.ctr));
                     txt = txt.Remove(0, lex.ctr);
-
                 }
-                txt = txt.TrimStart();
+                tokens++;
             }
+            lex.linetokens.Add(tokens);
 
             return lex;
         }
