@@ -1,26 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-//using System.Collections.Generic;
 using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Lexical_Analyzer
 {
-    public class StartLexical
+    public class LexicalInitializer
     {
-        public LexicalAnalyzer StartLexicalAnalyzer(string txt, LexicalAnalyzer lex)
+        public int tokens = 0;
+
+        //INITIALIZATION
+        public LexicalAnalyzer Start(string txt, LexicalAnalyzer lex)
         {
             Boolean hastoken = false;
-            txt = txt.TrimStart();
-            lex.tokens.Clear();
-            lex.lexemes.Clear();
+            Tokens t = new Tokens();
+            lex.token.Clear();
             lex.invalid = 0;
             lex.valid = 0;
+
             while (txt != "")
             {
-
-                if (hastoken = lex.GetReservedWords(txt))
+                if (hastoken = lex.GetTokenLines(txt, tokens))
+                {
+                    txt = txt.Remove(0, lex.ctr);
+                    tokens--;
+                }
+                else if (hastoken = lex.GetReservedWords(txt))
                     txt = txt.Remove(0, lex.ctr);
                 else if (hastoken = lex.GetReservedSymbols(txt))
                     txt = txt.Remove(0, lex.ctr);
@@ -30,8 +34,8 @@ namespace Lexical_Analyzer
                     txt = txt.Remove(0, lex.ctr);
                 else
                 {
+                    t = new Tokens();
                     lex.invalid++;
-                    lex.tokens.Add("INVALID");
                     if (lex.state != 0)
                     {
                         switch (lex.state)
@@ -43,21 +47,42 @@ namespace Lexical_Analyzer
                     }
                     if (lex.ctr == 0 && txt.Length != 1) lex.ctr = GetCtr(txt);
                     else if (lex.ctr == 0 && txt.Length == 1) lex.ctr = 1;
-                    lex.lexemes.Add(txt.Substring(0, lex.ctr));
+                    else if (lex.ctr >= txt.Length) lex.ctr = txt.Length;
+                    t.setTokens("INVALID");
+                    t.setLexemes(txt.Substring(0, lex.ctr));
+                    lex.token.Add(t);
                     txt = txt.Remove(0, lex.ctr);
-
                 }
-                txt = txt.TrimStart();
+                tokens++;
             }
+            lex.linetokens.Add(tokens);
+            lex = setLines(lex);
 
             return lex;
         }
 
+        //GET LINE
+        private LexicalAnalyzer setLines(LexicalAnalyzer lex)
+        {
+            for (int ctr = 0; ctr < lex.token.Count; ctr++)
+            {
+                for (int i = 0; i < lex.linetokens.Count; i++)
+                {
+                    if (ctr + 1 <= lex.linetokens[i])
+                    {
+                        lex.token[ctr].setLines(i + 1);
+                        break;
+                    }
+                }
+            }
+            return lex;
+        }
+
+        //GET CTRS
         private int GetCtr(string txt)
         {
-            TransitionDiagram.ReservedWordsDelims rwd = new TransitionDiagram.ReservedWordsDelims();
-            TransitionDiagram td = new TransitionDiagram();
-            rwd = td.AddRange(rwd);
+            LexicalConstants.ReservedWordsDelims rwd = new LexicalConstants.ReservedWordsDelims();
+            LexicalConstants td = new LexicalConstants();
 
             Boolean ifEnd = false;
             int ctr = 0;
