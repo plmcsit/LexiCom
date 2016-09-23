@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using Lexical_Analyzer;
 using Syntax_Analyzer;
+using SyntaxCore;
 
 namespace LexiCom
 {
@@ -36,6 +37,9 @@ namespace LexiCom
                     Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
                     Output.Text += Syntax_Analyzer.Start(tokenDump(lex.token));
                     Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
+                    SyntaxCore.SyntaxTokenizer tokenizer = new SyntaxCore.SyntaxTokenizer();
+                    List<Token> t = new List<Token>();
+                    t = tokenizer.Tokenizer(tokenDumps(lex.token));
                 }
             }
         }
@@ -85,12 +89,29 @@ namespace LexiCom
                 syntax_mode.Checked = true;
         }
 
-        public List<TokenLibrary.TokensClass> tokenDump(List<Lexical_Analyzer.Tokens> tokens) {
+        public List<TokenLibrary.TokensClass> tokenDump(List<Lexical_Analyzer.Tokens> tokens)
+        {
             List<TokenLibrary.TokensClass> token = new List<TokenLibrary.TokensClass>();
             Tokens t = new Tokens();
             foreach (var item in tokens)
             {
                 t = new Tokens();
+                t.setAttributes(item.getAttributes());
+                t.setLexemes(item.getLexemes());
+                t.setLines(item.getLines());
+                t.setTokens(item.getTokens());
+                token.Add(t);
+            }
+            return token;
+        }
+
+        public List<SyntaxCore.Token> tokenDumps(List<Lexical_Analyzer.Tokens> tokens)
+        {
+            List<Token> token = new List<Token>();
+            Token t = new Token();
+            foreach (var item in tokens)
+            {
+                t = new Token();
                 t.setAttributes(item.getAttributes());
                 t.setLexemes(item.getLexemes());
                 t.setLines(item.getLines());

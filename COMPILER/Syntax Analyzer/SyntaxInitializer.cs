@@ -14,10 +14,18 @@ namespace Syntax_Analyzer
         {
             string tokenstream = "";
             string result;
-
+            int line = 1;
             foreach (var t in tokens)
             {
-                tokenstream += t.getTokens() + " ";
+                if(t.getLines() != line)
+                {
+                    line = t.getLines();
+                    tokenstream += "\n" + t.getTokens();
+                }
+                else
+                { 
+                    tokenstream += t.getTokens();
+                }
             }
             tokenstream = tokenstream.TrimEnd();
 
@@ -37,7 +45,7 @@ namespace Syntax_Analyzer
             }
             catch (ParserLogException e)
             {
-                result = e[0].ErrorMessage;
+                result = e.Message;
             }
             return result;
         }
