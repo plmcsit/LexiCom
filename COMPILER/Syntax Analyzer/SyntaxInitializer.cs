@@ -45,10 +45,10 @@ namespace Syntax_Analyzer
         private Parser CreateParser(string input)
         {
             Parser parser = null;
-
+            SyntaxAnalyzer analyzer = null;
             try
             {
-                parser = new SyntaxParser(new StringReader(input));
+                parser = new SyntaxParser(new StringReader(input), analyzer);
                 parser.Prepare();
             }
             catch (ParserCreationException e)
