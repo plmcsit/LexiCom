@@ -825,7 +825,7 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.INT, 1, 1);
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.EQ, 1, 1);
-            alt.AddToken((int) SyntaxConstants.INT, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INT, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -835,7 +835,7 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.DOUBLE, 1, 1);
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.EQ, 1, 1);
-            alt.AddToken((int) SyntaxConstants.DOUBLE, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_DOUBLE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -855,7 +855,7 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.STRING, 1, 1);
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.EQ, 1, 1);
-            alt.AddToken((int) SyntaxConstants.STRING, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_STRING, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -865,27 +865,113 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.BOOLEAN, 1, 1);
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.EQ, 1, 1);
-            alt.AddToken((int) SyntaxConstants.BOOLEAN, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_BOOLEAN, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_INT,
                                             "Prod_INT");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_VALUE1, 1, 1);
+            alt.AddToken((int) SyntaxConstants.INTLIT, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS1, 0, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_TASK_ID, 1, 1);
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INTCHOICES, 0, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.OP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_VALUE1, 1, 1);
+            alt.AddToken((int) SyntaxConstants.CP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OP1, 0, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS1, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_INTCHOICES,
+                                            "Prod_intchoices");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_INTCHOICE1, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_INTCHOICE2, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_INTCHOICE1,
+                                            "Prod_intchoice1");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS1, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_INTCHOICE2,
+                                            "Prod_intchoice2");
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.OP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_PARAM, 0, 1);
+            alt.AddToken((int) SyntaxConstants.CP, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_DOUBLE,
                                             "Prod_DOUBLE");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_VALUE2, 1, 1);
+            alt.AddToken((int) SyntaxConstants.DOUBLELIT, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS2, 0, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_TASK_ID, 1, 1);
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_DOUBLECHOICES, 0, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.OP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_VALUE2, 1, 1);
+            alt.AddToken((int) SyntaxConstants.CP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OP2, 0, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS2, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_DOUBLECHOICES,
+                                            "Prod_doublechoices");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_DOUBLECHOICE1, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_DOUBLECHOICE2, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_DOUBLECHOICE1,
+                                            "Prod_doublechoice1");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_OPERATIONS2, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_DOUBLECHOICE2,
+                                            "Prod_doublechoice2");
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.OP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_PARAM, 0, 1);
+            alt.AddToken((int) SyntaxConstants.CP, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1120,11 +1206,17 @@ namespace Syntax_Analyzer {
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_CONDITIONS,
                                             "Prod_conditions");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_IDS, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_CONDITIONSCHOICE, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_CONDITIONSCHOICE,
+                                            "Prod_conditionschoice");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_IDSCHOICE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_CONDS_TAIL, 0, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_LOGOP2, 0, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_MULTICONDS, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
@@ -1139,24 +1231,46 @@ namespace Syntax_Analyzer {
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDS,
-                                            "Prod_ids");
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_INPUT_ID, 1, 1);
-            pattern.AddAlternative(alt);
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDSCHOICE,
+                                            "Prod_idschoice");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_LOGOP2, 0, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_IDS_NULL, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_IDSCHOICE1, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.INTLIT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.DOUBLELIT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.CHARLIT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.STRINGLIT, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
-            pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDS_NULL,
-                                            "Prod_ids_null");
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDSCHOICE1,
+                                            "Prod_idschoice1");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_VALUE5, 1, 1);
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_IDSBODY, 0, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_TASK_ID, 1, 1);
+            alt.AddToken((int) SyntaxConstants.BOOLLIT, 1, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDSBODY,
+                                            "Prod_idsbody");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.OP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_PARAM, 0, 1);
+            alt.AddToken((int) SyntaxConstants.CP, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1186,7 +1300,7 @@ namespace Syntax_Analyzer {
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_RELOP_TEXT, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_VALUE, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_IDSCHOICE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1223,6 +1337,10 @@ namespace Syntax_Analyzer {
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
             alt.AddToken((int) SyntaxConstants.DOUBLELIT, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_IDSBODY, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

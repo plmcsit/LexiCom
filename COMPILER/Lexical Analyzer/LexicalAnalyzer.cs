@@ -248,10 +248,18 @@ namespace Lexical_Analyzer
                 {
                     tempctr++;
                 }
-                tempctr++;
+                if((txt.Length - 1) > tempctr)
+                    if (txt.ElementAt(tempctr) != '+' && txt.ElementAt(tempctr) != '-')
+                    tempctr++;
+                if ((txt.Length - 1) > tempctr)
+                    if ((txt.ElementAt(tempctr) == '+' || txt.ElementAt(tempctr) == '-') && tempctr == 0)
+                    tempctr++;
+                if ((txt.Length - 1) > tempctr)
+                    if ((txt.ElementAt(tempctr) == '+' || txt.ElementAt(tempctr) == '-') && tempctr == 1 && (txt.ElementAt(tempctr - 1) == '+' || txt.ElementAt(tempctr - 1) == '-'))
+                    tempctr++;
             }
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 13; i++)
             {
                 sctr = 0;
                 words = new List<String>();
@@ -300,15 +308,19 @@ namespace Lexical_Analyzer
                         delims = rsd.relop;
                         break;
                     case 10:
+                        words = rs.rs_rel0p;
+                        delims = rsd.rel0p;
+                        break;
+                    case 11:
                         words = rs.rs_math;
                         delims = rsd.math;
                         break;
-                    case 11:
+                    case 12:
                         words = rs.rs_done;
                         break;
                 }
                 //Check Reserved Symbols
-                if (i != 11)
+                if (i != 12)
                 {
                     foreach (char c in txt)
                     {
@@ -320,7 +332,7 @@ namespace Lexical_Analyzer
                             //IF NOT OUT OF RANGE
                             if ((w.Length - 1) >= sctr)
                             {
-                                if (c == w.ElementAt(sctr))
+                                 if (c == w.ElementAt(sctr))
                                 {
                                     found = true;
                                     //CHECK SIZE OF WORD AND INPUT
@@ -545,7 +557,7 @@ namespace Lexical_Analyzer
                         List<char> num = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
                         id.id.AddRange(id.delim_caplet);
-                        id.id.AddRange(id.delim_caplet);
+                        id.id.AddRange(id.delim_lowlet);
 
                         //If Negative
                         if (txt.ElementAt(lctr) == '~')
@@ -647,6 +659,7 @@ namespace Lexical_Analyzer
                                 {
                                     foreach (char delim in delims)
                                     {
+                                        if ((txt.Length - 1) > lctr)
                                         if (txt.ElementAt(lctr + 1) == delim)
                                         {
                                             hastoken = true;
@@ -666,8 +679,10 @@ namespace Lexical_Analyzer
                                     {
                                         foreach (char c in id.id)
                                         {
+                                        if ((txt.Length - 1) > lctr)
                                             if (txt.ElementAt(lctr + 1) == c)
                                             {
+                                                lctr++;
                                                 hasid = true;
                                             }
                                         }

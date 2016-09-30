@@ -444,8 +444,26 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_INT:
                 EnterProdInt((Production) node);
                 break;
+            case (int) SyntaxConstants.PROD_INTCHOICES:
+                EnterProdIntchoices((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_INTCHOICE1:
+                EnterProdIntchoice1((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_INTCHOICE2:
+                EnterProdIntchoice2((Production) node);
+                break;
             case (int) SyntaxConstants.PROD_DOUBLE:
                 EnterProdDouble((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICES:
+                EnterProdDoublechoices((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE1:
+                EnterProdDoublechoice1((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE2:
+                EnterProdDoublechoice2((Production) node);
                 break;
             case (int) SyntaxConstants.PROD_CHAR:
                 EnterProdChar((Production) node);
@@ -516,14 +534,20 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_CONDITIONS:
                 EnterProdConditions((Production) node);
                 break;
+            case (int) SyntaxConstants.PROD_CONDITIONSCHOICE:
+                EnterProdConditionschoice((Production) node);
+                break;
             case (int) SyntaxConstants.PROD_MULTICONDS:
                 EnterProdMulticonds((Production) node);
                 break;
-            case (int) SyntaxConstants.PROD_IDS:
-                EnterProdIds((Production) node);
+            case (int) SyntaxConstants.PROD_IDSCHOICE:
+                EnterProdIdschoice((Production) node);
                 break;
-            case (int) SyntaxConstants.PROD_IDS_NULL:
-                EnterProdIdsNull((Production) node);
+            case (int) SyntaxConstants.PROD_IDSCHOICE1:
+                EnterProdIdschoice1((Production) node);
+                break;
+            case (int) SyntaxConstants.PROD_IDSBODY:
+                EnterProdIdsbody((Production) node);
                 break;
             case (int) SyntaxConstants.PROD_CONDS_TAIL:
                 EnterProdCondsTail((Production) node);
@@ -905,8 +929,20 @@ namespace Syntax_Analyzer {
                 return ExitProdVarinitBoolean((Production) node);
             case (int) SyntaxConstants.PROD_INT:
                 return ExitProdInt((Production) node);
+            case (int) SyntaxConstants.PROD_INTCHOICES:
+                return ExitProdIntchoices((Production) node);
+            case (int) SyntaxConstants.PROD_INTCHOICE1:
+                return ExitProdIntchoice1((Production) node);
+            case (int) SyntaxConstants.PROD_INTCHOICE2:
+                return ExitProdIntchoice2((Production) node);
             case (int) SyntaxConstants.PROD_DOUBLE:
                 return ExitProdDouble((Production) node);
+            case (int) SyntaxConstants.PROD_DOUBLECHOICES:
+                return ExitProdDoublechoices((Production) node);
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE1:
+                return ExitProdDoublechoice1((Production) node);
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE2:
+                return ExitProdDoublechoice2((Production) node);
             case (int) SyntaxConstants.PROD_CHAR:
                 return ExitProdChar((Production) node);
             case (int) SyntaxConstants.PROD_STRING:
@@ -953,12 +989,16 @@ namespace Syntax_Analyzer {
                 return ExitProdControl((Production) node);
             case (int) SyntaxConstants.PROD_CONDITIONS:
                 return ExitProdConditions((Production) node);
+            case (int) SyntaxConstants.PROD_CONDITIONSCHOICE:
+                return ExitProdConditionschoice((Production) node);
             case (int) SyntaxConstants.PROD_MULTICONDS:
                 return ExitProdMulticonds((Production) node);
-            case (int) SyntaxConstants.PROD_IDS:
-                return ExitProdIds((Production) node);
-            case (int) SyntaxConstants.PROD_IDS_NULL:
-                return ExitProdIdsNull((Production) node);
+            case (int) SyntaxConstants.PROD_IDSCHOICE:
+                return ExitProdIdschoice((Production) node);
+            case (int) SyntaxConstants.PROD_IDSCHOICE1:
+                return ExitProdIdschoice1((Production) node);
+            case (int) SyntaxConstants.PROD_IDSBODY:
+                return ExitProdIdsbody((Production) node);
             case (int) SyntaxConstants.PROD_CONDS_TAIL:
                 return ExitProdCondsTail((Production) node);
             case (int) SyntaxConstants.PROD_LOG_OPS:
@@ -1244,8 +1284,26 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_INT:
                 ChildProdInt(node, child);
                 break;
+            case (int) SyntaxConstants.PROD_INTCHOICES:
+                ChildProdIntchoices(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_INTCHOICE1:
+                ChildProdIntchoice1(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_INTCHOICE2:
+                ChildProdIntchoice2(node, child);
+                break;
             case (int) SyntaxConstants.PROD_DOUBLE:
                 ChildProdDouble(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICES:
+                ChildProdDoublechoices(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE1:
+                ChildProdDoublechoice1(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_DOUBLECHOICE2:
+                ChildProdDoublechoice2(node, child);
                 break;
             case (int) SyntaxConstants.PROD_CHAR:
                 ChildProdChar(node, child);
@@ -1316,14 +1374,20 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_CONDITIONS:
                 ChildProdConditions(node, child);
                 break;
+            case (int) SyntaxConstants.PROD_CONDITIONSCHOICE:
+                ChildProdConditionschoice(node, child);
+                break;
             case (int) SyntaxConstants.PROD_MULTICONDS:
                 ChildProdMulticonds(node, child);
                 break;
-            case (int) SyntaxConstants.PROD_IDS:
-                ChildProdIds(node, child);
+            case (int) SyntaxConstants.PROD_IDSCHOICE:
+                ChildProdIdschoice(node, child);
                 break;
-            case (int) SyntaxConstants.PROD_IDS_NULL:
-                ChildProdIdsNull(node, child);
+            case (int) SyntaxConstants.PROD_IDSCHOICE1:
+                ChildProdIdschoice1(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_IDSBODY:
+                ChildProdIdsbody(node, child);
                 break;
             case (int) SyntaxConstants.PROD_CONDS_TAIL:
                 ChildProdCondsTail(node, child);
@@ -6054,6 +6118,126 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
+        public virtual void EnterProdIntchoices(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdIntchoices(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdIntchoices(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdIntchoice1(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdIntchoice1(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdIntchoice1(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdIntchoice2(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdIntchoice2(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdIntchoice2(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
         public virtual void EnterProdDouble(Production node) {
         }
 
@@ -6083,6 +6267,126 @@ namespace Syntax_Analyzer {
          * discovered errors</exception>
          */
         public virtual void ChildProdDouble(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdDoublechoices(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdDoublechoices(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdDoublechoices(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdDoublechoice1(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdDoublechoice1(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdDoublechoice1(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdDoublechoice2(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdDoublechoice2(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdDoublechoice2(Production node, Node child) {
             node.AddChild(child);
         }
 
@@ -7014,6 +7318,46 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
+        public virtual void EnterProdConditionschoice(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdConditionschoice(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdConditionschoice(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
         public virtual void EnterProdMulticonds(Production node) {
         }
 
@@ -7054,7 +7398,7 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void EnterProdIds(Production node) {
+        public virtual void EnterProdIdschoice(Production node) {
         }
 
         /**
@@ -7068,7 +7412,7 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual Node ExitProdIds(Production node) {
+        public virtual Node ExitProdIdschoice(Production node) {
             return node;
         }
 
@@ -7082,7 +7426,7 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void ChildProdIds(Production node, Node child) {
+        public virtual void ChildProdIdschoice(Production node, Node child) {
             node.AddChild(child);
         }
 
@@ -7094,7 +7438,7 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void EnterProdIdsNull(Production node) {
+        public virtual void EnterProdIdschoice1(Production node) {
         }
 
         /**
@@ -7108,7 +7452,7 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual Node ExitProdIdsNull(Production node) {
+        public virtual Node ExitProdIdschoice1(Production node) {
             return node;
         }
 
@@ -7122,7 +7466,47 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void ChildProdIdsNull(Production node, Node child) {
+        public virtual void ChildProdIdschoice1(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdIdsbody(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdIdsbody(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdIdsbody(Production node, Node child) {
             node.AddChild(child);
         }
 

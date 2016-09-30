@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 using Lexical_Analyzer;
 using Syntax_Analyzer;
-using SyntaxCore;
+using Semantics_Analyzer;
 
 namespace LexiCom
 {
     public partial class LexiCom : Form
     {
-        public LexiCom() 
+        public LexiCom()
         {
             InitializeComponent();
         }
@@ -20,33 +20,62 @@ namespace LexiCom
             if (Code.Text != "")
             {
                 //LEXICAL ANALYZER
-                Output.Text = "========== Starting Lexical Analyzer ==========\n";
+                Output.Text = "[1] Starting Lexical Analyzer\n";
                 LexicalAnalyzer lex = new LexicalAnalyzer();
                 LexicalInitializer Lexical = new LexicalInitializer();
                 string txt = Code.Text;
                 lex = Lexical.Start(txt, lex);
                 //DISPLAY TOKENS
                 DisplayTokens(lex);
-                Output.Text += "\n========== End of Lexical Analyzer ============\n";
 
                 if (syntax_mode.Checked)
-                if (lex.invalid == 0 && lex.token.Count != 0)
-                {
-                    //SYNTAX ANALYZER
-                    SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
-                    Output.Text += "\n========== Starting Syntax Analyzer ==========\n";
-                    Output.Text += Syntax_Analyzer.Start(tokenDump(lex.token));
-                    Output.Text += "\n========== End of Syntax Analyzer ============\n\n";
-                    SyntaxCore.SyntaxTokenizer tokenizer = new SyntaxCore.SyntaxTokenizer();
-                    List<Token> t = new List<Token>();
-                    t = tokenizer.Tokenizer(tokenDumps(lex.token));
-                }
+                    if (lex.invalid == 0 && lex.token.Count != 0)
+                    {
+                        //SYNTAX ANALYZER
+                        SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
+                        SemanticsInitializer semantics = new SemanticsInitializer();
+                        Output.Text += "\n[2] Starting Syntax Analyzer\n";
+                        Output.Text += "[3] Starting Static Semantics Analyzer\n";
+                        Output.Text += Syntax_Analyzer.Start(tokenDump(lex.token)) + "\n";
+                        semantics = SemanticsStart(tokenDumps(lex.token));
+                        string res = semantics.Start();
+                        if (semantics.error != "")
+                            Output.Text += semantics.error;
+                        else
+                            Output.Text += "Static Semantics Analyzer Succeeded...";
+                    }
             }
+        }
+
+
+        private SemanticsInitializer SemanticsStart(List<SemanticsInitializer.Tokens> tokens)
+        {
+            SemanticsInitializer sem = null;
+            try
+            {
+                sem = new SemanticsInitializer(tokens);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return sem;
+        }
+
+        private string getTokens(List<Tokens> tokens)
+        {
+            string input = "";
+            foreach (var item in tokens)
+            {
+                input += item.getTokens() + " ";
+            }
+            return input;
         }
 
         private void DisplayTokens(LexicalAnalyzer lex)
         {
-            string result = "Successfully Executed.";
+            string result = "Succeeded...";
             int ctr = 0, id = 0;
             LexGrid.Rows.Clear();
 
@@ -78,7 +107,7 @@ namespace LexiCom
                 }
                 ctr++;
             }
-           
+
         }
 
         private void syntaxAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,13 +134,13 @@ namespace LexiCom
             return token;
         }
 
-        public List<SyntaxCore.Token> tokenDumps(List<Lexical_Analyzer.Tokens> tokens)
+        public List<SemanticsInitializer.Tokens> tokenDumps(List<Tokens> tokens)
         {
-            List<Token> token = new List<Token>();
-            Token t = new Token();
+            List<SemanticsInitializer.Tokens> token = new List<SemanticsInitializer.Tokens>();
+            SemanticsInitializer.Tokens t = new SemanticsInitializer.Tokens();
             foreach (var item in tokens)
             {
-                t = new Token();
+                t = new SemanticsInitializer.Tokens();
                 t.setAttributes(item.getAttributes());
                 t.setLexemes(item.getLexemes());
                 t.setLines(item.getLines());

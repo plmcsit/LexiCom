@@ -15,17 +15,19 @@ namespace Syntax_Analyzer
             string tokenstream = "";
             string result;
             int line = 1;
+            int linejump = 0;
             foreach (var t in tokens)
             {
-                if(t.getLines() != line)
+                if (t.getLines() != line)
                 {
+                    linejump = t.getLines() - line;
                     line = t.getLines();
-                    tokenstream += "\n" + t.getTokens();
+                    for (int i = 0; i < linejump; i++)
+                    {
+                        tokenstream += "\n";
+                    }
                 }
-                else
-                { 
-                    tokenstream += t.getTokens();
-                }
+                tokenstream += t.getTokens() + " ";
             }
             tokenstream = tokenstream.TrimEnd();
 

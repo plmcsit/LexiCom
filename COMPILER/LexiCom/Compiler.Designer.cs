@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.LexGrid = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Token_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Attribute_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Output = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,10 +47,6 @@
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Token_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Attribute_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -72,6 +72,35 @@
             this.LexGrid.RowHeadersVisible = false;
             this.LexGrid.Size = new System.Drawing.Size(340, 449);
             this.LexGrid.TabIndex = 1;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.id.Width = 30;
+            // 
+            // Lexeme_col
+            // 
+            this.Lexeme_col.HeaderText = "Lexeme";
+            this.Lexeme_col.Name = "Lexeme_col";
+            this.Lexeme_col.ReadOnly = true;
+            this.Lexeme_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Token_col
+            // 
+            this.Token_col.HeaderText = "Token";
+            this.Token_col.Name = "Token_col";
+            this.Token_col.ReadOnly = true;
+            this.Token_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Attribute_col
+            // 
+            this.Attribute_col.HeaderText = "Description";
+            this.Attribute_col.Name = "Attribute_col";
+            this.Attribute_col.ReadOnly = true;
+            this.Attribute_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Output
             // 
@@ -216,35 +245,6 @@
             this.Code.Size = new System.Drawing.Size(691, 353);
             this.Code.TabIndex = 6;
             this.Code.Text = "";
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.id.Width = 30;
-            // 
-            // Lexeme_col
-            // 
-            this.Lexeme_col.HeaderText = "Lexeme";
-            this.Lexeme_col.Name = "Lexeme_col";
-            this.Lexeme_col.ReadOnly = true;
-            this.Lexeme_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Token_col
-            // 
-            this.Token_col.HeaderText = "Token";
-            this.Token_col.Name = "Token_col";
-            this.Token_col.ReadOnly = true;
-            this.Token_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Attribute_col
-            // 
-            this.Attribute_col.HeaderText = "Description";
-            this.Attribute_col.Name = "Attribute_col";
-            this.Attribute_col.ReadOnly = true;
-            this.Attribute_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // LexiCom
             // 
