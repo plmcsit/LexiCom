@@ -45,9 +45,9 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.lecsicalAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
+            this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
-            this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -223,6 +223,15 @@
             this.syntax_mode.Text = "Syntax Analyzer";
             this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
             // 
+            // semantics_mode
+            // 
+            this.semantics_mode.Checked = true;
+            this.semantics_mode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.semantics_mode.Name = "semantics_mode";
+            this.semantics_mode.Size = new System.Drawing.Size(176, 22);
+            this.semantics_mode.Text = "Semantics Analyzer";
+            this.semantics_mode.Click += new System.EventHandler(this.semantics_mode_Click);
+            // 
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
@@ -243,19 +252,10 @@
             this.Code.NumberLeadingZeroes = false;
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = true;
+            this.Code.ShowLineNumbers = false;
             this.Code.Size = new System.Drawing.Size(691, 353);
             this.Code.TabIndex = 6;
             this.Code.Text = "";
-            // 
-            // semantics_mode
-            // 
-            this.semantics_mode.Checked = true;
-            this.semantics_mode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.semantics_mode.Name = "semantics_mode";
-            this.semantics_mode.Size = new System.Drawing.Size(176, 22);
-            this.semantics_mode.Text = "Semantics Analyzer";
-            this.semantics_mode.Click += new System.EventHandler(this.semantics_mode_Click);
             // 
             // LexiCom
             // 
@@ -269,7 +269,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Output);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximumSize = new System.Drawing.Size(1079, 632);
             this.MinimumSize = new System.Drawing.Size(1079, 632);
             this.Name = "LexiCom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
