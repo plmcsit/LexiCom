@@ -35,14 +35,20 @@ namespace LexiCom
                         SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
                         SemanticsInitializer semantics = new SemanticsInitializer();
                         Output.Text += "\n[2] Starting Syntax Analyzer\n";
+                        if (semantics_mode.Checked)
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
+
+
                         Output.Text += Syntax_Analyzer.Start(tokenDump(lex.token)) + "\n";
-                        semantics = SemanticsStart(tokenDumps(lex.token));
-                        string res = semantics.Start();
-                        if (semantics.error != "")
-                            Output.Text += semantics.error;
-                        else
-                            Output.Text += "Static Semantics Analyzer Succeeded...";
+                        if (semantics_mode.Checked)
+                        {
+                            semantics = SemanticsStart(tokenDumps(lex.token));
+                            string res = semantics.Start();
+                            if (semantics.error != "")
+                                Output.Text += semantics.error;
+                            else
+                                Output.Text += "Static Semantics Analyzer Succeeded...";
+                        }
                     }
             }
         }
@@ -148,6 +154,14 @@ namespace LexiCom
                 token.Add(t);
             }
             return token;
+        }
+
+        private void semantics_mode_Click(object sender, EventArgs e)
+        {
+            if (semantics_mode.Checked)
+                semantics_mode.Checked = false;
+            else
+                semantics_mode.Checked = true;
         }
 
         //private void LexBtn_Click(object sender, EventArgs e)

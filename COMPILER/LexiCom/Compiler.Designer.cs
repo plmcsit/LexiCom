@@ -47,6 +47,7 @@
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
+            this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -196,7 +197,8 @@
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lecsicalAnalyzerToolStripMenuItem,
-            this.syntax_mode});
+            this.syntax_mode,
+            this.semantics_mode});
             this.toolStripButton1.Image = global::LexiCom.Properties.Resources.mode;
             this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.Name = "toolStripButton1";
@@ -209,7 +211,7 @@
             this.lecsicalAnalyzerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.lecsicalAnalyzerToolStripMenuItem.Enabled = false;
             this.lecsicalAnalyzerToolStripMenuItem.Name = "lecsicalAnalyzerToolStripMenuItem";
-            this.lecsicalAnalyzerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.lecsicalAnalyzerToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.lecsicalAnalyzerToolStripMenuItem.Text = "Lecsical Analyzer";
             // 
             // syntax_mode
@@ -217,7 +219,7 @@
             this.syntax_mode.Checked = true;
             this.syntax_mode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.syntax_mode.Name = "syntax_mode";
-            this.syntax_mode.Size = new System.Drawing.Size(163, 22);
+            this.syntax_mode.Size = new System.Drawing.Size(176, 22);
             this.syntax_mode.Text = "Syntax Analyzer";
             this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
             // 
@@ -245,6 +247,15 @@
             this.Code.Size = new System.Drawing.Size(691, 353);
             this.Code.TabIndex = 6;
             this.Code.Text = "";
+            // 
+            // semantics_mode
+            // 
+            this.semantics_mode.Checked = true;
+            this.semantics_mode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.semantics_mode.Name = "semantics_mode";
+            this.semantics_mode.Size = new System.Drawing.Size(176, 22);
+            this.semantics_mode.Text = "Semantics Analyzer";
+            this.semantics_mode.Click += new System.EventHandler(this.semantics_mode_Click);
             // 
             // LexiCom
             // 
@@ -289,6 +300,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lexeme_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn Token_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn Attribute_col;
+        private System.Windows.Forms.ToolStripMenuItem semantics_mode;
     }
 }
 
