@@ -41,7 +41,7 @@ namespace Lexical_Analyzer
             public List<string> rs_condop = new List<string> { "!=", "==", ">", ">=", "<", "<=" };
             public List<string> rs_relop  = new List<string> { "&&", "||", "!", "=", ";" };
             public List<string> rs_rel0p  = new List<string> { "(" };
-            public List<string> rs_math   = new List<string> { "%=", "+", "+=", "-", "-=", "*", "*=", "/", "/=" };
+            public List<string> rs_math   = new List<string> { "+", "-", "*", "/" };
             public List<string> rs_done   = new List<string> { "#" };
         }
         public class ReservedSymbolsDelims
