@@ -16,7 +16,6 @@ namespace Lexical_Analyzer
         //VARIABLES
         public List<Tokens> token = new List<Tokens>();
         public List<int> linetokens = new List<int>();
-        LexicalConstants td = new LexicalConstants();
         public int invalid = 0;
         public byte state = 0;
         public int valid = 0;
@@ -131,8 +130,12 @@ namespace Lexical_Analyzer
                                                 {
                                                     hastoken = true;
                                                     nodelim = false;
-                                                    t.setTokens(w);
-                                                    t.setLexemes(w);
+													if (w == "Yes" || w == "No") {
+														t.setTokens ("boollit");
+													} else {
+														t.setTokens (w);
+													}
+													t.setLexemes(w);
                                                     t.setAttributes(w);
                                                     token.Add(t);
                                                     valid++;
