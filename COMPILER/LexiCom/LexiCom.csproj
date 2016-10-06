@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -36,10 +36,6 @@
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="grammatica-1.6, Version=1.5.0.29099, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Libraries\grammatica\lib\grammatica-1.6.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -55,6 +51,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="grammatica-1.6">
+      <HintPath>..\Dependencies\grammatica-1.6.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler.cs">
@@ -101,23 +100,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lexical Analyzer\Lexical Analyzer.csproj">
-      <Project>{70ddd6d0-45b1-4b63-9a9d-327d744e7316}</Project>
+      <Project>{70DDD6D0-45B1-4B63-9A9D-327D744E7316}</Project>
       <Name>Lexical Analyzer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Semantics Analyzer\Semantics Analyzer.csproj">
-      <Project>{5baad1b7-1a1b-41cd-aa2a-90d497685963}</Project>
+      <Project>{5BAAD1B7-1A1B-41CD-AA2A-90D497685963}</Project>
       <Name>Semantics Analyzer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Syntax Analyzer\Syntax Analyzer.csproj">
-      <Project>{51778ac8-5916-41d4-a647-e5e33a320f3e}</Project>
+      <Project>{51778AC8-5916-41D4-A647-E5E33A320F3E}</Project>
       <Name>Syntax Analyzer</Name>
     </ProjectReference>
     <ProjectReference Include="..\SyntaxCore\SyntaxCore.csproj">
-      <Project>{b35e54c1-b836-4929-9788-d221cdb3b7c5}</Project>
+      <Project>{B35E54C1-B836-4929-9788-D221CDB3B7C5}</Project>
       <Name>SyntaxCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj">
-      <Project>{b2a3cf3f-a100-4772-8190-781981b41ebf}</Project>
+      <Project>{B2A3CF3F-A100-4772-8190-781981B41EBF}</Project>
       <Name>TokenLibrary</Name>
     </ProjectReference>
   </ItemGroup>

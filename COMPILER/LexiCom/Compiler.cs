@@ -37,17 +37,17 @@ namespace LexiCom
                         Output.Text += "\n[2] Starting Syntax Analyzer\n";
                         if (semantics_mode.Checked)
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
-
-
-                        Output.Text += Syntax_Analyzer.Start(tokenDump(lex.token)) + "\n";
+						string syntax_result = Syntax_Analyzer.Start (tokenDump (lex.token)) + "\n";
+						Output.Text += syntax_result;
                         if (semantics_mode.Checked)
                         {
                             semantics = SemanticsStart(tokenDumps(lex.token));
-                            string res = semantics.Start();
-                            if (semantics.error != "")
-                                Output.Text += semantics.error;
-                            else
-                                Output.Text += "Static Semantics Analyzer Succeeded...";
+                            string semantics_result = semantics.Start();
+						if (semantics.error != "" || syntax_result != "Syntax Analyzer Succeeded...\n") {
+							Output.Text += semantics.error + semantics_result;
+						}
+                        else
+                            Output.Text += "Static Semantics Analyzer Succeeded...";
                         }
                     }
             }

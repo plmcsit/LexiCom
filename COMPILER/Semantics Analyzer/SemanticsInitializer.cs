@@ -170,7 +170,6 @@ namespace Semantics_Analyzer
 
         public override Node ExitProdStartProgram(Production node)
         {
-            Tokens t = GetTokens(node.EndLine,node.EndColumn);
             return node;
         }
         public override Node ExitProdProgram(Production node)
@@ -207,7 +206,6 @@ namespace Semantics_Analyzer
                     if (dtype == "Int")
                         if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initINT")
                         {
-                            string a = "horay";
                             if(node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetName() == "IS")
                             {
                                 line = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(1).GetStartLine();
