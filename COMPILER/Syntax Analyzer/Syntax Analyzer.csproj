@@ -44,9 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyntaxInitializer.cs" />
     <Compile Include="SyntaxAnalyzer.cs" />
     <Compile Include="SyntaxConstants.cs" />
-    <Compile Include="SyntaxInitializer.cs" />
     <Compile Include="SyntaxParser.cs" />
     <Compile Include="SyntaxTokenizer.cs" />
   </ItemGroup>

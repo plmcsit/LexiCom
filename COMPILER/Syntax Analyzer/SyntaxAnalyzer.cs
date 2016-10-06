@@ -615,6 +615,9 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_TASKBODY:
                 EnterProdTaskbody((Production) node);
                 break;
+            case (int) SyntaxConstants.PROD_TASKBODYTAIL:
+                EnterProdTaskbodytail((Production) node);
+                break;
             case (int) SyntaxConstants.PROD_RETURN_INT:
                 EnterProdReturnInt((Production) node);
                 break;
@@ -1043,6 +1046,8 @@ namespace Syntax_Analyzer {
                 return ExitProdReturntype((Production) node);
             case (int) SyntaxConstants.PROD_TASKBODY:
                 return ExitProdTaskbody((Production) node);
+            case (int) SyntaxConstants.PROD_TASKBODYTAIL:
+                return ExitProdTaskbodytail((Production) node);
             case (int) SyntaxConstants.PROD_RETURN_INT:
                 return ExitProdReturnInt((Production) node);
             case (int) SyntaxConstants.PROD_RETURN_DOUBLE:
@@ -1454,6 +1459,9 @@ namespace Syntax_Analyzer {
                 break;
             case (int) SyntaxConstants.PROD_TASKBODY:
                 ChildProdTaskbody(node, child);
+                break;
+            case (int) SyntaxConstants.PROD_TASKBODYTAIL:
+                ChildProdTaskbodytail(node, child);
                 break;
             case (int) SyntaxConstants.PROD_RETURN_INT:
                 ChildProdReturnInt(node, child);
@@ -8387,6 +8395,46 @@ namespace Syntax_Analyzer {
          * discovered errors</exception>
          */
         public virtual void ChildProdTaskbody(Production node, Node child) {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdTaskbodytail(Production node) {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdTaskbodytail(Production node) {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdTaskbodytail(Production node, Node child) {
             node.AddChild(child);
         }
 

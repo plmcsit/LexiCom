@@ -1538,7 +1538,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddToken((int) SyntaxConstants.RESPONSE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_RETURN_INT, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
@@ -1548,7 +1547,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddToken((int) SyntaxConstants.RESPONSE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_RETURN_DOUBLE, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
@@ -1558,7 +1556,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddToken((int) SyntaxConstants.RESPONSE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_RETURN_CHAR, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
@@ -1568,7 +1565,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddToken((int) SyntaxConstants.RESPONSE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_RETURN_STRING, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
@@ -1578,7 +1574,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddToken((int) SyntaxConstants.RESPONSE, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_RETURN_BOOLEAN, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
@@ -1588,7 +1583,6 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
             alt.AddToken((int) SyntaxConstants.COL, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKBODY, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1596,7 +1590,15 @@ namespace Syntax_Analyzer {
                                             "Prod_taskbody");
             alt = new ProductionPatternAlternative();
             alt.AddToken((int) SyntaxConstants.START, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_STATEMENTS, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_TASKBODYTAIL, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_TASKBODYTAIL,
+                                            "Prod_taskbodytail");
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int) SyntaxConstants.PROD_STATEMENTS, 1, 1);
+            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
