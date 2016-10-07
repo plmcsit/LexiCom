@@ -6,7 +6,7 @@
 
 
 /* OBJECT DECLARATION */
-<object> -> Object id Start Var <dtype> id. <objdec_choice> End <varname>
+<object> -> Object id Start Var <dtype> id . <objdec_choice> End <varname>
 <objdec_choice> -> <objvar> . <objdec_choice> | <var> . <objdec_choice> | LAMBDA
 <var> -> Var <dtype> id 
 <objvar> -> Object id id
