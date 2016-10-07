@@ -176,7 +176,7 @@ Prod_subelement_choice = Prod_incdec | EQ Prod_value;
 Prod_varinit = Prod_varinitINT | Prod_varinitDOUBLE | Prod_varinitCHAR | Prod_varinitSTRING | Prod_varinitBOOLEAN ;
 Prod_varinitINT = INT ID EQ Prod_INT ;
 Prod_varinitDOUBLE = DOUBLE ID EQ Prod_DOUBLE ;
-Prod_varinitCHAR = CHAR ID EQ CHAR ;
+Prod_varinitCHAR = CHAR ID EQ Prod_CHAR ;
 Prod_varinitSTRING = STRING ID EQ Prod_STRING ;
 Prod_varinitBOOLEAN = BOOLEAN ID EQ Prod_BOOLEAN ;
 
