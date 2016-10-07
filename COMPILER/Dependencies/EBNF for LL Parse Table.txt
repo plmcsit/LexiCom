@@ -1,0 +1,191 @@
+/* PROGRAM START */
+<program> -> <global> Lead : Start <body> End . <taskdef>
+<global> -> <global_choice> . <global> | LAMBDA
+<global_choice> -> <varlet> | <array> | <task> | <object>
+<dtype> -> Int | Double | Char | String | Boolean
+
+
+/* OBJECT DECLARATION */
+<object> -> Object id Start Var <dtype> id. <objdec_choice> End <varname>
+<objdec_choice> -> <objvar> . <objdec_choice> | <var> . <objdec_choice> | LAMBDA
+<var> -> Var <dtype> id 
+<objvar> -> Object id id
+<varname> -> id <varnames> | LAMBDA
+<varnames> -> ; <varname> | LAMBDA
+
+/* TASK DECLARATION */
+<task> -> Task <return> id <tparam>
+<return> -> Null | <dtype>
+<tparam> -> ( Var <dtype> id <tparams> ) | LAMBDA
+<tparams> -> ; Var <dtype> id <tparams> | LAMBDA
+
+/* ARRAY DECLARATION */
+<array> -> Array <dtype> id of <size>
+<size> -> intlit <sizes>
+<sizes> -> by intlit | LAMBDA
+
+/* VAR AND LET DECLARATION */
+<varlet> -> Let <vardec> | Var <vardec>
+<vardec> -> <varINT> | <varDOUBLE> | <varCHAR> | <varSTRING> | <varBOOLEAN>
+<varINT> -> Int id <initINT>
+<initINT> -> is <value1> <ids1> | LAMBDA
+<varDOUBLE> -> Double id <initDOUBLE>
+<initDOUBLE> -> is <value2> <ids2> | LAMBDA
+<varCHAR> -> Char id <initCHAR>
+<initCHAR> -> is <value3> <ids3> | LAMBDA
+<varSTRING> -> String id <initSTRING>
+<initSTRING> -> is <value4> <ids4> | LAMBDA
+<varBOOLEAN> -> Boolean id <initBOOLEAN>
+<initBOOLEAN> -> is <value5> <ids5> | LAMBDA
+<ids1> -> ; id <ids1_tail> | LAMBDA
+<ids2> -> ; id <ids2_tail> | LAMBDA
+<ids3> -> ; id <ids3_tail> | LAMBDA
+<ids4> -> ; id <ids4_tail> | LAMBDA
+<ids5> -> ; id <ids5_tail> | LAMBDA
+<ids1_tail> -> is <value1> <ids1>
+<ids2_tail> -> is <value2> <ids2>
+<ids3_tail> -> is <value3> <ids3>
+<ids4_tail> -> is <value4> <ids4>
+<ids5_tail> -> is <value5> <ids5>
+
+/* MATH OPERATIONS */
+<value1> -> <numvalue> <Operations1> | ( <value1> ) <Op1>
+<value2> -> <doublevalue> <Operations2> | ( <value2> ) <Op2>
+<value3> -> charlit
+<value4> -> stringlit
+<value5> -> boollit
+<numvalue> -> intlit | <numelement>
+<numelement = <incdec_null> id <subelement> <incdec_null>
+<Operations1> -> <mathOp> <value1> | LAMBDA
+<OpInt> -> <numvalue> <Operations1>  | ( <value1> ) <Op1>
+<Op1> -> <mathOp> <OpInt> | LAMBDA
+<doublevalue> -> doublelit | <numelement>
+<Operations2> -> <mathOp> <value2> | LAMBDA
+<OpDouble> -> <doublevalue> <Operations2> | ( <value2> ) <Op2>
+<Op2> -> <mathOp> <OpDouble> | LAMBDA
+
+
+
+
+/* OPERATORS */
+<mathOp> -> + | - | * | / | %
+<incdec> -> ++ | --
+<relop1> -> == | != | > | < | >= | <=
+<logop1> -> && | ??
+<logop2> -> ! | LAMBDA
+
+/* BODY STATEMENTS */
+<body> -> <statements>
+<statements> -> <functions> . <statements> | LAMBDA
+<functions> -> Var <vardec> | <varinit> | <array> | Clear | id <id_choices> | <incdec> id <subelement> |<io_statement> | <objvar> | <IfOtherwise> | <loopstate> | <option>
+
+<id_choices> -> [ <index> ]  <multi>  = <value>
+                | ( <param> )
+                | <subelement> <subelement_choice> ;
+
+<subelement_choice> -> <incdec> | = <value>;
+
+/* VAR INITIALIZATION */
+<varinit> -> <varinitINT> | <varinitDOUBLE> | <varinitCHAR> | <varinitSTRING> | <varinitBOOLEAN>
+<varinitINT> -> Int id = <INT>
+<varinitDOUBLE> -> Double id = <DOUBLE>
+<varinitCHAR> -> Char id = <CHAR>
+<varinitSTRING> -> String id = <STRING>
+<varinitBOOLEAN> -> Boolean id = <BOOLEAN>
+<INT> -> intlit <Operations1> | id <intchoices> | ( <value1> ) [<Op1>] | <incdec> id <subelement> <incdec_null> <Operations1> 
+<intchoices> -> <intchoice1> | <intchoice2> | LAMBDA 
+<intchoice1> -> <subelement> <incdec> <Operations1> 
+<intchoice2> -> ( <param> ) 
+<incdec_null> -> <incdec> | LAMBDA
+<DOUBLE> -> doublelit <Operations2> | id <doublechoices> | ( <value2> ) <Op2> | <incdec> id <subelement> <incdec_null> <Operations2>
+<doublechoices> -> <doublechoice1> | <doublechoice2> | LAMBDA 
+<doublechoice1> -> <subelement> <incdec> <Operations2>
+<doublechoice2> -> ( <param> )
+<CHAR> -> <value3> | <task_id>
+<STRING> -> <value4> | <task_id>
+<BOOLEAN> -> <value5> | <task_id>
+<task_id> -> id ( <param> )
+<param> -> <value> <params> | LAMBDA
+<params> -> ; <param> | LAMBDA
+<value> -> intlit | doublelit | charlit | stringlit | boollit | <input_id>
+
+/* I/O STATEMENTS */
+<io_statement> -> <input> | <output>
+<input> -> Read id
+<output> -> Say <input_statement>
+<input_statement>  -> stringlit <concat> | <input_id> <concat>
+<concat> -> , <concat_value> <concat> | LAMBDA
+<concat_value> -> stringlit | <input_id>
+
+/* INCREMENT DECREMENT */
+<incdecvar> -> <incdec> id | id <incdec>
+
+/* OBJECT INITIALIZATION */
+<subelement> -> @ id <subelement> | LAMBDA
+<input_id> -> id <subelement>
+
+/* ARRAY INITIALIZATION */
+<multi> ->  [ <index> ]  | LAMBDA
+<index> -> intlit | id | LAMBDA
+
+/* IF - OR - OTHERWISE STATEMENTS */
+<IfOtherwise> -> If ( <conditions> ) <cond_loop> <or> <otherwise> EndIf
+<or> -> Or ( <conditions> ) <cond_loop> <or> | LAMBDA
+<otherwise> -> Otherwise <cond_loop> <control> | LAMBDA
+<cond_loop> -> <functions> . <control> <cond_loop> | LAMBDA
+<control> -> Skip . | Stop . | LAMBDA
+
+
+/* CONDITION STATEMENTS */
+<conditions> ->  <conditionschoice>
+<conditionschoice> -> <idschoice> <condsTail> | <multiconds> 
+<multiconds> -> ( <conditions ) <condsTail> 
+<idschoice> -> <logop2> <idschoice1> | intlit | doublelit | charlit | stringlit
+<idschoice1> -> id <idsbody> | boollit 
+<idsbody> -> <subelement> | ( <param> ) | LAMBDA
+<condsTail> -> <logOps> | <relOps> | LAMBDA
+<logOps> -> <logop1> <conditions> 
+<relOps> -> <relopNum> <numval>  |  <relopText> <idschoice> 
+<relopNum> -> >= | <= | < | > 
+<relopText> -> == | !=
+<numval> -> intlit | doublelit | id <idsbody>
+
+<conditions> -> <ids> <condsTail> | <logop2> <multiconds>
+<multiconds>  -> ( <conditions> ) <condsTail>
+<ids>  -> <input_id> | <logop2> <ids_null>
+<ids_null> -> <value5> | <task_id>
+<condsTail> -> <logOps> | <relOps> | LAMBDA
+<logOps>  -> <logop1> <conditions> | LAMBDA
+<relOps> -> <relopNum> <numval> | <relopText> <value>
+<relopNum> -> >= | <= | < | > 
+<relopText> -> == | !=
+<numval> -> intlit | doublelit
+
+/* OPTION STATEMENT */
+<option> -> Option <input_id> Start State <optiontails>
+<optiontails> -> <optiontail1> | <optiontail2> | <optiontail3>
+<optiontail1> -> intlit : <statements> Stop . <state1> <default> End
+<optiontail2> -> charlit : <statements> Stop . <state2> <default> End
+<optiontail3> -> stringlit : <statements> Stop . <state3> <default> End
+<state1> -> State intlit : <statements> Stop . <state1> | LAMBDA
+<state2> -> State charlit : <statements> Stop . <state2> | LAMBDA
+<state3> -> State stringlit : <statements> Stop . <state3> | LAMBDA
+<default> -> Default : <statements> | LAMBDA
+
+/* LOOPING STATEMENTS */
+<loopstate> -> Until ( <conditions> ) <cond_loop> Loop | Do <cond_loop> LoopIf ( <conditions> ) | For ( <initialize> ; <cond> ; <incdecvar> ) <cond_loop> Loop
+<initialize> -> id = intlit | LAMBDA
+<cond> -> id <relop1> intlit | LAMBDA
+
+/* TASK DEFINITION */
+<taskdef> -> Task <returntype> End . <taskdef> | LAMBDA
+<returntype> -> Int id : <taskbody> Response <returnINT> . | Double id : <taskbody> Response <returnDOUBLE> . | Char id : <taskbody> Response <returnCHAR> . | String id : <taskbody> Response <returnSTRING> . | Boolean id : <taskbody> Response <returnBOOLEAN> . | Null id : <taskbody>
+<taskbody> -> Start <taskbodytail>
+<taskbodytail> -> <statements> .
+<returnINT> -> intlit | id <returntail>
+<returnDOUBLE> -> doublelit | id <returntail>
+<returnCHAR> -> charlit | id <returntail>
+<returnSTRING> -> stringlit | id <returntail>
+<returnBOOLEAN> -> boollit | id <returntail>
+<returntail>  -> ( <param> ) | <subelement> | LAMBDA
+<StartProgram> -> <program> $
