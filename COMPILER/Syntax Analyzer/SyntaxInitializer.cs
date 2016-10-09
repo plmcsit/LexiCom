@@ -9,7 +9,7 @@ namespace Syntax_Analyzer
 {
     public class SyntaxInitializer
     {
-
+        public TokenLibrary.ErrorClass errors = new TokenLibrary.ErrorClass();
         public string Start(List<TokensClass> tokens)
         {
             string tokenstream = "";
@@ -47,7 +47,22 @@ namespace Syntax_Analyzer
             }
             catch (ParserLogException e)
             {
+                string message = "Expected ";
+                errors.setColumn(e.GetError(0).Column);
+                errors.setLines(e.GetError(0).Line);
+                if (e.GetError(0).Details != null && e.GetError(0).Details.Count != 1)
+                {
+                    message = "Expected one of ";
+                }
+                foreach (var item in e.GetError(0).Details)
+                {
+                    message += item + ", ";   
+                }
+                message += ".";
+                errors.setErrorMessage(message);
+                errors.setType(e.GetError(0).Type.ToString());
                 result = e.Message;
+
             }
             return result;
         }

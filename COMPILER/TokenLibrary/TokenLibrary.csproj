@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorClass.cs" />
     <Compile Include="TokenClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

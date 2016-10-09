@@ -17,6 +17,10 @@ namespace LexiCom
 
         private void LexButton_Click(object sender, EventArgs e)
         {
+            LexGrid.Rows.Clear();
+            DataLexicalError.Rows.Clear();
+            DataSyntaxError.Rows.Clear();
+            Output.Text = "";
             if (Code.Text != "")
             {
                 //LEXICAL ANALYZER
@@ -35,10 +39,31 @@ namespace LexiCom
                         SyntaxInitializer Syntax_Analyzer = new SyntaxInitializer();
                         SemanticsInitializer semantics = new SemanticsInitializer();
                         Output.Text += "\n[2] Starting Syntax Analyzer\n";
+
                         if (semantics_mode.Checked)
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
 						string syntax_result = Syntax_Analyzer.Start (tokenDump (lex.token)) + "\n";
-						Output.Text += syntax_result;
+						if (syntax_result != "Syntax Analyzer Succeeded...\n")
+                        {
+                            int errornum = 1;
+                            DataSyntaxError.Rows.Clear();
+                            DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), Syntax_Analyzer.errors.getErrorMessage());
+                            errornum++;
+                            //while(syntax_result != "Syntax Analyzer Succeeded...\n" && syntax_result.Contains("unexpected end of file"))
+                            //{
+                            //    Boolean cont = true;
+                            //    char[] result = syntax_result.ToCharArray();
+
+                            //    foreach (var item in result)
+                            //    {
+                                    
+                            //    }
+                            //}
+                        }
+                        else
+                        {
+                            Output.Text += syntax_result;
+                        }
                         if (semantics_mode.Checked)
                         {
                             semantics = SemanticsStart(tokenDumps(lex.token));
@@ -82,9 +107,10 @@ namespace LexiCom
         private void DisplayTokens(LexicalAnalyzer lex)
         {
             string result = "Succeeded...";
-            int ctr = 0, id = 0;
+            int ctr = 0, id = 0, error = 0;
             LexGrid.Rows.Clear();
-
+            DataLexicalError.Rows.Clear();
+            DataSyntaxError.Rows.Clear();
             if (lex.invalid != 0)
                 result = "Encountered " + lex.invalid.ToString() + " error/s.\nPlease try again.\n";
             Output.Text += "Lexical Analyzer " + result;
@@ -93,18 +119,19 @@ namespace LexiCom
             {
                 if (token.getTokens() == "INVALID")
                 {
-
-                    Output.Text += "Invalid input: "
+                    error++;
+                    DataLexicalError.Rows.Add( error, "Invalid input: "
                                 + token.getLexemes()
                                 + " on line "
-                                + token.getLines() + "\n";
+                                + token.getLines() + "\n");
                 }
                 else if (token.getTokens() == "NODELIM")
                 {
-                    Output.Text += "Proper delimiter expected: "
+                    error++;
+                    DataLexicalError.Rows.Add(error, "Proper delimiter expected: "
                                 + token.getLexemes()
                                 + " on line "
-                                + token.getLines() + "\n";
+                                + token.getLines() + "\n");
                 }
                 else
                 {
@@ -119,9 +146,15 @@ namespace LexiCom
         private void syntaxAnalyzerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (syntax_mode.Checked)
+            {
                 syntax_mode.Checked = false;
+                semantics_mode.Checked = false;
+            }
             else
+            {
                 syntax_mode.Checked = true;
+                semantics_mode.Checked = true;
+            }
         }
 
         public List<TokenLibrary.TokensClass> tokenDump(List<Lexical_Analyzer.Tokens> tokens)
@@ -161,7 +194,20 @@ namespace LexiCom
             if (semantics_mode.Checked)
                 semantics_mode.Checked = false;
             else
+            {
                 semantics_mode.Checked = true;
+                syntax_mode.Checked = true;
+            }
+        }
+
+        private void LexGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            Code.Text = "";
         }
 
         //private void LexBtn_Click(object sender, EventArgs e)

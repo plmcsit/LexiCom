@@ -111,10 +111,6 @@
       <Project>{51778AC8-5916-41D4-A647-E5E33A320F3E}</Project>
       <Name>Syntax Analyzer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SyntaxCore\SyntaxCore.csproj">
-      <Project>{B35E54C1-B836-4929-9788-D221CDB3B7C5}</Project>
-      <Name>SyntaxCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj">
       <Project>{B2A3CF3F-A100-4772-8190-781981B41EBF}</Project>
       <Name>TokenLibrary</Name>
@@ -122,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code Structures.txt" />
+    <None Include="Resources\clear.png" />
     <None Include="Resources\mode.png" />
     <None Include="Resources\start.png" />
     <None Include="Resources\start1.png" />
