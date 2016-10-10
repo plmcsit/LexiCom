@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ErrorClass.cs" />
+    <Compile Include="ProductionClass.cs" />
     <Compile Include="TokenClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

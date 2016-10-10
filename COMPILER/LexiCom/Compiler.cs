@@ -43,7 +43,8 @@ namespace LexiCom
                         if (semantics_mode.Checked)
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
 						string syntax_result = Syntax_Analyzer.Start (tokenDump (lex.token)) + "\n";
-						if (syntax_result != "Syntax Analyzer Succeeded...\n")
+                        MessageBox.Show(Syntax_Analyzer.production);
+                        if (syntax_result != "Syntax Analyzer Succeeded...\n")
                         {
                             int errornum = 1;
                             DataSyntaxError.Rows.Clear();
@@ -157,7 +158,7 @@ namespace LexiCom
             }
         }
 
-        public List<TokenLibrary.TokensClass> tokenDump(List<Lexical_Analyzer.Tokens> tokens)
+        public List<TokenLibrary.TokensClass> tokenDump(List<Tokens> tokens)
         {
             List<TokenLibrary.TokensClass> token = new List<TokenLibrary.TokensClass>();
             Tokens t = new Tokens();

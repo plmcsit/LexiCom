@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Syntax_Analyzer;
 using TokenLibrary;
 using PerCederberg.Grammatica.Runtime;
@@ -81,6 +78,21 @@ namespace Semantics_Analyzer
             return result;
         }
 
+        private Parser CreateParser(string input)
+        {
+            SyntaxParser parser = null;
+            try
+            {
+                parser = new SyntaxParser(new StringReader(input), this);
+                parser.Prepare();
+            }
+            catch (ParserCreationException e)
+            {
+                throw new Exception(e.Message);
+            }
+            return parser;
+        }
+
         public Tokens GetTokens(int line, int column)
         {
             List<Tokens> t = new List<Tokens>();
@@ -101,21 +113,6 @@ namespace Semantics_Analyzer
                 }
             }
             return token;
-        }
-
-        private Parser CreateParser(string input)
-        {
-            SyntaxParser parser = null;
-            try
-            {
-                parser = new SyntaxParser(new StringReader(input), this);
-                parser.Prepare();
-            }
-            catch (ParserCreationException e)
-            {
-                throw new Exception(e.Message);
-            }
-            return parser;
         }
 
         private void hasGlobalID(Tokens token)
