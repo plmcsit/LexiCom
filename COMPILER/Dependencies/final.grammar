@@ -235,13 +235,13 @@ Prod_control  = SKIP PER | STOP PER ;
 /* CONDITION STATEMENTS */
 Prod_conditions  =  Prod_conditionschoice ;
 Prod_conditionschoice = Prod_idschoice [Prod_condsTail] | Prod_multiconds ;
-Prod_multiconds   = OP Prod_conditions CP   [Prod_condsTail]  ;
+Prod_multiconds   = OP Prod_conditions CP   [Prod_logOps]  ;
 Prod_idschoice =  [Prod_logop2] Prod_idschoice1 | INTLIT | DOUBLELIT | CHARLIT | STRINGLIT ;
 Prod_idschoice1 = ID [Prod_idsbody] | BOOLLIT ;
 Prod_idsbody = Prod_subelement | OP [Prod_param] CP ;
 Prod_condsTail  =  Prod_logOps  |  Prod_relOps ;
-Prod_logOps   =  Prod_logop1 Prod_conditions ;
-Prod_relOps  =  Prod_relopNum   Prod_numval  |  Prod_relopText Prod_idschoice ; 
+Prod_logOps   =  Prod_logop1 Prod_conditions | Prod_relopText Prod_idschoice ;
+Prod_relOps  =  Prod_relopNum   Prod_numval ; 
 Prod_relopNum  =  GEQ | LEQ | GREAT | LESS ;   
 Prod_relopText  = ISEQ | NOTEQ ;
 Prod_numval  = INTLIT | DOUBLELIT | ID [Prod_idsbody] ;

@@ -54,20 +54,20 @@ namespace LexiCom
 
 
                         //MessageBox.Show(Syntax_Analyzer.production);
-                        //MessageBox.Show(Syntax_Analyzer.recursiveprod);
+                        MessageBox.Show(Syntax_Analyzer.recursiveprod);
                         if (syntax_result != "Syntax Analyzer Succeeded...\n")
                         {
                             int errornum = 1;
                             DataSyntaxError.Rows.Clear();
-                            if(Syntax_Analyzer.PRODUCTION[c-1] == "Prod_logop1")
-                            {
-                                DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"!\", \"id\", \"boollit\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\".");
-                            }
-                            else if (Syntax_Analyzer.PRODUCTION[c - 1] == "Prod_option" && Syntax_Analyzer.errors.getErrorMessage() == "Expected: Var, Clear, id, Int, Char, Boolean, Double, String, ++, --, Object, Until, Do, For, Array, If, Read, Say, Option, ., Stop, End.")
-                            {
-                                DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"intlit\", \"charlit\", \"stringlit\".");
-                            }
-                            else
+                            //if(Syntax_Analyzer.PRODUCTION[c-1] == "Prod_logop1")
+                            //{
+                            //    DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"!\", \"id\", \"boollit\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\".");
+                            //}
+                            //else if (Syntax_Analyzer.PRODUCTION[c - 1] == "Prod_option" && Syntax_Analyzer.errors.getErrorMessage() == "Expected: Var, Clear, id, Int, Char, Boolean, Double, String, ++, --, Object, Until, Do, For, Array, If, Read, Say, Option, ., Stop, End.")
+                            //{
+                            //    DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"intlit\", \"charlit\", \"stringlit\".");
+                            //}
+                            //else
                             DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), Syntax_Analyzer.errors.getErrorMessage());
                             errornum++;
                         }
