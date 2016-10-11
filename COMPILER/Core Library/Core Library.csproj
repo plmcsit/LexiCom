@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{51778AC8-5916-41D4-A647-E5E33A320F3E}</ProjectGuid>
+    <ProjectGuid>{100BF7E7-B634-4E6B-948E-22D0566FB2AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Syntax_Analyzer</RootNamespace>
-    <AssemblyName>Syntax Analyzer</AssemblyName>
+    <RootNamespace>Core_Library</RootNamespace>
+    <AssemblyName>Core Library</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,22 +40,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core Library RE\AlternativeElement.cs" />
+    <Compile Include="Core Library RE\CharacterSetElement.cs" />
+    <Compile Include="Core Library RE\CombineElement.cs" />
+    <Compile Include="Core Library RE\Element.cs" />
+    <Compile Include="Core Library RE\Matcher.cs" />
+    <Compile Include="Core Library RE\RegExp.cs" />
+    <Compile Include="Core Library RE\RegExpException.cs" />
+    <Compile Include="Core Library RE\RepeatElement.cs" />
+    <Compile Include="Core Library RE\StringElement.cs" />
+    <Compile Include="Core Library\Analyzer.cs" />
+    <Compile Include="Core Library\LookAheadSet.cs" />
+    <Compile Include="Core Library\Node.cs" />
+    <Compile Include="Core Library\ParseException.cs" />
+    <Compile Include="Core Library\Parser.cs" />
+    <Compile Include="Core Library\ParserCreationException.cs" />
+    <Compile Include="Core Library\ParserLogException.cs" />
+    <Compile Include="Core Library\Production.cs" />
+    <Compile Include="Core Library\ProductionPattern.cs" />
+    <Compile Include="Core Library\ProductionPatternAlternative.cs" />
+    <Compile Include="Core Library\ProductionPatternElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyntaxInitializer.cs" />
-    <Compile Include="SyntaxAnalyzer.cs" />
-    <Compile Include="SyntaxConstants.cs" />
-    <Compile Include="SyntaxParser.cs" />
-    <Compile Include="SyntaxTokenizer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core Library\Core Library.csproj">
-      <Project>{100bf7e7-b634-4e6b-948e-22d0566fb2af}</Project>
-      <Name>Core Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj">
-      <Project>{B2A3CF3F-A100-4772-8190-781981B41EBF}</Project>
-      <Name>TokenLibrary</Name>
-    </ProjectReference>
+    <Compile Include="Core Library\ReaderBuffer.cs" />
+    <Compile Include="Core Library\RecursiveDescentParser.cs" />
+    <Compile Include="Core Library\Token.cs" />
+    <Compile Include="Core Library\Tokenizer.cs" />
+    <Compile Include="Core Library\TokenMatch.cs" />
+    <Compile Include="Core Library\TokenNFA.cs" />
+    <Compile Include="Core Library\TokenPattern.cs" />
+    <Compile Include="Core Library\TokenRegExpParser.cs" />
+    <Compile Include="Core Library\TokenStringDFA.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

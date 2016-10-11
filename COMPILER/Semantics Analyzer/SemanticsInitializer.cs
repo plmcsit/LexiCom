@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Syntax_Analyzer;
 using TokenLibrary;
-using PerCederberg.Grammatica.Runtime;
+using Core.Library;
 using System.IO;
 
 namespace Semantics_Analyzer

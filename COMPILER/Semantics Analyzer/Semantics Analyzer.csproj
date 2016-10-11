@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="grammatica-1.6, Version=1.5.0.29099, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\grammatica-1.6.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core Library\Core Library.csproj">
+      <Project>{100bf7e7-b634-4e6b-948e-22d0566fb2af}</Project>
+      <Name>Core Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Syntax Analyzer\Syntax Analyzer.csproj">
       <Project>{51778AC8-5916-41D4-A647-E5E33A320F3E}</Project>
       <Name>Syntax Analyzer</Name>

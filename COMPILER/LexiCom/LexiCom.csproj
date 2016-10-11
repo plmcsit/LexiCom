@@ -52,9 +52,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="grammatica-1.6">
-      <HintPath>..\Dependencies\grammatica-1.6.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler.cs">
@@ -100,6 +97,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core Library\Core Library.csproj">
+      <Project>{100bf7e7-b634-4e6b-948e-22d0566fb2af}</Project>
+      <Name>Core Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lexical Analyzer\Lexical Analyzer.csproj">
       <Project>{70DDD6D0-45B1-4B63-9A9D-327D744E7316}</Project>
       <Name>Lexical Analyzer</Name>

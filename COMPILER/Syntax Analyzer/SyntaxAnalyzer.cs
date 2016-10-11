@@ -4,7 +4,7 @@
  * THIS FILE HAS BEEN GENERATED AUTOMATICALLY. DO NOT EDIT!
  */
 
-using PerCederberg.Grammatica.Runtime;
+using Core.Library;
 
 namespace Syntax_Analyzer {
 
