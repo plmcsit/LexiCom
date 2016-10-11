@@ -1,15 +1,5 @@
 /*
  * Node.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System.Collections;
@@ -22,8 +12,8 @@ namespace Core.Library {
      * nodes in the parse tree, i.e. by the token and production
      * classes.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public abstract class Node {
 
@@ -53,7 +43,7 @@ namespace Core.Library {
          * a unique identifier for each type of node, in order to
          * simplify later identification.
          *
-         * @since 1.5
+         * 
          */
         public abstract int Id {
             get;
@@ -77,7 +67,7 @@ namespace Core.Library {
         /**
          * The node name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public abstract string Name {
             get;
@@ -101,7 +91,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the first child.
          *
-         * @since 1.5
+         * 
          */
         public virtual int StartLine {
             get {
@@ -138,7 +128,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the first child.
          *
-         * @since 1.5
+         * 
          */
         public virtual int StartColumn {
             get {
@@ -175,7 +165,7 @@ namespace Core.Library {
          * (read-only). If the node has child elements, this value
          * will be fetched from the last child.
          *
-         * @since 1.5
+         * 
          */
         public virtual int EndLine {
             get {
@@ -212,7 +202,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the last child.
          *
-         * @since 1.5
+         * 
          */
         public virtual int EndColumn {
             get {
@@ -247,7 +237,7 @@ namespace Core.Library {
         /**
          * The parent node property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public Node Parent {
             get {
@@ -283,7 +273,7 @@ namespace Core.Library {
         /**
          * The child node count property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public virtual int Count {
             get {
@@ -307,7 +297,7 @@ namespace Core.Library {
          *
          * @return the number of descendant nodes
          *
-         * @since 1.2
+         * 
          */
         public int GetDescendantCount() {
             int  count = 0;
@@ -326,7 +316,7 @@ namespace Core.Library {
          * @return the child node found, or
          *         null if index out of bounds
          *
-         * @since 1.5
+         * 
          */
         public virtual Node this[int index] {
             get {
@@ -356,7 +346,7 @@ namespace Core.Library {
          * value array list is allowed and is immediately reflected
          * through the various value reading and manipulation methods.
          *
-         * @since 1.5
+         * 
          */
         public ArrayList Values {
             get {

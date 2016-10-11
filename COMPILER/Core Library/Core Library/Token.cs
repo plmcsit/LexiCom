@@ -1,15 +1,5 @@
 /*
  * Token.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System.Text;
@@ -22,8 +12,8 @@ namespace Core.Library {
      * that groups characters together into tokens according to a set of
      * token patterns.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class Token : Node {
 
@@ -95,7 +85,7 @@ namespace Core.Library {
          * a unique identifier for each type of node, in order to
          * simplify later identification.
          *
-         * @since 1.5
+         * 
          */
         public override int Id {
             get {
@@ -106,7 +96,7 @@ namespace Core.Library {
         /**
          * The node name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public override string Name {
             get {
@@ -119,7 +109,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the first child.
          *
-         * @since 1.5
+         * 
          */
         public override int StartLine {
             get {
@@ -132,7 +122,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the first child.
          *
-         * @since 1.5
+         * 
          */
         public override int StartColumn {
             get {
@@ -145,7 +135,7 @@ namespace Core.Library {
          * (read-only). If the node has child elements, this value
          * will be fetched from the last child.
          *
-         * @since 1.5
+         * 
          */
         public override int EndLine {
             get {
@@ -158,7 +148,7 @@ namespace Core.Library {
          * node (read-only). If the node has child elements, this
          * value will be fetched from the last child.
          *
-         * @since 1.5
+         * 
          */
         public override int EndColumn {
             get {
@@ -171,7 +161,7 @@ namespace Core.Library {
          * consists of the input characters matched to form this
          * token.
          *
-         * @since 1.5
+         * 
          */
         public string Image {
             get {
@@ -214,7 +204,7 @@ namespace Core.Library {
          * @see #Next
          * @see Tokenizer#UseTokenList
          *
-         * @since 1.5
+         * 
          */
         public Token Previous {
             get {
@@ -245,7 +235,7 @@ namespace Core.Library {
          * @see #GetNextToken
          * @see Tokenizer#UseTokenList
          *
-         * @since 1.4
+         * 
          *
          * @deprecated Use the Previous property instead.
          */
@@ -265,7 +255,7 @@ namespace Core.Library {
          * @see #Previous
          * @see Tokenizer#UseTokenList
          *
-         * @since 1.5
+         * 
          */
         public Token Next {
             get {
@@ -296,7 +286,7 @@ namespace Core.Library {
          * @see #GetPreviousToken
          * @see Tokenizer#UseTokenList
          *
-         * @since 1.4
+         * 
          *
          * @deprecated Use the Next property instead.
          */

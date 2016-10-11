@@ -1,15 +1,5 @@
 /*
  * RegExp.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -29,8 +19,8 @@ namespace Core.Library.RE {
      * matchers may operate simultanously on the same regular
      * expression.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class RegExp {
 
@@ -77,7 +67,7 @@ namespace Core.Library.RE {
          * @throws RegExpException if the regular expression couldn't be
          *             parsed correctly
          *
-         * @since 1.5
+         * 
          */
         public RegExp(string pattern, bool ignoreCase) {
             this.pattern = pattern;
@@ -111,7 +101,7 @@ namespace Core.Library.RE {
          *
          * @return the regular expresion matcher
          *
-         * @since 1.5
+         * 
          */
         public Matcher Matcher(ReaderBuffer buffer) {
             return new Matcher((Element) element.Clone(), buffer, ignoreCase);

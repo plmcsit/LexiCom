@@ -1,19 +1,11 @@
 /*
  * Parser.cs
  *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -23,8 +15,8 @@ namespace Core.Library {
      * A base parser class. This class provides the standard parser
      * interface, as well as token handling.
      *
-     * @author   Per Cederberg
-     * @version  1.6
+
+
      */
     public abstract class Parser {
 
@@ -32,6 +24,29 @@ namespace Core.Library {
          * The parser initialization flag.
          */
         private bool initialized = false;
+
+        /**
+         * The production output out of RecursiveDescentParser.
+         */
+        public SyntaxProductions production = new SyntaxProductions();
+
+        /**
+         * Get the Production set of production.
+         */
+        public string GetRecursiveProduction()
+        {
+            return ("Enter: <StartProgram>\n" + production.GetRecursiveProductions());
+        }
+
+        public int GetLastProductionCode()
+        {
+           return production.GetLastProductionCode();
+        }
+
+        public List<int> GetAllProductionCode()
+        {
+            return production.GetAllProductionCode();
+        }
 
         /**
          * The tokenizer to use.
@@ -85,7 +100,7 @@ namespace Core.Library {
          * @throws ParserCreationException if the tokenizer couldn't be
          *             initialized correctly
          *
-         * @since 1.5
+         * 
          */
         internal Parser(TextReader input) : this(input, null) {
         }
@@ -99,7 +114,7 @@ namespace Core.Library {
          * @throws ParserCreationException if the tokenizer couldn't be
          *             initialized correctly
          *
-         * @since 1.5
+         * 
          */
         internal Parser(TextReader input, Analyzer analyzer) {
             this.tokenizer = NewTokenizer(input);
@@ -136,7 +151,7 @@ namespace Core.Library {
          * @throws ParserCreationException if the tokenizer couldn't be
          *             initialized correctly
          *
-         * @since 1.5
+         * 
          */
         protected virtual Tokenizer NewTokenizer(TextReader input) {
             // TODO: This method should really be abstract, but it isn't in this
@@ -150,7 +165,7 @@ namespace Core.Library {
          *
          * @return the analyzer created
          *
-         * @since 1.5
+         * 
          */
         protected virtual Analyzer NewAnalyzer() {
             // TODO: This method should really be abstract, but it isn't in this
@@ -162,7 +177,7 @@ namespace Core.Library {
          * The tokenizer property (read-only). This property contains
          * the tokenizer in use by this parser.
          *
-         * @since 1.5
+         * 
          */
         public Tokenizer Tokenizer {
             get {
@@ -174,7 +189,7 @@ namespace Core.Library {
          * The analyzer property (read-only). This property contains
          * the analyzer in use by this parser.
          *
-         * @since 1.5
+         * 
          */
         public Analyzer Analyzer {
             get {
@@ -187,7 +202,7 @@ namespace Core.Library {
          *
          * @return the tokenizer in use by this parser
          *
-         * @since 1.4
+         * 
          *
          * @see #Tokenizer
          *
@@ -202,7 +217,7 @@ namespace Core.Library {
          *
          * @return the analyzer in use by this parser
          *
-         * @since 1.4
+         * 
          *
          * @see #Analyzer
          *
@@ -345,7 +360,7 @@ namespace Core.Library {
          * @see Tokenizer#Reset
          * @see Analyzer#Reset
          *
-         * @since 1.5
+         * 
          */
         public void Reset(TextReader input) {
             this.tokenizer.Reset(input);
@@ -396,7 +411,7 @@ namespace Core.Library {
          */
         public Node Parse() {
             Node  root = null;
-
+           
             // Initialize parser
             if (!initialized) {
                 Prepare();
@@ -416,7 +431,7 @@ namespace Core.Library {
             if (errorLog.Count > 0) {
                 throw errorLog;
             }
-
+            
             return root;
         }
 
@@ -439,7 +454,7 @@ namespace Core.Library {
          *
          * @return the new production node
          *
-         * @since 1.5
+         * 
          */
         protected virtual Production NewProduction(ProductionPattern pattern) {
             return analyzer.NewProduction(pattern);

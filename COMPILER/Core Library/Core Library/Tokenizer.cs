@@ -1,15 +1,5 @@
 /*
  * Tokenizer.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -28,8 +18,8 @@ namespace Core.Library {
      * search for, or a regular expression. If the stream of characters
      * don't match any of the token patterns, a parse exception is thrown.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class Tokenizer {
 
@@ -99,7 +89,7 @@ namespace Core.Library {
          * @param input          the input stream to read
          * @param ignoreCase     the character case ignore flag
          *
-         * @since 1.5
+         * 
          */
         public Tokenizer(TextReader input, bool ignoreCase) {
             this.stringDfaMatcher = new StringDFAMatcher(ignoreCase);
@@ -117,7 +107,7 @@ namespace Core.Library {
          * @see Token#Previous
          * @see Token#Next
          *
-         * @since 1.5
+         * 
          */
         public bool UseTokenList {
             get {
@@ -142,7 +132,7 @@ namespace Core.Library {
          * @see Token#GetPreviousToken
          * @see Token#GetNextToken
          *
-         * @since 1.4
+         * 
          *
          * @deprecated Use the UseTokenList property instead.
          */
@@ -163,7 +153,7 @@ namespace Core.Library {
          * @see Token#GetPreviousToken
          * @see Token#GetNextToken
          *
-         * @since 1.4
+         * 
          *
          * @deprecated Use the UseTokenList property instead.
          */
@@ -272,7 +262,7 @@ namespace Core.Library {
          *
          * @see Parser#reset(Reader)
          *
-         * @since 1.5
+         * 
          */
         public void Reset(TextReader input) {
             this.buffer.Dispose();
@@ -378,7 +368,7 @@ namespace Core.Library {
          *
          * @return the token created
          *
-         * @since 1.5
+         * 
          */
         protected virtual Token NewToken(TokenPattern pattern,
                                          string image,

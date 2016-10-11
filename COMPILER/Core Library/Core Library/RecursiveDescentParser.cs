@@ -1,15 +1,5 @@
 /*
  * RecursiveDescentParser.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -17,15 +7,15 @@ using System.Collections;
 using System.IO;
 
 namespace Core.Library {
-
+    
     /**
      * A recursive descent parser. This parser handles LL(n) grammars,
      * selecting the appropriate pattern to parse based on the next few
      * tokens. The parser is more efficient the fewer look-ahead tokens
      * that is has to consider.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class RecursiveDescentParser : Parser {
 
@@ -37,7 +27,7 @@ namespace Core.Library {
          * @throws ParserCreationException if the tokenizer couldn't be
          *             initialized correctly
          *
-         * @since 1.5
+         * 
          */
         public RecursiveDescentParser(TextReader input) : base(input) {
         }
@@ -51,7 +41,7 @@ namespace Core.Library {
          * @throws ParserCreationException if the tokenizer couldn't be
          *             initialized correctly
          *
-         * @since 1.5
+         * 
          */
         public RecursiveDescentParser(TextReader input, Analyzer analyzer)
             : base(input, analyzer) {
@@ -121,20 +111,20 @@ namespace Core.Library {
          *             initialized correctly
          */
         public override void Prepare() {
-            IEnumerator  e;
+            IEnumerator e;
 
             // Performs production pattern checks
             base.Prepare();
-	        SetInitialized(false);
+            SetInitialized(false);
 
             // Calculate production look-ahead sets
             e = GetPatterns().GetEnumerator();
             while (e.MoveNext()) {
-                CalculateLookAhead((ProductionPattern) e.Current);
+                CalculateLookAhead((ProductionPattern)e.Current);
             }
 
             // Set initialized flag
-	        SetInitialized(true);
+            SetInitialized(true);
         }
 
         /**
@@ -146,9 +136,9 @@ namespace Core.Library {
          *             correctly
          */
         protected override Node ParseStart() {
-            Token      token;
-            Node       node;
-            ArrayList  list;
+            Token token;
+            Node node;
+            ArrayList list;
 
             node = ParsePattern(GetStartPattern());
             token = PeekToken(0);
@@ -177,8 +167,8 @@ namespace Core.Library {
          *             correctly
          */
         private Node ParsePattern(ProductionPattern pattern) {
-            ProductionPatternAlternative  alt;
-            ProductionPatternAlternative  defaultAlt;
+            ProductionPatternAlternative alt;
+            ProductionPatternAlternative defaultAlt;
 
             defaultAlt = pattern.DefaultAlternative;
             for (int i = 0; i < pattern.Count; i++) {
@@ -206,7 +196,7 @@ namespace Core.Library {
          *             correctly
          */
         private Node ParseAlternative(ProductionPatternAlternative alt) {
-            Production  node;
+            Production node;
 
             node = NewProduction(alt.Pattern);
             EnterNode(node);
@@ -236,19 +226,30 @@ namespace Core.Library {
         private void ParseElement(Production node,
                                   ProductionPatternElement elem) {
 
-            Node  child;
+            Node child;
 
             for (int i = 0; i < elem.MaxCount; i++) {
+                string pr =  Enum.GetName(typeof(SyntaxConstants), elem.GetId());
                 if (i < elem.MinCount || IsNext(elem)) {
                     if (elem.IsToken()) {
                         child = NextToken(elem.Id);
                         EnterNode(child);
                         AddNode(node, ExitNode(child));
-                    } else {
+                        if(ExitNode(child) != null)
+                        production.AddRecursiveProduction("Enter: " + pr + "\n");
+                        production.AddProductionCode(elem.GetId());
+                    }
+                    else {
+                        pr = pr.Substring(5);
+                        production.AddRecursiveProduction("Enter: <" + pr + ">\n");
+                        production.AddProductionCode(elem.GetId());
                         child = ParsePattern(GetPattern(elem.Id));
                         AddNode(node, child);
                     }
                 } else {
+                    pr = pr.Substring(5);
+                    production.AddRecursiveProduction("Enter: NULL <" + pr + ">\n");
+                    production.AddProductionCode(elem.GetId());
                     break;
                 }
             }

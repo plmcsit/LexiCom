@@ -1,15 +1,5 @@
 /*
  * ParseException.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -21,8 +11,8 @@ namespace Core.Library {
     /**
      * A parse exception.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class ParseException : Exception {
 
@@ -147,7 +137,7 @@ namespace Core.Library {
         /**
          * The error type property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public ErrorType Type {
             get {
@@ -171,7 +161,7 @@ namespace Core.Library {
         /**
          * The additional error information property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Info {
             get {
@@ -196,7 +186,7 @@ namespace Core.Library {
          * The additional detailed error information property
          * (read-only).
          *
-         * @since 1.5
+         * 
          */
         public ArrayList Details {
             get {
@@ -221,7 +211,7 @@ namespace Core.Library {
          * The line number property (read-only). This is the line
          * number where the error occured, or -1 if unknown.
          *
-         * @since 1.5
+         * 
          */
         public int Line {
             get {
@@ -247,7 +237,7 @@ namespace Core.Library {
          * The column number property (read-only). This is the column
          * number where the error occured, or -1 if unknown.
          *
-         * @since 1.5
+         * 
          */
         public int Column {
             get {
@@ -315,7 +305,7 @@ namespace Core.Library {
          *
          * @see #Message
          *
-         * @since 1.5
+         * 
          */
         public string ErrorMessage {
             get {

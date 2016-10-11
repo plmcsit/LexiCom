@@ -44,6 +44,7 @@ namespace LexiCom
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
 						string syntax_result = Syntax_Analyzer.Start (tokenDump (lex.token)) + "\n";
                         MessageBox.Show(Syntax_Analyzer.production);
+                        MessageBox.Show(Syntax_Analyzer.recursiveprod);
                         if (syntax_result != "Syntax Analyzer Succeeded...\n")
                         {
                             int errornum = 1;

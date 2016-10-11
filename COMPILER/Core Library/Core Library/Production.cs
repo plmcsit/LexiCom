@@ -1,15 +1,5 @@
 /*
  * Production.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System.Collections;
@@ -22,8 +12,8 @@ namespace Core.Library {
      * are created by a parser, that adds children a according to a
      * set of production patterns (i.e. grammar rules).
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class Production : Node {
 
@@ -52,7 +42,7 @@ namespace Core.Library {
          * a unique identifier for each type of node, in order to
          * simplify later identification.
          *
-         * @since 1.5
+         * 
          */
         public override int Id {
             get {
@@ -63,7 +53,7 @@ namespace Core.Library {
         /**
          * The node name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public override string Name {
             get {
@@ -74,7 +64,7 @@ namespace Core.Library {
         /**
          * The child node count property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public override int Count {
             get {
@@ -90,7 +80,7 @@ namespace Core.Library {
          * @return the child node found, or
          *         null if index out of bounds
          *
-         * @since 1.5
+         * 
          */
         public override Node this[int index] {
             get {
@@ -119,7 +109,7 @@ namespace Core.Library {
          * The production pattern property (read-only). This property
          * contains the production pattern linked to this production.
          *
-         * @since 1.5
+         * 
          */
         public ProductionPattern Pattern {
             get {

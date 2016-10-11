@@ -1,15 +1,5 @@
 /*
  * TokenRegExpParser.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -24,9 +14,9 @@ namespace Core.Library {
      * A regular expression parser. The parser creates an NFA for the
      * regular expression having a single start and acceptance states.
      *
-     * @author   Per Cederberg
-     * @version  1.5
-     * @since    1.5
+
+     * 
+     * 
      */
     internal class TokenRegExpParser {
 

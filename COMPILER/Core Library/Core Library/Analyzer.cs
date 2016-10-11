@@ -1,16 +1,3 @@
-/*
- * Analyzer.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
- */
 
 using System.Collections;
 
@@ -30,9 +17,6 @@ namespace Core.Library {
      * node will always be in the order enter(), child(), and exit(). If
      * various child() calls are made, they will be made from left to
      * right as child nodes are added (to the right).
-     *
-     * @author   Per Cederberg
-     * @version  1.5
      */
     public class Analyzer {
 
@@ -47,7 +31,7 @@ namespace Core.Library {
          * input stream. The default implementation of this method does
          * nothing.
          *
-         * @since 1.5
+         * 
          */
         public virtual void Reset() {
             // Default implementation does nothing
@@ -97,6 +81,7 @@ namespace Core.Library {
             Production  prod;
             int         errorCount;
 
+            Node res = null;
             errorCount = log.Count;
             if (node is Production) {
                 prod = (Production) node;
@@ -114,13 +99,15 @@ namespace Core.Library {
                     }
                 }
                 try {
-                    return Exit(prod);
+                    res = Exit(prod);
+                    return res;
                 } catch (ParseException e) {
                     if (errorCount == log.Count) {
                         log.AddError(e);
                     }
                 }
-            } else {
+            }
+            else {
                 node.Values.Clear();
                 try {
                     Enter(node);
@@ -128,7 +115,8 @@ namespace Core.Library {
                     log.AddError(e);
                 }
                 try {
-                    return Exit(node);
+                    res = Exit(node);
+                    return res;
                 } catch (ParseException e) {
                     if (errorCount == log.Count) {
                         log.AddError(e);
@@ -147,7 +135,6 @@ namespace Core.Library {
          *
          * @return the new production node
          *
-         * @since 1.5
          */
         public virtual Production NewProduction(ProductionPattern pattern) {
             return new Production(pattern);
@@ -371,7 +358,6 @@ namespace Core.Library {
          *
          * @return a list with all the child node values
          *
-         * @since 1.3
          */
         protected ArrayList GetChildValues(Node node) {
             ArrayList  result = new ArrayList();

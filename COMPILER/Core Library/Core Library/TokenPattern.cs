@@ -1,16 +1,6 @@
 /*
  * TokenPattern.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
- */
+*/
 
 using System;
 using System.Text;
@@ -23,8 +13,8 @@ namespace Core.Library {
      * pattern. A token pattern is uniquely identified by an integer id,
      * that must be provided upon creation.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class TokenPattern {
 
@@ -131,7 +121,7 @@ namespace Core.Library {
          * The token pattern identity property (read-only). This
          * property contains the unique token pattern identity value.
          *
-         * @since 1.5
+         * 
          */
         public int Id {
             get {
@@ -155,7 +145,7 @@ namespace Core.Library {
         /**
          * The token pattern name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Name {
             get {
@@ -179,7 +169,7 @@ namespace Core.Library {
         /**
          * The token pattern type property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public PatternType Type {
             get {
@@ -205,7 +195,7 @@ namespace Core.Library {
          * contains the actual pattern (string or regexp) which have
          * to be matched.
          *
-         * @since 1.5
+         * 
          */
         public string Pattern {
             get {
@@ -233,7 +223,7 @@ namespace Core.Library {
          * property to true, a default error message is created if
          * none was previously set.
          *
-         * @since 1.5
+         * 
          */
         public bool Error {
             get {
@@ -254,7 +244,7 @@ namespace Core.Library {
          *
          * @see #Error
          *
-         * @since 1.5
+         * 
          */
         public string ErrorMessage {
             get {
@@ -326,7 +316,7 @@ namespace Core.Library {
          * token pattern corresponds to an ignore token and should be
          * skipped if a match is found.
          *
-         * @since 1.5
+         * 
          */
         public bool Ignore {
             get {
@@ -344,7 +334,7 @@ namespace Core.Library {
          *
          * @see #Ignore
          *
-         * @since 1.5
+         * 
          */
         public string IgnoreMessage {
             get {
@@ -414,7 +404,7 @@ namespace Core.Library {
          * The token debug info message property. This is normally be
          * set when the token pattern is analyzed by the tokenizer.
          *
-         * @since 1.5
+         * 
          */
         public string DebugInfo {
             get {

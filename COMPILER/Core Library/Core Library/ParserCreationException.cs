@@ -1,15 +1,5 @@
 /*
  * ParserCreationException.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System;
@@ -23,8 +13,8 @@ namespace Core.Library {
      * an error in the token or production patterns, making it impossible
      * to create a working parser or tokenizer.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class ParserCreationException : Exception {
 
@@ -147,7 +137,7 @@ namespace Core.Library {
         /**
          * The error type property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public ErrorType Type {
             get {
@@ -171,7 +161,7 @@ namespace Core.Library {
         /**
          * The token or production name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Name {
             get {
@@ -195,7 +185,7 @@ namespace Core.Library {
         /**
          * The additional error information property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Info {
             get {
@@ -219,7 +209,7 @@ namespace Core.Library {
         /**
          * The detailed error information property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Details {
             get {

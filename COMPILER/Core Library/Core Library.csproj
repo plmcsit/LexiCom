@@ -56,10 +56,13 @@
     <Compile Include="Core Library\Parser.cs" />
     <Compile Include="Core Library\ParserCreationException.cs" />
     <Compile Include="Core Library\ParserLogException.cs" />
+    <Compile Include="Core Library\PredictSets.cs" />
     <Compile Include="Core Library\Production.cs" />
     <Compile Include="Core Library\ProductionPattern.cs" />
     <Compile Include="Core Library\ProductionPatternAlternative.cs" />
     <Compile Include="Core Library\ProductionPatternElement.cs" />
+    <Compile Include="Core Library\SyntaxConstants.cs" />
+    <Compile Include="Core Library\SyntaxProductions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core Library\ReaderBuffer.cs" />
     <Compile Include="Core Library\RecursiveDescentParser.cs" />

@@ -1,15 +1,5 @@
 /*
  * ProductionPattern.cs
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the BSD license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * LICENSE.txt file for more details.
- *
- * Copyright (c) 2003-2015 Per Cederberg. All rights reserved.
  */
 
 using System.Collections;
@@ -25,8 +15,8 @@ namespace Core.Library {
      * referencing the production pattern from production pattern
      * elements.
      *
-     * @author   Per Cederberg
-     * @version  1.5
+
+     * 
      */
     public class ProductionPattern {
 
@@ -83,7 +73,7 @@ namespace Core.Library {
          * The production pattern identity property (read-only). This
          * property contains the unique identity value.
          *
-         * @since 1.5
+         * 
          */
         public int Id {
             get {
@@ -107,7 +97,7 @@ namespace Core.Library {
         /**
          * The production pattern name property (read-only).
          *
-         * @since 1.5
+         * 
          */
         public string Name {
             get {
@@ -136,7 +126,7 @@ namespace Core.Library {
          * will be added directly to the parent node. By default this
          * property is set to false.
          *
-         * @since 1.5
+         * 
          */
         public bool Synthetic {
             get {
@@ -224,7 +214,7 @@ namespace Core.Library {
          * The production pattern alternative count property
          * (read-only).
          *
-         * @since 1.5
+         * 
          */
         public int Count {
             get {
@@ -252,7 +242,7 @@ namespace Core.Library {
          *
          * @return the alternative found
          *
-         * @since 1.5
+         * 
          */
         public ProductionPatternAlternative this[int index] {
             get {
