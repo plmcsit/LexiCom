@@ -352,8 +352,8 @@
             this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DataSyntaxError.Location = new System.Drawing.Point(844, 549);
             this.DataSyntaxError.Name = "DataSyntaxError";
-            this.DataSyntaxError.ReadOnly = true;
             this.DataSyntaxError.RowHeadersVisible = false;
+            this.DataSyntaxError.RowTemplate.Height = 40;
             this.DataSyntaxError.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.DataSyntaxError.Size = new System.Drawing.Size(501, 94);
             this.DataSyntaxError.TabIndex = 3;

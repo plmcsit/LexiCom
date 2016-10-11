@@ -138,7 +138,18 @@ namespace Syntax_Analyzer
                 //}
                 if (message == "Expected: ")
                 {
-                    message += e.GetError(0).ErrorMessage;
+                    string errormessage = e.GetError(0).ErrorMessage;
+                    if(errormessage.Contains("unexpected token"))
+                    {
+                        errormessage = "";
+                        foreach (var item in e.GetError(0).Details)
+                        {
+                            errormessage += item + ", "; 
+                        }
+                    }
+                    if (errormessage == "unexpected end of file")
+                        errormessage = "\".\"";
+                    message += errormessage;
                 }
 
                 //if (message == "Expected: @, (, &&, ||, >=, <=, <, >, ==, !=, )")
