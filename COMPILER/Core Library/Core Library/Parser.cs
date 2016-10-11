@@ -48,6 +48,11 @@ namespace Core.Library {
             return production.GetLastProductionState();
         }
 
+        public List<string> GetAllProductionState()
+        {
+            return production.GetAllProductionState();
+        }
+
         public List<int> GetAllProductionCode()
         {
             return production.GetAllProductionCode();

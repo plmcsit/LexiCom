@@ -20,6 +20,7 @@ namespace LexiCom
             LexGrid.Rows.Clear();
             DataLexicalError.Rows.Clear();
             DataSyntaxError.Rows.Clear();
+            Grid_Syntax.Rows.Clear();
             Output.Text = "";
             if (Code.Text != "")
             {
@@ -43,24 +44,32 @@ namespace LexiCom
                         if (semantics_mode.Checked)
                         Output.Text += "[3] Starting Static Semantics Analyzer\n";
 						string syntax_result = Syntax_Analyzer.Start (tokenDump (lex.token)) + "\n";
-                        MessageBox.Show(Syntax_Analyzer.production);
+                        int c = 0;
+                        Grid_Syntax.Rows.Clear();
+                        foreach (var item in Syntax_Analyzer.SET)
+                        {
+                            Grid_Syntax.Rows.Add((c+1).ToString(), Syntax_Analyzer.PRODUCTION[c].ToString(), "->", Syntax_Analyzer.SET[c].ToString());
+                            c++;
+                        }
+
+
+                        //MessageBox.Show(Syntax_Analyzer.production);
                         MessageBox.Show(Syntax_Analyzer.recursiveprod);
                         if (syntax_result != "Syntax Analyzer Succeeded...\n")
                         {
                             int errornum = 1;
                             DataSyntaxError.Rows.Clear();
+                            if(Syntax_Analyzer.PRODUCTION[c-1] == "Prod_logop1")
+                            {
+                                DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"!\", \"id\", \"boollit\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\".");
+                            }
+                            else if (Syntax_Analyzer.PRODUCTION[c - 1] == "Prod_option" && Syntax_Analyzer.errors.getErrorMessage() == "Expected: Var, Clear, id, Int, Char, Boolean, Double, String, ++, --, Object, Until, Do, For, Array, If, Read, Say, Option, ., Stop, End.")
+                            {
+                                DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"intlit\", \"charlit\", \"stringlit\".");
+                            }
+                            else
                             DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), Syntax_Analyzer.errors.getErrorMessage());
                             errornum++;
-                            //while(syntax_result != "Syntax Analyzer Succeeded...\n" && syntax_result.Contains("unexpected end of file"))
-                            //{
-                            //    Boolean cont = true;
-                            //    char[] result = syntax_result.ToCharArray();
-
-                            //    foreach (var item in result)
-                            //    {
-                                    
-                            //    }
-                            //}
                         }
                         else
                         {
@@ -70,11 +79,15 @@ namespace LexiCom
                         {
                             semantics = SemanticsStart(tokenDumps(lex.token));
                             string semantics_result = semantics.Start();
-						if (semantics.error != "" || syntax_result != "Syntax Analyzer Succeeded...\n") {
-							Output.Text += semantics.error + semantics_result;
-						}
-                        else
-                            Output.Text += "Static Semantics Analyzer Succeeded...";
+                            if (semantics.error != "" || syntax_result != "Syntax Analyzer Succeeded...\n")
+                            {
+                                Output.Text += semantics.error + semantics_result;
+                            }
+                            else
+                            {
+                                Output.Text += "Static Semantics Analyzer Succeeded...";
+                                MessageBox.Show("Code compiled with no error.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
                         }
                     }
             }
@@ -210,6 +223,11 @@ namespace LexiCom
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Code.Text = "";
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         //private void LexBtn_Click(object sender, EventArgs e)

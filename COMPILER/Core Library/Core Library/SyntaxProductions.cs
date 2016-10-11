@@ -31,6 +31,11 @@ namespace Core.Library
             return this.ProductionState[last];
         }
 
+        public List<string> GetAllProductionState()
+        {
+            return this.ProductionState;
+        }
+
         public List<int> GetAllProductionCode()
         {
             return this.ProductionCode;

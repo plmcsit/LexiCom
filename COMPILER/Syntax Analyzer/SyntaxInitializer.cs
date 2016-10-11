@@ -13,6 +13,10 @@ namespace Syntax_Analyzer
         public string recursiveprod = "";
         Node currparent = null;
         List<Node> prevparent = new List<Node>();
+        List<Node> productions = new List<Node>();
+        public List<string> SET = new List<string>();
+        public List<string> PRODUCTION = new List<string>();
+
         public override void Enter(Node node)
         {
             string name = node.GetName();
@@ -24,10 +28,12 @@ namespace Syntax_Analyzer
                 if(currparent != null)
                 {
                     production += "Enter: <" + name + "> Parent: " + currparent.GetName() + "\n";
+                    productions.Add(node);
                 }
                 else
                 {
                     production += "Enter: <" + name + ">\n";
+                    productions.Add(node);
                 }
                 prevparent.Add(currparent);
                 currparent = node;
@@ -35,6 +41,7 @@ namespace Syntax_Analyzer
             else
             {
                 node.SetParent(currparent);
+                productions.Add(node);
                 production += "Enter: " + name + " Parent: " + currparent.GetName() + "\n";
             }
             
@@ -98,13 +105,10 @@ namespace Syntax_Analyzer
             catch (ParserLogException e)
             {
                
-                string message = "Expected ";
+                string message = "Expected: ";
                 errors.setColumn(e.GetError(0).Column);
                 errors.setLines(e.GetError(0).Line);
-                if (e.GetError(0).Details != null && e.GetError(0).Details.Count != 1)
-                {
-                    message = "Expected one of ";
-                }
+
 
                 if (p.GetLastProductionState() == "NULL")
                 {
@@ -119,6 +123,21 @@ namespace Syntax_Analyzer
                         message += item + ", ";
                     }
                 }
+
+                //foreach (var item in e.GetError(0).Details)
+                //{
+                //    message += item + ", ";
+                //}
+
+                if (message == "Expected: @, (, &&, ||, >=, <=, <, >, ==, !=, )")
+                {
+                    message = "Expected: ";
+                    foreach (var item in e.GetError(0).Details)
+                    {
+                        message += item + ", ";
+                    }
+                }
+
                 message += ".";
 
                 errors.setErrorMessage(message);
@@ -127,7 +146,69 @@ namespace Syntax_Analyzer
                 
             }
             recursiveprod = p.GetRecursiveProduction();
+            GetSyntaxTable(p.GetAllProductionCode(), p.GetAllProductionState());
             return result;
+        }
+
+        private void GetSyntaxTable(List<int> code, List<string> state)
+        {
+            Node node = null;
+            Boolean delete = true;
+            string prodstate = "";
+            string recprod = recursiveprod;
+            int ctr = -1, count = 1, prodcode = 0;
+            string currentparent = "";
+            while (productions.Count != 0)
+            {
+                ctr++;
+                prodcode = code[ctr];
+                prodstate = state[ctr];
+                node = productions[count];
+
+
+                if (node.GetId() == prodcode)
+                {
+                    delete = true;
+                    currentparent = node.GetParent().GetName();
+                    PRODUCTION.Add(currentparent);
+                    SET.Add(node.GetName());
+                }
+                else
+                {
+
+                    string name = Enum.GetName(typeof(SyntaxConstants), prodcode);
+                    if (PRODUCTION.Count != 1)
+                    {
+                        PRODUCTION.Add(currentparent);
+                        SET.Add(name);
+                        PRODUCTION.Add(name);
+                        SET.Add("λ");
+                        delete = false;
+                    }
+                    else
+                    {
+                        PRODUCTION.Add("<program>");
+                        SET.Add(name);
+                        PRODUCTION.Add(name);
+                        SET.Add("λ");
+                        delete = false;
+                    }
+                }
+
+                if (count != 1 && delete)
+                {
+                    productions.RemoveAt(0);
+                }
+                else if(delete)
+                {
+                    productions.RemoveAt(0);
+                    productions.RemoveAt(0);
+                    count = 0;
+                }
+
+
+            }
+            
         }
 
         private Parser CreateParser(string input)
