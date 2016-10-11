@@ -54,7 +54,7 @@ namespace LexiCom
 
 
                         //MessageBox.Show(Syntax_Analyzer.production);
-                        MessageBox.Show(Syntax_Analyzer.recursiveprod);
+                        //MessageBox.Show(Syntax_Analyzer.recursiveprod);
                         if (syntax_result != "Syntax Analyzer Succeeded...\n")
                         {
                             int errornum = 1;
