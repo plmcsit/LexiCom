@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using PerCederberg.Grammatica.Runtime;
+using Core.Library;
 
 using TokenLibrary;
 
@@ -10,18 +10,31 @@ namespace Syntax_Analyzer
     public class SyntaxInitializer : SyntaxAnalyzer
     {
         public string production = "";
+        Node currparent = null;
+        List<Node> prevparent = new List<Node>();
         public override void Enter(Node node)
         {
-            
             string name = node.GetName();
             if (name.Contains("Prod_"))
             {
+                node.SetParent(currparent);
                 name = name.Substring(5);
-                production += "Enter: <" + name + ">\n";
+
+                if(currparent != null)
+                {
+                    production += "Enter: <" + name + "> Parent: " + currparent.GetName() + "\n";
+                }
+                else
+                {
+                    production += "Enter: <" + name + ">\n";
+                }
+                prevparent.Add(currparent);
+                currparent = node;
             }
             else
             {
-                production += "Enter: " + name + "\n";
+                node.SetParent(currparent);
+                production += "Enter: " + name + " Parent: " + currparent.GetName() + "\n";
             }
             switch (node.Id)
             {
@@ -641,15 +654,26 @@ namespace Syntax_Analyzer
         }
         public override Node Exit(Node node)
         {
+            if(currparent == node)
+            {
+                currparent = prevparent[prevparent.Count-1];
+                prevparent.RemoveAt(prevparent.Count - 1);
+            }
             string name = node.GetName();
             if (name.Contains("Prod_"))
             {
                 name = name.Substring(5);
-                production += "Exit: <" + name + ">\n";
+                if(currparent != null)
+                production += "Exit: <" + name + "> Parent: " + currparent.GetName() + "\n";
+                else
+                    production += "Exit: <" + name + ">\n";
             }
             else
             {
-                production += "Exit: " + name + "\n";
+                //if (currparent != null)
+                //    production += "Exit: " + name + " Parent: " + currparent.GetName() + "\n";
+                //else
+                //    production += "Exit: " + name + "\n";
             }
             switch (node.Id)
             {
@@ -1064,502 +1088,15 @@ namespace Syntax_Analyzer
             }
             return node;
         }
-        /**
-         * <summary>Called when adding a child to a parse tree
-         * node.</summary>
-         *
-         * <param name='node'>the parent node</param>
-         * <param name='child'>the child node, or null</param>
-         *
-         * <exception cref='ParseException'>if the node analysis
-         * discovered errors</exception>
-         */
-        public override void Child(Production node, Node child)
+
+        public override Node Analyze(Node node)
         {
-            switch (node.Id)
-            {
-                case (int)SyntaxConstants.PROD_START_PROGRAM:
-                    ChildProdStartProgram(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_PROGRAM:
-                    ChildProdProgram(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_GLOBAL:
-                    ChildProdGlobal(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_GLOBAL_CHOICE:
-                    ChildProdGlobalChoice(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DTYPE:
-                    ChildProdDtype(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OBJECT:
-                    ChildProdObject(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OBJDEC_CHOICE:
-                    ChildProdObjdecChoice(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR:
-                    ChildProdVar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OBJVAR:
-                    ChildProdObjvar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARNAME:
-                    ChildProdVarname(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARNAMES:
-                    ChildProdVarnames(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TASK:
-                    ChildProdTask(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN:
-                    ChildProdReturn(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TPARAM:
-                    ChildProdTparam(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TPARAMS:
-                    ChildProdTparams(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_ARRAY:
-                    ChildProdArray(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_SIZE:
-                    ChildProdSize(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_SIZES:
-                    ChildProdSizes(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARLET:
-                    ChildProdVarlet(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARDEC:
-                    ChildProdVardec(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR_INT:
-                    ChildProdVarInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INIT_INT:
-                    ChildProdInitInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR_DOUBLE:
-                    ChildProdVarDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INIT_DOUBLE:
-                    ChildProdInitDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR_CHAR:
-                    ChildProdVarChar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INIT_CHAR:
-                    ChildProdInitChar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR_STRING:
-                    ChildProdVarString(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INIT_STRING:
-                    ChildProdInitString(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VAR_BOOLEAN:
-                    ChildProdVarBoolean(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INIT_BOOLEAN:
-                    ChildProdInitBoolean(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS1:
-                    ChildProdIds1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS2:
-                    ChildProdIds2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS3:
-                    ChildProdIds3(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS4:
-                    ChildProdIds4(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS5:
-                    ChildProdIds5(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS1_TAIL:
-                    ChildProdIds1Tail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS2_TAIL:
-                    ChildProdIds2Tail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS3_TAIL:
-                    ChildProdIds3Tail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS4_TAIL:
-                    ChildProdIds4Tail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDS5_TAIL:
-                    ChildProdIds5Tail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE1:
-                    ChildProdValue1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE2:
-                    ChildProdValue2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE3:
-                    ChildProdValue3(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE4:
-                    ChildProdValue4(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE5:
-                    ChildProdValue5(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_NUMVALUE:
-                    ChildProdNumvalue(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_NUMELEMENT:
-                    ChildProdNumelement(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPERATIONS1:
-                    ChildProdOperations1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OP_INT:
-                    ChildProdOpInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OP1:
-                    ChildProdOp1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DOUBLEVALUE:
-                    ChildProdDoublevalue(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPERATIONS2:
-                    ChildProdOperations2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OP_DOUBLE:
-                    ChildProdOpDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OP2:
-                    ChildProdOp2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_MATH_OP:
-                    ChildProdMathOp(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INCDEC:
-                    ChildProdIncdec(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RELOP1:
-                    ChildProdRelop1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_LOGOP1:
-                    ChildProdLogop1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_LOGOP2:
-                    ChildProdLogop2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_BODY:
-                    ChildProdBody(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_STATEMENTS:
-                    ChildProdStatements(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_FUNCTIONS:
-                    ChildProdFunctions(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_ID_CHOICES:
-                    ChildProdIdChoices(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_SUBELEMENT_CHOICE:
-                    ChildProdSubelementChoice(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT:
-                    ChildProdVarinit(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT_INT:
-                    ChildProdVarinitInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT_DOUBLE:
-                    ChildProdVarinitDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT_CHAR:
-                    ChildProdVarinitChar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT_STRING:
-                    ChildProdVarinitString(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VARINIT_BOOLEAN:
-                    ChildProdVarinitBoolean(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INT:
-                    ChildProdInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INTCHOICES:
-                    ChildProdIntchoices(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INTCHOICE1:
-                    ChildProdIntchoice1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INTCHOICE2:
-                    ChildProdIntchoice2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DOUBLE:
-                    ChildProdDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DOUBLECHOICES:
-                    ChildProdDoublechoices(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DOUBLECHOICE1:
-                    ChildProdDoublechoice1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DOUBLECHOICE2:
-                    ChildProdDoublechoice2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CHAR:
-                    ChildProdChar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_STRING:
-                    ChildProdString(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_BOOLEAN:
-                    ChildProdBoolean(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TASK_ID:
-                    ChildProdTaskId(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_PARAM:
-                    ChildProdParam(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_PARAMS:
-                    ChildProdParams(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_VALUE:
-                    ChildProdValue(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IO_STATEMENT:
-                    ChildProdIoStatement(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INPUT:
-                    ChildProdInput(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OUTPUT:
-                    ChildProdOutput(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INPUT_STATEMENT:
-                    ChildProdInputStatement(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONCAT:
-                    ChildProdConcat(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONCAT_VALUE:
-                    ChildProdConcatValue(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_SUBELEMENT:
-                    ChildProdSubelement(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INPUT_ID:
-                    ChildProdInputId(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_MULTI:
-                    ChildProdMulti(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INDEX:
-                    ChildProdIndex(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IF_OTHERWISE:
-                    ChildProdIfOtherwise(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OR:
-                    ChildProdOr(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OTHERWISE:
-                    ChildProdOtherwise(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_COND_LOOP:
-                    ChildProdCondLoop(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONTROL:
-                    ChildProdControl(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONDITIONS:
-                    ChildProdConditions(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONDITIONSCHOICE:
-                    ChildProdConditionschoice(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_MULTICONDS:
-                    ChildProdMulticonds(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDSCHOICE:
-                    ChildProdIdschoice(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDSCHOICE1:
-                    ChildProdIdschoice1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_IDSBODY:
-                    ChildProdIdsbody(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_CONDS_TAIL:
-                    ChildProdCondsTail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_LOG_OPS:
-                    ChildProdLogOps(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_REL_OPS:
-                    ChildProdRelOps(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RELOP_NUM:
-                    ChildProdRelopNum(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RELOP_TEXT:
-                    ChildProdRelopText(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_NUMVAL:
-                    ChildProdNumval(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPTION:
-                    ChildProdOption(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPTIONTAILS:
-                    ChildProdOptiontails(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPTIONTAIL1:
-                    ChildProdOptiontail1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPTIONTAIL2:
-                    ChildProdOptiontail2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_OPTIONTAIL3:
-                    ChildProdOptiontail3(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_STATE1:
-                    ChildProdState1(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_STATE2:
-                    ChildProdState2(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_STATE3:
-                    ChildProdState3(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_DEFAULT:
-                    ChildProdDefault(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INCDECVAR:
-                    ChildProdIncdecvar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_LOOPSTATE:
-                    ChildProdLoopstate(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_INITIALIZE:
-                    ChildProdInitialize(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_COND:
-                    ChildProdCond(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TASKDEF:
-                    ChildProdTaskdef(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURNTYPE:
-                    ChildProdReturntype(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TASKBODY:
-                    ChildProdTaskbody(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_TASKBODYTAIL:
-                    ChildProdTaskbodytail(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN_INT:
-                    ChildProdReturnInt(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN_DOUBLE:
-                    ChildProdReturnDouble(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN_CHAR:
-                    ChildProdReturnChar(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN_STRING:
-                    ChildProdReturnString(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURN_BOOLEAN:
-                    ChildProdReturnBoolean(node, child);
-                    break;
-                case (int)SyntaxConstants.PROD_RETURNTAIL:
-                    ChildProdReturntail(node, child);
-                    break;
-            }
+            return base.Analyze(node);
         }
 
-
-        public new Node Analyze(Node node)
+        public override Node Analyze(Node node, ParserLogException log)
         {
-            ParserLogException log = new ParserLogException();
-            node = this.Analyze(node, log);
-            if (log.Count > 0)
-            {
-                throw log;
-            }
-            return node;
-        }
-
-        private Node Analyze(Node node, ParserLogException log)
-        {
-            int count = log.Count;
-            if (node is Production)
-            {
-                Production production = (Production)node;
-                production = this.NewProduction(production.Pattern);
-                try
-                {
-                    this.Enter(production);
-                }
-                catch (ParseException exception)
-                {
-                    log.AddError(exception);
-                }
-                for (int i = 0; i < node.Count; i++)
-                {
-                    try
-                    {
-                        this.Child(production, this.Analyze(node[i], log));
-                    }
-                    catch (ParseException exception2)
-                    {
-                        log.AddError(exception2);
-                    }
-                }
-                try
-                {
-                    return this.Exit(production);
-                }
-                catch (ParseException exception3)
-                {
-                    if (count == log.Count)
-                    {
-                        log.AddError(exception3);
-                    }
-                }
-            }
-            else
-            {
-                node.Values.Clear();
-                try
-                {
-                    this.Enter(node);
-                }
-                catch (ParseException exception4)
-                {
-                    log.AddError(exception4);
-                }
-                try
-                {
-                    return this.Exit(node);
-                }
-                catch (ParseException exception5)
-                {
-                    if (count == log.Count)
-                    {
-                        log.AddError(exception5);
-                    }
-                }
-            }
-            return null;
+            return base.Analyze(node, log);
         }
 
         public ErrorClass errors = new ErrorClass();
@@ -1589,7 +1126,8 @@ namespace Syntax_Analyzer
 
             try
             {
-                p.Parse();
+                Node n = p.Analyzer.Analyze(p.Parse());
+                //p.Parse();
                 Fail("parsing succeeded");
                 result = "Syntax Analyzer Succeeded...";
             }
@@ -1609,9 +1147,13 @@ namespace Syntax_Analyzer
                 }
                 foreach (var item in e.GetError(0).Details)
                 {
-                    message += item + ", ";   
+                    message += item + ", ";     
                 }
                 message += ".";
+                if(message == "Expected \")\", .")
+                {
+                    message = "Expected one of \")\", \"==\", \"!=\", \">=\", \"<=\", \">\", \"<\".";
+                }
                 errors.setErrorMessage(message);
                 errors.setType(e.GetError(0).Type.ToString());
                 result = e.Message;
@@ -1627,6 +1169,7 @@ namespace Syntax_Analyzer
             {
                 parser = new SyntaxParser(new StringReader(input), this);
                 parser.Prepare();
+
             }
             catch (ParserCreationException e)
             {
