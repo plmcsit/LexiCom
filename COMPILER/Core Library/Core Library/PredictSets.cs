@@ -69,7 +69,7 @@ namespace Core.Library
         string body = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\"";
         string statements = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \".\", \"Stop\", \"End\"";
         string functions = "\"Var\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"Array\", \"Clear\", \"id\", \"++\", \"--\", \"Read\", \"Say\", \"Object\", \"If\", \"Until\", \"Do\", \"For\", \"Option\"";
-        string id_choices = "\"[\"";
+        string id_choices = "\"[\", \"(\", \"=\", \"@\", \"++\", \"--\"";
         string subelement_choice = "\"++\", \"--\", \"=\", \"Int\", \"Double\", \"Char\", \"String\", \"Boolean\"";
         string varinitINT = "\"Int\"";
         string varinitDOUBLE = "\"Double\"";

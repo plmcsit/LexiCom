@@ -27,9 +27,10 @@ Start
 If((Num1 == Num2) && Num3 != Num4)
      If((Num1 == Num2) && Num3 != Num4)
            Say Num1, "and ", Num2, "is equals".
-If((Num1 == Num2) && Num3 != Num4)
-           Say Num1, "and ", Num2, "is equals".
-     EndIf.
+           If((Num1 == Num2) && Num3 && Num4)
+	   Num
+                     Say Num1, "and ", Num2, "is equals".
+           EndIf.
      EndIf.
      Say Num1, "and ", Num2, "is equals".
 Otherwise
