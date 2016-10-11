@@ -210,6 +210,7 @@
         Prod_return_char = 2132,
         Prod_return_string = 2133,
         Prod_return_boolean = 2134,
-        Prod_returntail = 2135
+        Prod_returntail = 2135,
+        Prod_input_tail = 2136
     }
 }

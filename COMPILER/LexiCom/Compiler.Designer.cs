@@ -55,10 +55,6 @@
             this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.DataSyntaxError = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,6 +65,10 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataLexicalError)).BeginInit();
@@ -137,7 +137,7 @@
             this.Output.Location = new System.Drawing.Point(12, 549);
             this.Output.Name = "Output";
             this.Output.ReadOnly = true;
-            this.Output.Size = new System.Drawing.Size(483, 97);
+            this.Output.Size = new System.Drawing.Size(391, 97);
             this.Output.TabIndex = 3;
             this.Output.Text = "";
             // 
@@ -148,7 +148,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(0, 651);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1354, 22);
+            this.label1.Size = new System.Drawing.Size(1202, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "version 0.2 Build 6 (Beta Version)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -161,7 +161,7 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1354, 45);
+            this.label2.Size = new System.Drawing.Size(1202, 45);
             this.label2.TabIndex = 5;
             this.label2.Text = "LexiCom (Lexis Compiler)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -170,7 +170,7 @@
             // 
             this.LexPanel.Controls.Add(this.label3);
             this.LexPanel.Controls.Add(this.LexGrid);
-            this.LexPanel.Location = new System.Drawing.Point(655, 86);
+            this.LexPanel.Location = new System.Drawing.Point(498, 86);
             this.LexPanel.Name = "LexPanel";
             this.LexPanel.Size = new System.Drawing.Size(346, 438);
             this.LexPanel.TabIndex = 9;
@@ -192,7 +192,7 @@
             this.label6.BackColor = System.Drawing.Color.DarkCyan;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label6.Location = new System.Drawing.Point(501, 526);
+            this.label6.Location = new System.Drawing.Point(410, 526);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(338, 21);
             this.label6.TabIndex = 4;
@@ -211,7 +211,7 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn6});
             this.DataLexicalError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DataLexicalError.Location = new System.Drawing.Point(499, 549);
+            this.DataLexicalError.Location = new System.Drawing.Point(408, 549);
             this.DataLexicalError.Name = "DataLexicalError";
             this.DataLexicalError.ReadOnly = true;
             this.DataLexicalError.RowHeadersVisible = false;
@@ -251,7 +251,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 45);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1354, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1202, 39);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "Select Mode";
             // 
@@ -350,52 +350,22 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DataSyntaxError.Location = new System.Drawing.Point(844, 549);
+            this.DataSyntaxError.Location = new System.Drawing.Point(753, 549);
             this.DataSyntaxError.Name = "DataSyntaxError";
             this.DataSyntaxError.RowHeadersVisible = false;
-            this.DataSyntaxError.RowTemplate.Height = 40;
+            this.DataSyntaxError.RowTemplate.Height = 50;
             this.DataSyntaxError.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataSyntaxError.Size = new System.Drawing.Size(501, 94);
+            this.DataSyntaxError.Size = new System.Drawing.Size(438, 94);
             this.DataSyntaxError.TabIndex = 3;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 30;
-            // 
-            // Line
-            // 
-            this.Line.HeaderText = "Ln";
-            this.Line.Name = "Line";
-            this.Line.ReadOnly = true;
-            this.Line.Width = 30;
-            // 
-            // Col
-            // 
-            this.Col.HeaderText = "Col";
-            this.Col.Name = "Col";
-            this.Col.ReadOnly = true;
-            this.Col.Width = 30;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Errors";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn4.Width = 400;
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.DarkCyan;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label4.Location = new System.Drawing.Point(844, 526);
+            this.label4.Location = new System.Drawing.Point(753, 526);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(501, 21);
+            this.label4.Size = new System.Drawing.Size(438, 21);
             this.label4.TabIndex = 4;
             this.label4.Text = "SYNTAX ERRORS";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -407,7 +377,7 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label5.Location = new System.Drawing.Point(12, 526);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(483, 21);
+            this.label5.Size = new System.Drawing.Size(391, 21);
             this.label5.TabIndex = 10;
             this.label5.Text = "RUNTIME OUTPUT";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -481,7 +451,7 @@
             // 
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.Grid_Syntax);
-            this.panel1.Location = new System.Drawing.Point(1002, 86);
+            this.panel1.Location = new System.Drawing.Point(845, 86);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(346, 438);
             this.panel1.TabIndex = 11;
@@ -503,15 +473,45 @@
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
             this.Code.ShowLineNumbers = false;
-            this.Code.Size = new System.Drawing.Size(640, 430);
+            this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
             this.Code.Text = "";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // Line
+            // 
+            this.Line.HeaderText = "Ln";
+            this.Line.Name = "Line";
+            this.Line.ReadOnly = true;
+            this.Line.Width = 30;
+            // 
+            // Col
+            // 
+            this.Col.HeaderText = "Col";
+            this.Col.Name = "Col";
+            this.Col.ReadOnly = true;
+            this.Col.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Errors";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Width = 330;
             // 
             // LexiCom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 673);
+            this.ClientSize = new System.Drawing.Size(1202, 673);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.DataLexicalError);

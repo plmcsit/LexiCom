@@ -218,7 +218,8 @@ Prod_concat_value = STRINGLIT | Prod_input_id ;
 
 /* OBJECT INITIALIZATION */
 Prod_subelement = AT ID [Prod_subelement] ;
-Prod_input_id = ID [Prod_subelement] ;
+Prod_input_id = ID [Prod_input_tail] ;
+Prod_input_tail = AT ID [Prod_input_tail] ;
 
 /* ARRAY INITIALIZATION */
 Prod_multi =  OB Prod_index CB;

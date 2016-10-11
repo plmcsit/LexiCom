@@ -100,14 +100,15 @@ namespace Core.Library
         string concat_value = "\"stringlit\", \"id\"";
         string incdecvar = "\"++\", \"--\", \"id\"";
         string subelement = "\"@\", \"++\", \"--\", \"@\", \"Start\", \",\", \".\", \"&&\", \"||\", \">=\", \"<=\", \"<\", \">\", \"==\", \"!=\", \")\", \";\"";
+        string input_tail = "\"@\", \",\", \".\"";
         string input_id = "\"id\"";
         string multi = "\"[\", \"=\"";
         string index = "\"intlit\", \"id\", \"]\"";
         string IfOtherwise = "\"If\"";
         string or = "\"Or\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"!\", \"id\", \"boollit\", \"(\", \"Otherwise\"";
         string otherwise = "\"Otherwise\", \"EndIf\"";
-        string cond_loop = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \"Loop\", \"LoopIf\", \"Skip\", \"Stop\", \"Or\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"!\", \"id\", \"boollit\", \"EndIf\", \"Otherwise\"";
-        string control = "\"Skip\", \"Stop\", \"Var\", Clear, id, Int, Char, Boolean, Double, String, ++, --, Object, Until, Do, For, Array, If, Read, Say, Option, Loop, LoopIf, Or, intlit, doublelit, charlit, stringlit, !, boollit, EndIf, Otherwise";
+        string cond_loop = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \"Loop\", \"LoopIf\", \"Skip\", \"Stop\", \"Or\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"id\", \"boollit\", \"EndIf\", \"Otherwise\"";
+        string control = "\"Skip\", \"Stop\", \"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \"Loop\", \"LoopIf\", \"Or\", \"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"boollit\", \"EndIf\", \"Otherwise\"";
         string conditions = "\"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"!\", \"id\", \"boollit\", \"(\", \"id\"";
         string conditionschoice = "\"intlit\", \"doublelit\", \"charlit\", \"stringlit\", \"!\", \"id\", \"boollit\", \"(\"";
         string multiconds = "\"(\"";
@@ -285,6 +286,7 @@ namespace Core.Library
                 case 2133: return returnSTRING;
                 case 2134: return returnBOOLEAN;
                 case 2135: return returntail;
+                case 2136: return input_tail;
             }
             return "";
         }
