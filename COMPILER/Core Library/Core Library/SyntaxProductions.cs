@@ -7,6 +7,7 @@ namespace Core.Library
         private string Productions = "";
         private string RecursiveProductions = "";
         private List<int> ProductionCode = new List<int>();
+        private List<string> ProductionState = new List<string>();
 
         public void AddProductionCode(int code)
         {
@@ -18,6 +19,18 @@ namespace Core.Library
             int last = ProductionCode.Count - 1;
             return this.ProductionCode[last];
         }
+
+        public void AddProductionState(string state)
+        {
+            this.ProductionState.Add(state);
+        }
+
+        public string GetLastProductionState()
+        {
+            int last = ProductionState.Count - 1;
+            return this.ProductionState[last];
+        }
+
         public List<int> GetAllProductionCode()
         {
             return this.ProductionCode;

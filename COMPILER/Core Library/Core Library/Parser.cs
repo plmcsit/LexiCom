@@ -40,7 +40,12 @@ namespace Core.Library {
 
         public int GetLastProductionCode()
         {
-           return production.GetLastProductionCode();
+            return production.GetLastProductionCode();
+        }
+
+        public string GetLastProductionState()
+        {
+            return production.GetLastProductionState();
         }
 
         public List<int> GetAllProductionCode()
@@ -67,7 +72,7 @@ namespace Core.Library {
          * The map with production patterns and their id:s. This map
          * contains the production patterns indexed by their id:s.
          */
-        private Hashtable patternIds = new Hashtable();
+        private Hashtable patternIds = new Hashtable(); 
 
         /**
          * The list of buffered tokens. This list will contain tokens that

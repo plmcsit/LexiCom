@@ -238,17 +238,20 @@ namespace Core.Library {
                         if(ExitNode(child) != null)
                         production.AddRecursiveProduction("Enter: " + pr + "\n");
                         production.AddProductionCode(elem.GetId());
+                        production.AddProductionState("Enter: " + pr + "\n");
                     }
                     else {
                         pr = pr.Substring(5);
                         production.AddRecursiveProduction("Enter: <" + pr + ">\n");
                         production.AddProductionCode(elem.GetId());
+                        production.AddProductionState("Enter: <" + pr + ">\n");
                         child = ParsePattern(GetPattern(elem.Id));
                         AddNode(node, child);
                     }
                 } else {
                     pr = pr.Substring(5);
                     production.AddRecursiveProduction("Enter: NULL <" + pr + ">\n");
+                    production.AddProductionState("NULL");
                     production.AddProductionCode(elem.GetId());
                     break;
                 }

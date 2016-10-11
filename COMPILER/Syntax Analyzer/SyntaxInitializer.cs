@@ -105,18 +105,26 @@ namespace Syntax_Analyzer
                 {
                     message = "Expected one of ";
                 }
-                foreach (var item in e.GetError(0).Details)
+
+                if (p.GetLastProductionState() == "NULL")
                 {
-                    message += item + ", ";     
+                    PredictSets ps = new PredictSets();
+                    int code = p.GetLastProductionCode();
+                    message += ps.GetPredictSet(code);
+                }
+                else
+                {
+                    foreach (var item in e.GetError(0).Details)
+                    {
+                        message += item + ", ";
+                    }
                 }
                 message += ".";
-
-                
 
                 errors.setErrorMessage(message);
                 errors.setType(e.GetError(0).Type.ToString());
                 result = e.Message;
-                int code = p.GetLastProductionCode();
+                
             }
             recursiveprod = p.GetRecursiveProduction();
             return result;
