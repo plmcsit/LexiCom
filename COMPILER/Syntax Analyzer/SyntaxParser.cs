@@ -1227,7 +1227,7 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.OP, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_CONDITIONS, 1, 1);
             alt.AddToken((int) SyntaxConstants.CP, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_CONDS_TAIL, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_LOG_OPS, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1290,6 +1290,10 @@ namespace Syntax_Analyzer {
             alt.AddProduction((int) SyntaxConstants.PROD_LOGOP1, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_CONDITIONS, 1, 1);
             pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int)SyntaxConstants.PROD_RELOP_TEXT, 1, 1);
+            alt.AddProduction((int)SyntaxConstants.PROD_IDSCHOICE, 1, 1);
+            pattern.AddAlternative(alt);
             AddPattern(pattern);
 
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_REL_OPS,
@@ -1297,10 +1301,6 @@ namespace Syntax_Analyzer {
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_RELOP_NUM, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_NUMVAL, 1, 1);
-            pattern.AddAlternative(alt);
-            alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_RELOP_TEXT, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_IDSCHOICE, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

@@ -69,6 +69,7 @@ namespace Syntax_Analyzer
         public ErrorClass errors = new ErrorClass();
         public string Start(List<TokensClass> tokens)
         {
+            Boolean isDone = false;
             string tokenstream = "";
             string result;
             int line = 1;
@@ -104,39 +105,50 @@ namespace Syntax_Analyzer
             }
             catch (ParserLogException e)
             {
-               
+
+                List<int> codes = p.GetAllProductionCode();
+                PredictSets ps = new PredictSets();
                 string message = "Expected: ";
                 errors.setColumn(e.GetError(0).Column);
                 errors.setLines(e.GetError(0).Line);
+                int ctr = GetSyntaxTable(codes);
+                isDone = true;
 
-
-                if (p.GetLastProductionState() == "NULL")
+                if(codes.Count - 1 >= ctr)
                 {
-                    PredictSets ps = new PredictSets();
-                    int code = p.GetLastProductionCode();
+                    int code = codes[ctr];
                     message += ps.GetPredictSet(code);
                 }
                 else
                 {
-                    foreach (var item in e.GetError(0).Details)
-                    {
-                        message += item + ", ";
-                    }
+                    int code = codes[ctr - 1];
+                    message += ps.GetPredictSet(code);
                 }
-
-                //foreach (var item in e.GetError(0).Details)
+                //if (p.GetLastProductionState() == "NULL")
                 //{
-                //    message += item + ", ";
+                //    int code = p.GetLastProductionCode();
+                //    message += ps.GetPredictSet(code);
                 //}
-
-                if (message == "Expected: @, (, &&, ||, >=, <=, <, >, ==, !=, )")
+                //else
+                //{
+                //    foreach (var item in e.GetError(0).Details)
+                //    {
+                //        message += item + ", ";
+                //    }
+                //}
+                if (message == "Expected: ")
                 {
-                    message = "Expected: ";
-                    foreach (var item in e.GetError(0).Details)
-                    {
-                        message += item + ", ";
-                    }
+                    message += e.GetError(0).ErrorMessage;
                 }
+
+                //if (message == "Expected: @, (, &&, ||, >=, <=, <, >, ==, !=, )")
+                //{
+                //    message = "Expected: ";
+                //    foreach (var item in e.GetError(0).Details)
+                //    {
+                //        message += item + ", ";
+                //    }
+                //}
 
                 message += ".";
 
@@ -146,15 +158,14 @@ namespace Syntax_Analyzer
                 
             }
             recursiveprod = p.GetRecursiveProduction();
-            GetSyntaxTable(p.GetAllProductionCode(), p.GetAllProductionState());
+            GetSyntaxTable(p.GetAllProductionCode());
             return result;
         }
 
-        private void GetSyntaxTable(List<int> code, List<string> state)
+        private int GetSyntaxTable(List<int> code)
         {
             Node node = null;
             Boolean delete = true;
-            string prodstate = "";
             string recprod = recursiveprod;
             int ctr = -1, count = 1, prodcode = 0;
             string currentparent = "";
@@ -162,7 +173,6 @@ namespace Syntax_Analyzer
             {
                 ctr++;
                 prodcode = code[ctr];
-                prodstate = state[ctr];
                 node = productions[count];
 
 
@@ -208,7 +218,7 @@ namespace Syntax_Analyzer
 
 
             }
-            
+            return (ctr + 1);
         }
 
         private Parser CreateParser(string input)
