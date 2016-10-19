@@ -1275,7 +1275,7 @@ namespace Syntax_Analyzer {
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_IDSBODY,
                                             "Prod_idsbody");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_SUBELEMENT, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_CONDSUB, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
             alt.AddToken((int) SyntaxConstants.OP, 1, 1);
@@ -1353,6 +1353,17 @@ namespace Syntax_Analyzer {
             alt.AddProduction((int) SyntaxConstants.PROD_IDSBODY, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
+
+
+            pattern = new ProductionPattern((int)SyntaxConstants.PROD_CONDSUB,
+                                "Prod_condsub");
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)SyntaxConstants.AT, 1, 1);
+            alt.AddToken((int)SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int)SyntaxConstants.PROD_CONDSUB, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
 
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_OPTION,
                                             "Prod_option");
@@ -1600,7 +1611,7 @@ namespace Syntax_Analyzer {
                                             "Prod_taskbody");
             alt = new ProductionPatternAlternative();
             alt.AddToken((int) SyntaxConstants.START, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_TASKBODYTAIL, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_TASKBODYTAIL, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1608,7 +1619,7 @@ namespace Syntax_Analyzer {
                                             "Prod_taskbodytail");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_STATEMENTS, 1, 1);
-            alt.AddToken((int) SyntaxConstants.PER, 1, 1);
+            
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

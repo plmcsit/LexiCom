@@ -239,13 +239,15 @@ Prod_conditionschoice = Prod_idschoice [Prod_condsTail] | Prod_multiconds ;
 Prod_multiconds   = OP Prod_conditions CP   [Prod_logOps]  ;
 Prod_idschoice =  [Prod_logop2] Prod_idschoice1 | INTLIT | DOUBLELIT | CHARLIT | STRINGLIT ;
 Prod_idschoice1 = ID [Prod_idsbody] | BOOLLIT ;
-Prod_idsbody = Prod_subelement | OP [Prod_param] CP ;
+Prod_idsbody = Prod_condsub | OP [Prod_param] CP ;
 Prod_condsTail  =  Prod_logOps  |  Prod_relOps ;
 Prod_logOps   =  Prod_logop1 Prod_conditions | Prod_relopText Prod_idschoice ;
 Prod_relOps  =  Prod_relopNum   Prod_numval ; 
 Prod_relopNum  =  GEQ | LEQ | GREAT | LESS ;   
 Prod_relopText  = ISEQ | NOTEQ ;
 Prod_numval  = INTLIT | DOUBLELIT | ID [Prod_idsbody] ;
+Prod_condsub = AT ID [Prod_condsub];
+
 
 /* OPTION STATEMENT */
 Prod_option = OPTION Prod_input_id START STATE Prod_optiontails ;
@@ -278,7 +280,7 @@ Prod_returntype = INT ID COL Prod_taskbody RESPONSE Prod_returnINT PER
     | BOOLEAN ID COL Prod_taskbody RESPONSE Prod_returnBOOLEAN PER 
     | NULL ID COL Prod_taskbody ;
 Prod_taskbody = START [Prod_taskbodytail] ;
-Prod_taskbodytail = Prod_statements PER ;
+Prod_taskbodytail = Prod_statements ;
 Prod_returnINT = INTLIT | ID [Prod_returntail] ;
 Prod_returnDOUBLE = DOUBLELIT | ID [Prod_returntail] ;
 Prod_returnCHAR = CHARLIT | ID [Prod_returntail] ;

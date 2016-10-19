@@ -68,6 +68,10 @@ namespace LexiCom
                             //    DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), "Expected: \"intlit\", \"charlit\", \"stringlit\".");
                             //}
                             //else
+                            if(Syntax_Analyzer.errors.getColumn() == 1)
+                            {
+                                Syntax_Analyzer.errors.setLines(Syntax_Analyzer.errors.getLines() - 1);
+                            }
                             DataSyntaxError.Rows.Add(errornum, Syntax_Analyzer.errors.getLines(), Syntax_Analyzer.errors.getColumn(), Syntax_Analyzer.errors.getErrorMessage());
                             errornum++;
                         }

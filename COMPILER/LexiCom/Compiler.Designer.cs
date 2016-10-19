@@ -55,6 +55,10 @@
             this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.DataSyntaxError = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,10 +68,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
@@ -358,6 +358,35 @@
             this.DataSyntaxError.Size = new System.Drawing.Size(438, 94);
             this.DataSyntaxError.TabIndex = 3;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // Line
+            // 
+            this.Line.HeaderText = "Ln";
+            this.Line.Name = "Line";
+            this.Line.ReadOnly = true;
+            this.Line.Width = 30;
+            // 
+            // Col
+            // 
+            this.Col.HeaderText = "Col";
+            this.Col.Name = "Col";
+            this.Col.ReadOnly = true;
+            this.Col.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Errors";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Width = 330;
+            // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.DarkCyan;
@@ -457,35 +486,6 @@
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn1.Width = 30;
-            // 
-            // Line
-            // 
-            this.Line.HeaderText = "Ln";
-            this.Line.Name = "Line";
-            this.Line.ReadOnly = true;
-            this.Line.Width = 30;
-            // 
-            // Col
-            // 
-            this.Col.HeaderText = "Col";
-            this.Col.Name = "Col";
-            this.Col.ReadOnly = true;
-            this.Col.Width = 30;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Errors";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn4.Width = 330;
-            // 
             // Code
             // 
             this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -501,7 +501,7 @@
             this.Code.NumberLeadingZeroes = false;
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = false;
+            this.Code.ShowLineNumbers = true;
             this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
             this.Code.Text = "";

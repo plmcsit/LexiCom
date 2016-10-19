@@ -69,7 +69,7 @@ namespace Syntax_Analyzer
         public ErrorClass errors = new ErrorClass();
         public string Start(List<TokensClass> tokens)
         {
-            Boolean isDone = false;
+            //Boolean isDone = false;
             string tokenstream = "";
             string result;
             int line = 1;
@@ -112,7 +112,7 @@ namespace Syntax_Analyzer
                 errors.setColumn(e.GetError(0).Column);
                 errors.setLines(e.GetError(0).Line);
                 int ctr = GetSyntaxTable(codes);
-                isDone = true;
+                //isDone = true;
 
                 if(codes.Count - 1 >= ctr)
                 {
@@ -149,6 +149,7 @@ namespace Syntax_Analyzer
                     }
                     if (errormessage == "unexpected end of file")
                         errormessage = "\".\"";
+
                     message += errormessage;
                 }
 
@@ -189,17 +190,41 @@ namespace Syntax_Analyzer
 
                 if (node.GetId() == prodcode)
                 {
-                    delete = true;
+
+                    string nodename = node.GetName().ToLower();
                     currentparent = node.GetParent().GetName();
+                    currentparent = currentparent.ToLower();
+                    delete = true;
+
+                    if (currentparent.Contains("prod_"))
+                    {
+                        currentparent = "<" + currentparent.Substring(5) + ">";
+                    }
+                    if(nodename.Contains("prod_"))
+                    {
+                        nodename = "<" + nodename.Substring(5) + ">";
+                    }
+
                     PRODUCTION.Add(currentparent);
-                    SET.Add(node.GetName());
+                    SET.Add(nodename);
                 }
                 else
                 {
 
                     string name = Enum.GetName(typeof(SyntaxConstants), prodcode);
+                    name = name.ToLower();
+                    if (name.Contains("prod_"))
+                    {
+                        name = "<" + name.Substring(5) + ">";
+                    }
+
                     if (PRODUCTION.Count != 1)
                     {
+                        currentparent.ToLower();
+                        if (currentparent.Contains("prod_"))
+                        {
+                            currentparent = "<" + currentparent.Substring(5) + ">";
+                        }
                         PRODUCTION.Add(currentparent);
                         SET.Add(name);
                         PRODUCTION.Add(name);

@@ -121,6 +121,7 @@ namespace Core.Library
         string relopNum = "\">=\", \"<=\", \"<\", \">\"";
         string relopText = "\"==\", \"!=\"";
         string numval = "\"intlit\", \"doublelit\", \"id\"";
+        string condsub = "\"&&\", \"||\", \")\", \"@\"";
         string ids = "\"id\", \"!\", \"boollit\", \"id\"";
         string ids_null = "\"boollit\", \"id\"";
         string option = "\"Option\"";
@@ -138,7 +139,7 @@ namespace Core.Library
         string taskdef = "\"Task\", \"#\"";
         string returntype = "\"Int\", \"Double\", \"Char\", \"String\", \"Boolean\", \"Null\"";
         string taskbody = "\"Start\"";
-        string taskbodytail = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \".\"";
+        string taskbodytail = "\"Var\", \"Clear\", \"id\", \"Int\", \"Char\", \"Boolean\", \"Double\", \"String\", \"++\", \"--\", \"Object\", \"Until\", \"Do\", \"For\", \"Array\", \"If\", \"Read\", \"Say\", \"Option\", \".\", \"Response\"";
         string returnINT = "\"intlit\", \"id\"";
         string returnDOUBLE = "\"doublelit\", \"id\"";
         string returnCHAR = "\"charlit\", \"id\"";
@@ -287,6 +288,7 @@ namespace Core.Library
                 case 2134: return returnBOOLEAN;
                 case 2135: return returntail;
                 case 2136: return input_tail;
+                case 2137: return condsub;
             }
             return "";
         }
