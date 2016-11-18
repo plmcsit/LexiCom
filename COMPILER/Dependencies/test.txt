@@ -1,6 +1,8 @@
 Lead :
 Start
-If ( ( id == id )  id != id )
+Var Int id is intlit ; id ; id is intlit .
+Var Double id is doublelit ; id is doublelit ; id .
+If ( ( id == id ) && id != id )
 EndIf .
 End . #
 

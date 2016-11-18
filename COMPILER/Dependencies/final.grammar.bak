@@ -92,30 +92,30 @@ Prod_global_choice  = Prod_varlet
                     | Prod_array
                     | Prod_task
                     | Prod_object ;
-Prod_dtype          = INT ID
-                    | DOUBLE ID
-                    | CHAR ID
-                    | STRING ID
-                    | BOOLEAN ID;
+Prod_dtype          = INT
+                    | DOUBLE
+                    | CHAR
+                    | STRING
+                    | BOOLEAN ;
 
 /* OBJECT DECLARATION */
-Prod_object         = OBJECT ID START VAR Prod_dtype PER [Prod_objdec_choice] END [Prod_varname] ;
+Prod_object         = OBJECT ID START VAR Prod_dtype ID PER [Prod_objdec_choice] END [Prod_varname] ;
 Prod_objdec_choice  = Prod_objvar PER [Prod_objdec_choice]
                     | Prod_var PER [Prod_objdec_choice] ;
-Prod_var            = VAR Prod_dtype ; 
+Prod_var            = VAR Prod_dtype ID ; 
 Prod_objvar         = OBJECT ID ID ;
 Prod_varname        = ID [Prod_varnames] ;
 Prod_varnames       = SEM [Prod_varname] ;
 
 /* TASK DECLARATION */
-Prod_task           = TASK Prod_return [Prod_tparam] ;
-Prod_return         = NULL ID
+Prod_task           = TASK Prod_return ID [Prod_tparam] ;
+Prod_return         = NULL
                     | Prod_dtype ;
-Prod_tparam         = OP VAR Prod_dtype [Prod_tparams] CP  ;
-Prod_tparams        = SEM VAR Prod_dtype [Prod_tparams] ;
+Prod_tparam         = OP VAR Prod_dtype ID [Prod_tparams] CP  ;
+Prod_tparams        = SEM VAR Prod_dtype ID [Prod_tparams] ;
 
 /* ARRAY DECLARATION */
-Prod_array          = ARRAY Prod_dtype OF Prod_size ;
+Prod_array          = ARRAY Prod_dtype ID OF Prod_size ;
 Prod_size           = INTLIT [Prod_sizes] ;
 Prod_sizes          = BY INTLIT ;
 
@@ -142,12 +142,16 @@ Prod_initSTRING     = IS Prod_value4 [Prod_ids4]
 Prod_varBOOLEAN     = BOOLEAN ID [Prod_initBOOLEAN] ;
 Prod_initBOOLEAN    = IS Prod_value5 [Prod_ids5]
                     | Prod_ids5 ;
-Prod_ids1           = SEM ID [Prod_initINT] ;
-Prod_ids2           = SEM ID [Prod_initDOUBLE] ;
-Prod_ids3           = SEM ID [Prod_initCHAR] ;
-Prod_ids4           = SEM ID [Prod_initSTRING] ;
-Prod_ids5           = SEM ID [Prod_initBOOLEAN] ;
-
+Prod_ids1           = SEM ID [Prod_ids1_tail] ;
+Prod_ids2           = SEM ID [Prod_ids2_tail] ;
+Prod_ids3           = SEM ID [Prod_ids3_tail] ;
+Prod_ids4           = SEM ID [Prod_ids4_tail] ;
+Prod_ids5           = SEM ID [Prod_ids5_tail] ;
+Prod_ids1_tail      = IS Prod_value1 [Prod_ids1];
+Prod_ids2_tail      = IS Prod_value2 [Prod_ids2];
+Prod_ids3_tail      = IS Prod_value3 [Prod_ids3];
+Prod_ids4_tail      = IS Prod_value4 [Prod_ids4];
+Prod_ids5_tail      = IS Prod_value5 [Prod_ids5];
 
 /* MATH OPERATIONS */
 Prod_value1         = Prod_numvalue [Prod_Operations1]
