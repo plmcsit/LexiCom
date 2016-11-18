@@ -150,14 +150,14 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1202, 22);
             this.label1.TabIndex = 4;
-            this.label1.Text = "version 0.2 Build 6 (Beta Version)";
+            this.label1.Text = "version 1.0 Build 1 (Alpha Version)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.DarkCyan;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Code Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";

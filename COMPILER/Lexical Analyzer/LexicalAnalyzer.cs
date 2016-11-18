@@ -794,7 +794,7 @@ namespace Lexical_Analyzer
                                 isvalID = true;
                             }
                     }
-                    if (ictr > 19)
+                    if (ictr > 11)
                         valID = false;
                 }
                 
