@@ -729,9 +729,12 @@ namespace Syntax_Analyzer {
 
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_FUNCTIONS,
                                             "Prod_functions");
+            //alt = new ProductionPatternAlternative();
+            //alt.AddProduction((int)SyntaxConstants.PROD_VARLET, 1, 1);
+            //pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken((int) SyntaxConstants.VAR, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_VARDEC, 1, 1);
+            alt.AddToken((int)SyntaxConstants.VAR, 1, 1);
+            alt.AddProduction((int)SyntaxConstants.PROD_VARDEC, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_VARINIT, 1, 1);

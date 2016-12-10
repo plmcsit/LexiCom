@@ -1,6 +1,11 @@
 Lead :
 Start
-If ( ( id == id )  id != id )
+<<<<<<< HEAD
+=======
+Var Int id is intlit ; id ; id is intlit .
+Var Double id is doublelit ; id is doublelit ; id .
+>>>>>>> refactor-syntax-and-semantics
+If ( ( id == id ) && id != id )
 EndIf .
 End . #
 

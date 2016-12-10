@@ -19,7 +19,11 @@ namespace Lexical_Analyzer
 
             while (txt != "")
             {
-                if (hastoken = lex.GetTokenLines(txt, tokens))
+                if(txt.ElementAt(0) == '\t')
+                {
+                    txt = txt.Remove(0, 1);
+                }
+                else if (hastoken = lex.GetTokenLines(txt, tokens))
                 {
                     txt = txt.Remove(0, lex.ctr);
                     tokens--;

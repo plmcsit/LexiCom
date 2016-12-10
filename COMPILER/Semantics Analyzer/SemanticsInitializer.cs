@@ -26,8 +26,16 @@ namespace Semantics_Analyzer
 
         public string error = "";
         public List<Tokens> tokens;
-        public List<Tokens> ID = new List<Tokens>();
+        //public List<Tokens> ID = new List<Tokens>();
         public List<Tokens> globalID = new List<Tokens>();
+
+        //List of Identifiers
+        public List<SemanticsConstants.Identifiers> identifiers = new List<SemanticsConstants.Identifiers>();
+        public List<SemanticsConstants.Arrays> arrays = new List<SemanticsConstants.Arrays>();
+        public List<SemanticsConstants.Index> indexes = new List<SemanticsConstants.Index>();
+        public List<SemanticsConstants.Objects> objects = new List<SemanticsConstants.Objects>();
+        public List<SemanticsConstants.Task> tasks = new List<SemanticsConstants.Task>();
+
 
         public SemanticsInitializer()
             : this(new List<Tokens>()) { }
@@ -164,7 +172,19 @@ namespace Semantics_Analyzer
             return dtype;
         }
 
-
+        private SemanticsConstants.Identifiers setIdentifier
+        (string identifier, string attrib, string dtype, string scope, string value, int lines, string token)
+        {
+            SemanticsConstants.Identifiers ID = new SemanticsConstants.Identifiers();
+            ID.setAttrib(attrib);
+            ID.setDtype(dtype);
+            ID.setId(identifier);
+            ID.setLines(lines);
+            ID.setScope(scope);
+            ID.setTokens(token);
+            ID.setValue(value);
+            return ID;
+        }
         public override Node ExitProdStartProgram(Production node)
         {
             return node;
@@ -179,73 +199,218 @@ namespace Semantics_Analyzer
         }
         public override Node ExitProdGlobalChoice(Production node)
         {
+            //OLD SEMANTICS
+            //Node ChildGlobalChoice = node.GetChildAt(0);
+            //if (ChildGlobalChoice.GetName() == "Prod_varlet")
+            //{
+            //    Node VarLet = ChildGlobalChoice.GetChildAt(0);
+            //    Node varDTYPE = ChildGlobalChoice.GetChildAt(1).GetChildAt(0);
+            //    Boolean isdeclared = false;
+            //    int line, col;
+            //    string strvarlet = VarLet.GetName();
+            //    string dtype = varDTYPE.GetChildAt(0).GetName();
+            //    int idline = varDTYPE.GetChildAt(1).GetStartLine();
+            //    int idcol = varDTYPE.GetChildAt(1).GetStartColumn();
+            //    Tokens token = GetTokens(idline, idcol);
+            //    Tokens ids = new Tokens();
 
-            if (node.GetChildAt(0).GetName() == "Prod_varlet")
+            //    if (strvarlet == "VAR")
+            //        strvarlet = "Var";
+            //    else strvarlet = "Let";
+            //    dtype = getDtype(dtype);
+            //    token.addAttribute(dtype);
+            //    token.addAttribute(strvarlet);
+            //    //If has a 3rd children
+            //    if (varDTYPE.GetChildAt(2) != null)
+            //    {
+            //        if (dtype == "Int")
+            //            if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initINT")
+            //            {
+            //                if(node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetName() == "IS")
+            //                {
+            //                    line = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(1).GetStartLine();
+            //                    col = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(1).GetStartColumn();
+            //                    Tokens value = GetTokens(line, col);
+            //                    token.addAttribute(value.getLexemes());   
+            //                }
+            //                //else
+            //                //{
+            //                //    ids = new Tokens();
+            //                //    line = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetStartLine();
+            //                //    col = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetStartColumn();
+            //                //    ids = GetTokens(line, col);
+            //                //    hasGlobalID(ids);
+            //                //}
+            //            }
+            //        if (dtype == "Double")
+            //            if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initDOUBLE")
+            //            {
+
+            //            }
+            //        if (dtype == "Char")
+            //            if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initCHAR")
+            //            {
+
+            //            }
+            //        if (dtype == "String")
+            //            if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initSTRING")
+            //            {
+
+            //            }
+            //        if (dtype == "Boolean")
+            //            if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initBOOLEAN")
+            //            {
+
+            //            }
+            //    }
+            //    hasGlobalID(token);
+            //}
+            Node ProdGlobalChoice = node;
+            string production = ProdGlobalChoice.GetChildAt(0).GetName();
+            switch(production)
             {
-                Boolean isdeclared = false;
-                int line, col;
-                string varlet = node.GetChildAt(0).GetChildAt(0).GetName();
-                if (varlet == "VAR")
-                    varlet = "Var";
-                else varlet = "Let";
-                
-                string dtype = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(0).GetName();
-                int idline = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(1).GetStartLine();
-                int idcol = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(1).GetStartColumn();
-                dtype = getDtype(dtype);
-                Tokens token = GetTokens(idline, idcol);
-                Tokens ids = new Tokens();
-                token.addAttribute(dtype);
-                token.addAttribute(varlet);
-                //If has a 3rd children
-                if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2) != null)
-                {
-                    if (dtype == "Int")
-                        if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initINT")
+                case "Prod_varlet":
+                    SemanticsConstants.Identifiers ID = new SemanticsConstants.Identifiers();
+                    Node Prod_varlet = ProdGlobalChoice.GetChildAt(0);
+                    Node Prod_vardec = Prod_varlet.GetChildAt(1);
+                    Node Prod_varDTYPE = Prod_varlet.GetChildAt(1).GetChildAt(0);
+                    bool hasMultiple = false, isDeclared = false, stored = false;
+                    int idline = Prod_varDTYPE.GetChildAt(1).GetStartLine();
+                    int idcol = Prod_varDTYPE.GetChildAt(1).GetStartColumn();
+                    Tokens token = GetTokens(idline, idcol);
+                    string identifier = token.getLexemes();
+                    int lines = token.getLines();
+                    string dtype = Prod_varDTYPE.GetChildAt(0).GetName();
+                    string attrib = Prod_varlet.GetChildAt(0).GetName();
+                    dtype = getDtype(dtype);
+                    string scope = "Global";
+                    string value = "";
+
+                    //HAS VALUE OR MULTIPLE
+                    if(Prod_varDTYPE.GetChildAt(2) != null)
+                    {
+                        Node Prod_initDTYPE = Prod_varDTYPE.GetChildAt(2);
+                        //has value then get value
+                        if (Prod_initDTYPE.GetChildAt(1) != null)
                         {
-                            if(node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetName() == "IS")
+
+                        }
+                        //has no value then set default value
+                        else
+                        {
+                            if(dtype == "Int")
                             {
-                                line = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(1).GetStartLine();
-                                col = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(1).GetStartColumn();
-                                Tokens value = GetTokens(line, col);
-                                token.addAttribute(value.getLexemes());   
+                                value = "0";
                             }
-                            //else
-                            //{
-                            //    ids = new Tokens();
-                            //    line = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetStartLine();
-                            //    col = node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetChildAt(0).GetChildAt(0).GetChildAt(1).GetStartColumn();
-                            //    ids = GetTokens(line, col);
-                            //    hasGlobalID(ids);
-                            //}
+                            else if (dtype == "Double")
+                            {
+                                value = "0.0";
+                            }
+                            else if (dtype == "String")
+                            {
+                                value = "\"\"";
+                            }
+                            else if (dtype == "Char")
+                            {
+                                value = "''";
+                            }
+                            else if (dtype == "Boolean")
+                            {
+                                value = "True";
+                            }
                         }
-                    if (dtype == "Double")
-                        if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initDOUBLE")
-                        {
+                        //store ID if not declared
+                        ID = setIdentifier(identifier, attrib, dtype, scope, value, lines, token.getTokens());
+                            if (identifiers.Count != 0)
+                            {
+                                foreach (var item in identifiers)
+                                {
+                                    if (ID.getId() == item.getId())
+                                    {
+                                        string item_attrib = item.getAttrib();
+                                        if (item_attrib == "VAR" 
+                                         || item_attrib == "LET"
+                                         || item_attrib == "ARRAY"
+                                         || item_attrib == "OBJECT"
+                                         || item_attrib == "TASK")
+                                        {
+                                            error += "Semantics Error (Ln" + token.getLines() + "): " + token.getLexemes() + " is already declared.\n";
+                                            isDeclared = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!isDeclared)
+                                {
+                                    identifiers.Add(ID);
+                                }
+                            }
+                            else
+                            {
+                                identifiers.Add(ID);
+                            }
+                        stored = true;
 
-                        }
-                    if (dtype == "Char")
-                        if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initCHAR")
+                        //check for multiple declarations
+                        if (Prod_initDTYPE.GetChildAt(0).GetName() == "Prod_ids1")
                         {
-
+                            hasMultiple = true;
                         }
-                    if (dtype == "String")
-                        if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initSTRING")
+                        if (Prod_initDTYPE.GetChildAt(2) != null)
                         {
-
+                            hasMultiple = true;
                         }
-                    if (dtype == "Boolean")
-                        if (node.GetChildAt(0).GetChildAt(1).GetChildAt(0).GetChildAt(2).GetName() == "Prod_initBOOLEAN")
+
+                    }
+                    if (!stored)
+                    {
+                        ID = setIdentifier(identifier, attrib, dtype, scope, value, lines, token.getTokens());
+                        if (identifiers.Count != 0)
                         {
-
+                            foreach (var item in identifiers)
+                            {
+                                if (ID.getId() == item.getId())
+                                {
+                                    string item_attrib = item.getAttrib();
+                                    if (item_attrib == "VAR"
+                                     || item_attrib == "LET"
+                                     || item_attrib == "ARRAY"
+                                     || item_attrib == "OBJECT"
+                                     || item_attrib == "TASK")
+                                    {
+                                        error += "Semantics Error (Ln" + token.getLines() + "): " + token.getLexemes() + " is already declared.\n";
+                                        isDeclared = true;
+                                    }
+                                }
+                            }
+                            if (!isDeclared)
+                            {
+                                identifiers.Add(ID);
+                            }
                         }
-                }
-                hasGlobalID(token);
+                        else
+                        {
+                            identifiers.Add(ID);
+                        }
+                    }
+
+
+                    break;
+                case "Prod_array":
+                    Node Prod_array = ProdGlobalChoice.GetChildAt(0);
+                    break;
+                case "Prod_task":
+                    Node Prod_task = ProdGlobalChoice.GetChildAt(0);
+                    break;
+                case "Prod_object":
+                    Node Prod_object = ProdGlobalChoice.GetChildAt(0);
+                    break;
             }
+
             return node;
         }
         public override Node ExitProdDtype(Production node)
-        {
+        {   
             return node;
         }
         public override Node ExitProdObject(Production node)

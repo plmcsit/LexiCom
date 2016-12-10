@@ -150,14 +150,14 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1202, 22);
             this.label1.TabIndex = 4;
-            this.label1.Text = "version 0.2 Build 6 (Beta Version)";
+            this.label1.Text = "version 1.0 Build 1 (Alpha Version)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.DarkCyan;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Code Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
@@ -488,6 +488,7 @@
             // 
             // Code
             // 
+            this.Code.AcceptsTab = true;
             this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Code.Location = new System.Drawing.Point(12, 87);
             this.Code.Name = "Code";
@@ -501,7 +502,7 @@
             this.Code.NumberLeadingZeroes = false;
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = true;
+            this.Code.ShowLineNumbers = false;
             this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
             this.Code.Text = "";

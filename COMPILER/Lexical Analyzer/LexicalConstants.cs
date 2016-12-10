@@ -17,12 +17,12 @@ namespace Lexical_Analyzer
         }
         public class ReservedWordsDelims
         {
-            public List<char> whitespace = new List<char> { ' ', '\n' };
-            public List<char> delim_1 = new List<char> { ' ', '\n', '.' };
-            public List<char> delim_2 = new List<char> { ' ', '\n', ':' };
-            public List<char> delim_3 = new List<char> { ' ', '\n', '(' };
-            public List<char> delim_dtype = new List<char> { ' ', '\n', '.' };
-            public List<char> delim_bool = new List<char> { ' ', '\n', '.', ';', '&', '|', ')' };
+            public List<char> whitespace = new List<char> { '\t', ' ', '\n' };
+            public List<char> delim_1 = new List<char> { '\t', ' ', '\n', '.' };
+            public List<char> delim_2 = new List<char> { '\t', ' ', '\n', ':' };
+            public List<char> delim_3 = new List<char> { '\t', ' ', '\n', '(' };
+            public List<char> delim_dtype = new List<char> { '\t', ' ', '\n', '.' };
+            public List<char> delim_bool = new List<char> { '\t', ' ', '\n', '.', ';', '&', '|', ')' };
             public List<char> delim_end = new List<char> { '.', ' ', '\n', '\t','(' , ':', ',', '&', '\'', '[', ']', '?', '#', '$', '%', '\\',
                                                            '|', '=', '+', '-', '*', '/', ')', '"', ';', '<', '>', '!', '@', '^', '~', '`', '_'};
         }
@@ -46,17 +46,17 @@ namespace Lexical_Analyzer
         }
         public class ReservedSymbolsDelims
         {
-            public List<char> whitespace = new List<char> { ' ', '\n' };
-            public List<char> condop = new List<char> { ' ', '\n', '!', '~' };
-            public List<char> concat = new List<char> { ' ', '\n', '"' };
-            public List<char> relop = new List<char> { '"', '\'', '(' };
-            public List<char> rel0p = new List<char> { '"', '\'', '(', ')'};
-            public List<char> delim4 = new List<char> { ' ', '\n', '#' };
-            public List<char> delim5 = new List<char> { '&', '|', ')', '.', ' ', '\n' };
-            public List<char> delim6 = new List<char> { ' ' };
-            public List<char> delim7 = new List<char> { '[', '=' };
-            public List<char> delim8 = new List<char> { ' ', ')', '.', ',', ';' };
-            public List<char> math = new List<char> { '(' };    
+            public List<char> whitespace = new List<char> { '\t', ' ', '\n' };
+            public List<char> condop = new List<char> { '\t', ' ', '\n', '!', '~' };
+            public List<char> concat = new List<char> { '\t', ' ', '\n', '"' };
+            public List<char> relop = new List<char> { '\t', '"', '\'', '(' };
+            public List<char> rel0p = new List<char> { '\t', '"', '\'', '(', ')'};
+            public List<char> delim4 = new List<char> { '\t', ' ', '\n', '#' };
+            public List<char> delim5 = new List<char> { '\t', '&', '|', ')', '.', ' ', '\n' };
+            public List<char> delim6 = new List<char> { '\t', ' ' };
+            public List<char> delim7 = new List<char> { '\t', '[', '=' };
+            public List<char> delim8 = new List<char> { '\t', ' ', ')', '.', ',', ';' };
+            public List<char> math = new List<char> { '\t', '(' };    
             public List<char> delim_numbers = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             public List<char> delim_caplet = new List<char> { 'A','B','C','D','E','F','G','H','I','J','K','L','M',
                                                        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
@@ -96,8 +96,8 @@ namespace Lexical_Analyzer
         }
         public class LiteralsDelims
         {
-            public List<char> delim_txt = new List<char> { ' ', '\n', ';', ',', ')', '.', ':' };
-            public List<char> delim_num = new List<char> { '+', '-', '*', '/', '.', ' ', '\n', ';', '&', '|', ')','%', ']'};
+            public List<char> delim_txt = new List<char> { '\t', ' ', '\n', ';', ',', ')', '.', ':' };
+            public List<char> delim_num = new List<char> { '\t', '+', '-', '*', '/', '.', ' ', ':', '\n', ';', '&', '|', ')','%', ']'};
         }
 
         //Identifier
