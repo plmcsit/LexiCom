@@ -1,0 +1,227 @@
+%header%
+GRAMMARTYPE = "LL"
+
+%tokens%
+/* Reserved Words */
+TASK 		= "Task"
+LEAD 		= "Lead"
+START 		= "Start"
+END 		= "End"
+VAR	        = "Var"
+ID 			= "id"
+AS 			= "as"
+LET		    = "Let"
+OBJECT      = "Object"
+OF          = "of"
+BY          = "by"
+IS          = "is"
+CLEAR       = "Clear"
+READ        = "Read"
+SAY         = "Say"
+SKIP        = "Skip"
+STOP        = "Stop"
+IF          = "If"
+OR          = "Or"
+OTHERWISE   = "Otherwise"
+OPTION      = "Option"
+STATE       = "State"
+DEFAULT     = "Default"
+UNTIL       = "Until"
+LOOP        = "Loop"
+LOOPIF      = "LoopIf"
+DO          = "Do"
+FOR         = "For"
+RESPONSE    = "Response"
+ENDIF       = "EndIf"
+
+/* Data Types */
+INT 		= "Int"
+DOUBLE 		= "Double"
+CHAR 		= "Char"
+STRING 		= "String"
+NULL        = "Null"
+ARRAY       = "Array"
+BOOLEAN     = "Boolean"
+
+/* Literals */
+INTLIT      = "intlit"
+DOUBLELIT   = "doublelit"
+CHARLIT     = "charlit"
+STRINGLIT   = "stringlit"
+BOOLLIT     = "boollit"
+
+/* Reserved Symbols */
+COL 		= ":"
+SEM         = ";"
+DIE			= "#"
+PER 		= "."
+OP          = "("
+CP          = ")"
+OB          = "["
+CB          = "]"
+ADD         = "+"
+MIN         = "-"
+MUL         = "*"
+DIV         = "/"
+MOD         = "%"
+INC         = "++"
+DEC         = "--"
+ISEQ        = "=="
+NOTEQ       = "!="
+GREAT       = ">"
+LESS        = "<"
+LOGAND      = "&&"
+LOGOR       = "||"
+NOT         = "!"
+EQ          = "="
+COMMA       = ","
+AT          = "@"
+GEQ         = ">="
+LEQ         = "<="
+
+WHITESPACE  = <<[ \t\n\r]+>> %ignore%
+
+%productions%
+/* PROGRAM START */
+Prod_StartProgram = Prod_program DIE ;
+Prod_program = [Prod_global] LEAD COL START [Prod_statements] END PER [Prod_taskdef] ;
+Prod_global = Prod_global_choice PER [Prod_global] ; 
+Prod_global_choice = Prod_let_global | Prod_vardec | Prod_array | Prod_task | Prod_object ;
+Prod_datatype = INT ID | DOUBLE ID | CHAR ID | STRING ID | BOOLEAN ID ;
+
+/* CONSTANT DECLARATION */
+Prod_let_global = LET ID IS Prod_values ;
+Prod_values = INTLIT | DOUBLELIT | STRINGLIT | CHARLIT | BOOLLIT ;
+
+/* VARIABLE DECLARATION */
+Prod_vardec = VAR Prod_vardtype ;
+Prod_vardtype = INT ID [Prod_varinitINT] [Prod_vartailINT] | DOUBLE ID [Prod_varinitDOUBLE] [Prod_vartailDOUBLE] | CHAR ID [Prod_varinitCHAR] [Prod_vartailCHAR] | STRING ID [Prod_varinitSTRING] [Prod_vartailSTRING] | BOOLEAN ID [Prod_varinitBOOLEAN] [Prod_vartailBOOLEAN] ;
+
+Prod_varinitINT = IS Prod_mathopINT ;
+Prod_varinitDOUBLE = IS Prod_mathopDOUBLE ;
+Prod_varinitCHAR = IS Prod_valueCHAR ;
+Prod_varinitSTRING = IS Prod_valueSTRING ;
+Prod_varinitBOOLEAN = IS Prod_valueBOOLEAN ;
+
+Prod_vartailINT = SEM ID [Prod_varinitINT] [Prod_vartailINT] ;
+Prod_vartailDOUBLE = SEM ID [Prod_varinitDOUBLE] [Prod_vartailDOUBLE] ;
+Prod_vartailCHAR = SEM ID [Prod_varinitCHAR] [Prod_vartailCHAR] ;
+Prod_vartailSTRING = SEM ID [Prod_varinitSTRING] [Prod_vartailSTRING] ;
+Prod_vartailBOOLEAN = SEM ID [Prod_varinitBOOLEAN] [Prod_vartailBOOLEAN] ;
+
+Prod_valueCHAR = CHARLIT | ID [Prod_id_tail] ;
+Prod_valueSTRING = STRINGLIT | ID [Prod_id_tail] ;
+Prod_valueBOOLEAN = BOOLLIT | ID [Prod_id_tail] ;
+
+/* ID CHOICES */
+Prod_id_tail = Prod_ids_tail | OP [Prod_task_param] CP ;
+Prod_ids_tail = Prod_id_choices ;
+Prod_id_choices = AT Prod_elements | OB Prod_index CB Prod_index_tail ;
+Prod_task_param = Prod_value [Prod_task_param_tail] ;
+Prod_task_param_tail = SEM [Prod_task_param] ;
+Prod_value = Prod_values | Prod_elements ;
+Prod_index = Prod_index_value Prod_indexop ;
+Prod_indexop = Prod_add_min Prod_index_value ;
+Prod_add_min = ADD | MIN ;
+Prod_index_value = ID | INTLIT ;
+Prod_index_tail = OB Prod_index CB ;
+Prod_elements = ID [Prod_elements_tail] ;
+Prod_elements_tail = AT Prod_elements ;
+
+/* ARRAY DECLARATION */
+Prod_array = ARRAY Prod_datatype OF INTLIT [Prod_size_tail] ;
+Prod_size_tail = BY INTLIT ;
+
+/* TASK DECLARATION */
+Prod_task = TASK Prod_return_type [Prod_parameters] ;
+Prod_return_type = Prod_datatype | NULL ID ;
+Prod_parameters = OP Prod_datatype [Prod_param_tail] CP ;
+Prod_param_tail = SEM Prod_datatype [Prod_param_tail] ;
+
+/* OBJECT DECLARATION */
+Prod_object = OBJECT ID START Prod_object_elem END [Prod_object_var] ;
+Prod_object_elem = VAR Prod_datatype PER [Prod_object_elem_tail] | OBJECT ID ID PER [Prod_object_elem_tail] ;
+Prod_object_elem_tail = Prod_object_elem ;
+Prod_object_var = ID [Prod_object_var_tail] ;
+Prod_object_var_tail = SEM [Prod_object_var] ;
+
+/* STATEMENTS */
+Prod_statements = Prod_functions PER [Prod_statements] ;
+Prod_functions = Prod_vardec | Prod_array | OBJECT ID ID | Prod_io_statement | Prod_pre_incdec | CLEAR | Prod_option | Prod_IfOtherwise | Prod_loopstate | Prod_id_stmt ;
+
+/* INPUT = OUTPUT STATEMENTS */
+Prod_io_statement = READ ID [Prod_ids_tail] | SAY Prod_output_statement ;
+Prod_output_statement = STRINGLIT [Prod_concat] | ID Prod_id_choices [Prod_concat] ;
+Prod_concat = COMMA Prod_output_statement ;
+
+/* INCREMENT = DECREMENT */
+Prod_pre_incdec = INC ID | DEC ID ;
+
+/* OPTION STATEMENT */
+Prod_option = OPTION Prod_elements START STATE Prod_option_choices ; 
+Prod_option_choices = Prod_optionINT | Prod_optionCHAR | Prod_optionSTRING ;
+Prod_optionINT = INTLIT COL [Prod_statements] STOP PER [Prod_stateINT] [Prod_default] END ;
+Prod_optionCHAR = CHARLIT COL [Prod_statements] STOP PER [Prod_stateCHAR] [Prod_default] END ;
+Prod_optionSTRING = STRINGLIT COL [Prod_statements] STOP PER [Prod_stateSTRING] [Prod_default] END ;
+Prod_stateINT = STATE INTLIT COL [Prod_statements] STOP PER [Prod_stateINT] ;
+Prod_stateCHAR = STATE CHARLIT COL [Prod_statements] STOP PER [Prod_stateCHAR] ;
+Prod_stateSTRING = STATE STRINGLIT COL [Prod_statements] STOP PER [Prod_stateSTRING] ;
+Prod_default = DEFAULT COL [Prod_statements] ;
+
+/* CONDITION STATEMENTS */
+Prod_conditions = Prod_condition_choices | [Prod_negate] OP Prod_condition_choices CP [Prod_logOp_tail] ;
+Prod_condition_choices = ID [Prod_condition_ids] Prod_relOp Prod_condition_tail  | Prod_values Prod_relOp Prod_condition_tail ;
+Prod_condition_tail = ID [Prod_condition_ids] | Prod_values ;
+Prod_condition_ids = Prod_id_choices | OP [Prod_task_param] CP ;
+Prod_logOp_tail = Prod_logOp Prod_logOp_choices [Prod_logOp_tail] ;
+Prod_logOp_choices = [Prod_negate] OP Prod_condition_choices CP | BOOLLIT [Prod_logOp_tail] ;
+Prod_relOp = ISEQ | NOTEQ | GREAT | GEQ | LESS | LEQ ;
+Prod_logOp = LOGAND | LOGOR ;
+Prod_negate = NOT ;
+
+/* IF = OR = OTHERWISE STATEMENTS */
+Prod_IfOtherwise = IF OP Prod_conditions CP [Prod_cond_loop] [Prod_or] [Prod_otherwise] ENDIF ;
+Prod_or = OR OP Prod_conditions CP [Prod_cond_loop] [Prod_or] ;
+Prod_otherwise = OTHERWISE [Prod_cond_loop] [Prod_control] ;
+Prod_cond_loop = Prod_functions PER [Prod_control] [Prod_cond_loop] ;
+Prod_control = SKIP PER | STOP PER ;
+
+/* LOOPING STATEMENTS */
+Prod_loopstate = UNTIL OP Prod_conditions CP [Prod_cond_loop] LOOP | DO [Prod_cond_loop] LOOPIF OP Prod_conditions CP | FOR OP [Prod_initialize] SEM [Prod_cond] SEM Prod_incdecvar CP [Prod_cond_loop] LOOP ;
+Prod_initialize = ID EQ Prod_init_choices ;
+Prod_init_choices = INTLIT | ID ;
+Prod_cond = Prod_init_choices Prod_relOp Prod_init_choices ;
+Prod_incdecvar = Prod_incdec ID | ID Prod_incdec ;
+
+/* ID STATEMENTS */
+Prod_id_stmt = ID Prod_id_stmt_tail ;
+Prod_id_stmt_tail = [Prod_ids_tail] EQ Prod_initvalues | OP [Prod_task_param] CP ;
+Prod_initvalues = Prod_mathopNUM | CHARLIT | STRINGLIT | BOOLLIT ;
+
+/* MATH OPERATIONS */
+Prod_mathopINT = Prod_intvalue [Prod_mathopINT_tail] | OP Prod_mathopINT CP [Prod_mathopINT_tail] ;
+Prod_mathopDOUBLE = Prod_doublevalue [Prod_mathopDOUBLE_tail] | OP Prod_mathopDOUBLE CP [Prod_mathopDOUBLE_tail] ;
+Prod_mathopNUM = Prod_numvalue [Prod_mathopNUM_tail] | OP Prod_mathopNUM CP [Prod_mathopNUM_tail] ;
+Prod_intvalue = INTLIT | Prod_exprID ;
+Prod_doublevalue = DOUBLELIT | Prod_exprID ;
+Prod_numvalue = INTLIT | DOUBLELIT | Prod_exprID ;
+Prod_exprID = ID [Prod_id_tail] [Prod_incdec_null] | Prod_pre_incdec [Prod_id_tail] ;
+Prod_mathopINT_tail = Prod_operators Prod_mathopINT ;
+Prod_mathopDOUBLE_tail = Prod_operators Prod_mathopDOUBLE ;
+Prod_mathopNUM_tail = Prod_operators Prod_mathopNUM ;
+
+/* OPERATORS */
+Prod_operators = ADD | MIN | MUL | DIV | MOD ;
+Prod_incdec = INC | DEC ;
+Prod_incdec_null = Prod_incdec ;
+
+/* TASK DEFINITION */
+Prod_taskdef = TASK Prod_return_id END PER [Prod_taskdef] ;
+Prod_return_id = INT ID COL Prod_taskbody RESPONSE Prod_returnINT PER | DOUBLE ID COL Prod_taskbody RESPONSE Prod_returnDOUBLE PER | CHAR ID COL Prod_taskbody RESPONSE Prod_returnCHAR PER | STRING ID COL Prod_taskbody RESPONSE Prod_returnSTRING PER | BOOLEAN ID COL Prod_taskbody RESPONSE Prod_returnBOOLEAN PER | NULL ID COL Prod_taskbody ;
+Prod_taskbody = START [Prod_statements] ;
+Prod_returnINT = INTLIT | ID [Prod_returntail] ;
+Prod_returnDOUBLE = DOUBLELIT | ID [Prod_returntail] ;
+Prod_returnCHAR = CHARLIT | ID [Prod_returntail] ;
+Prod_returnSTRING = STRINGLIT | ID [Prod_returntail] ;
+Prod_returnBOOLEAN = BOOLLIT | ID [Prod_returntail] ;
+Prod_returntail  = OP [Prod_task_param] CP | Prod_elements ;

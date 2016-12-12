@@ -6,7 +6,7 @@
 
 using System.IO;
 
-using Core.Library;
+using PerCederberg.Grammatica.Runtime;
 
 namespace Syntax_Analyzer {
 
