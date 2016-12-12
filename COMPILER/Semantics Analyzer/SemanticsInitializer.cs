@@ -27,15 +27,92 @@ namespace Semantics_Analyzer
         public string error = "";
         public List<Tokens> tokens;
         //public List<Tokens> ID = new List<Tokens>();
-        public List<Tokens> globalID = new List<Tokens>();
+        private List<Tokens> globalID = new List<Tokens>();
 
         //List of Identifiers
-        public List<SemanticsConstants.Identifiers> identifiers = new List<SemanticsConstants.Identifiers>();
-        public List<SemanticsConstants.Arrays> arrays = new List<SemanticsConstants.Arrays>();
-        public List<SemanticsConstants.Index> indexes = new List<SemanticsConstants.Index>();
-        public List<SemanticsConstants.Objects> objects = new List<SemanticsConstants.Objects>();
-        public List<SemanticsConstants.Task> tasks = new List<SemanticsConstants.Task>();
+        private List<SemanticsConstants.Identifiers> identifiers = new List<SemanticsConstants.Identifiers>();
+        private List<SemanticsConstants.Arrays> arrays = new List<SemanticsConstants.Arrays>();
+        private List<SemanticsConstants.Index> indexes = new List<SemanticsConstants.Index>();
+        private List<SemanticsConstants.Objects> objects = new List<SemanticsConstants.Objects>();
+        private List<SemanticsConstants.Task> tasks = new List<SemanticsConstants.Task>();
 
+        public List<SemanticsConstants.Identifiers> Identifiers
+        {
+            get
+            {
+                return identifiers;
+            }
+
+            set
+            {
+                identifiers = value;
+            }
+        }
+
+        public List<SemanticsConstants.Arrays> Arrays
+        {
+            get
+            {
+                return arrays;
+            }
+
+            set
+            {
+                arrays = value;
+            }
+        }
+
+        public List<SemanticsConstants.Index> Indexes
+        {
+            get
+            {
+                return indexes;
+            }
+
+            set
+            {
+                indexes = value;
+            }
+        }
+
+        public List<SemanticsConstants.Objects> Objects
+        {
+            get
+            {
+                return objects;
+            }
+
+            set
+            {
+                objects = value;
+            }
+        }
+
+        public List<SemanticsConstants.Task> Tasks
+        {
+            get
+            {
+                return tasks;
+            }
+
+            set
+            {
+                tasks = value;
+            }
+        }
+
+        public List<Tokens> GlobalID
+        {
+            get
+            {
+                return globalID;
+            }
+
+            set
+            {
+                globalID = value;
+            }
+        }
 
         public SemanticsInitializer()
             : this(new List<Tokens>()) { }
@@ -43,10 +120,12 @@ namespace Semantics_Analyzer
         public SemanticsInitializer(List<Tokens> tokens)
         {
             this.tokens = tokens;
+            
         }
 
         public string Start()
         {
+           
             string tokenstream = "";
             string result = "Semantics Analyzer Failed...\n";
             int line = 1;
@@ -126,9 +205,9 @@ namespace Semantics_Analyzer
         private void hasGlobalID(Tokens token)
         {
             Boolean isdeclared = false;
-            if (globalID.Count != 0)
+            if (GlobalID.Count != 0)
             {
-                foreach (var item in globalID)
+                foreach (var item in GlobalID)
                 {
                     if (token.getLexemes() == item.getLexemes())
                     {
@@ -141,7 +220,7 @@ namespace Semantics_Analyzer
 
             if (!isdeclared)
             {
-                globalID.Add(token);
+                GlobalID.Add(token);
             }
         }
 
@@ -186,7 +265,47 @@ namespace Semantics_Analyzer
             return ID;
         }
 
+        private SemanticsConstants.Arrays setArray
+        (string identifier, string dtype, bool isMulti, int size_1, int size_2)
+        {
+            SemanticsConstants.Arrays Array = new SemanticsConstants.Arrays();
+            Array.setDtype(dtype);
+            Array.setId(identifier);
+            Array.setIsMulti(isMulti);
+            Array.setSize_1(size_1);
+            Array.setSize_2(size_2);
+            return Array;
+        }
 
+        private SemanticsConstants.Objects setObject
+        (string identifier, string dtype)
+        {
+            SemanticsConstants.Objects Object = new SemanticsConstants.Objects();
+            Object.setDtype(dtype);
+            Object.setId(identifier);
+            return Object;
+        }
+
+        private SemanticsConstants.Task setTask
+        (string identifier, string dtype, int parameters)
+        {
+            SemanticsConstants.Task Task = new SemanticsConstants.Task();
+            Task.setDtype(dtype);
+            Task.setId(identifier);
+            Task.setParameters(parameters);
+            return Task;
+        }
+
+        private SemanticsConstants.Index setIndex
+        (string identifier, int index_1, int index_2, string value)
+        {
+            SemanticsConstants.Index Index = new SemanticsConstants.Index();
+            Index.setId(identifier);
+            Index.setIndex_1(index_1);
+            Index.setIndex_2(index_2);
+            Index.setValue(value);
+            return Index;
+        }
 
         public override Node ExitProdStartProgram(Production node)
         {

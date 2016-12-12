@@ -66,7 +66,7 @@
 
 /* INPUT - OUTPUT STATEMENTS */
 <io_statement> -> Read id <ids_tail> | Say <output_statement>
-<output_statement> -> stringlit <concat> | id <id_choices> <concat>
+<output_statement> -> stringlit <concat> | id <ids_tail> <concat>
 <concat> -> , <output_statement> | LAMBDA
 
 /* INCREMENT - DECREMENT */

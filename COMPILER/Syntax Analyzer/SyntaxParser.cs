@@ -636,7 +636,7 @@ namespace Syntax_Analyzer {
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
             alt.AddToken((int) SyntaxConstants.ID, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_ID_CHOICES, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_IDS_TAIL, 0, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_CONCAT, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);

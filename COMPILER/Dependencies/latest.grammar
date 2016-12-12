@@ -151,7 +151,7 @@ Prod_functions = Prod_vardec | Prod_array | OBJECT ID ID | Prod_io_statement | P
 
 /* INPUT = OUTPUT STATEMENTS */
 Prod_io_statement = READ ID [Prod_ids_tail] | SAY Prod_output_statement ;
-Prod_output_statement = STRINGLIT [Prod_concat] | ID Prod_id_choices [Prod_concat] ;
+Prod_output_statement = STRINGLIT [Prod_concat] | ID [Prod_ids_tail] [Prod_concat] ;
 Prod_concat = COMMA Prod_output_statement ;
 
 /* INCREMENT = DECREMENT */
