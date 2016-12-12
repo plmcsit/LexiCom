@@ -45,6 +45,7 @@
     <Compile Include="SyntaxAnalyzer.cs" />
     <Compile Include="SyntaxConstants.cs" />
     <Compile Include="SyntaxParser.cs" />
+    <Compile Include="SyntaxProductions.cs" />
     <Compile Include="SyntaxTokenizer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -176,8 +176,9 @@ namespace Syntax_Analyzer
 
         private int GetSyntaxTable(List<int> code)
         {
-            Node node = null;
+            SyntaxProductions prod = new SyntaxProductions();
             Boolean delete = true;
+            Node node = null;
             string recprod = recursiveprod;
             int ctr = -1, count = 1, prodcode = 0;
             string currentparent = "";
@@ -194,8 +195,9 @@ namespace Syntax_Analyzer
                     string nodename = node.GetName().ToLower();
                     currentparent = node.GetParent().GetName();
                     currentparent = currentparent.ToLower();
+                    currentparent = prod.GetProductionName(currentparent);
+                    nodename = prod.GetProductionName(nodename);
                     delete = true;
-
                     if (currentparent.Contains("prod_"))
                     {
                         currentparent = "<" + currentparent.Substring(5) + ">";
@@ -213,6 +215,7 @@ namespace Syntax_Analyzer
 
                     string name = Enum.GetName(typeof(SyntaxConstants), prodcode);
                     name = name.ToLower();
+                    name = prod.GetProductionName(name);
                     if (name.Contains("prod_"))
                     {
                         name = "<" + name.Substring(5) + ">";
@@ -221,6 +224,7 @@ namespace Syntax_Analyzer
                     if (PRODUCTION.Count != 1)
                     {
                         currentparent.ToLower();
+                        currentparent = prod.GetProductionName(currentparent);
                         if (currentparent.Contains("prod_"))
                         {
                             currentparent = "<" + currentparent.Substring(5) + ">";

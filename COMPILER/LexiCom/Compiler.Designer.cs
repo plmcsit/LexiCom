@@ -502,7 +502,7 @@
             this.Code.NumberLeadingZeroes = false;
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = false;
+            this.Code.ShowLineNumbers = true;
             this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
             this.Code.Text = "";

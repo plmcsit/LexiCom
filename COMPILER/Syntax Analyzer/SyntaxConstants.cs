@@ -1,9 +1,3 @@
-/*
- * SyntaxConstants.cs
- *
- * THIS FILE HAS BEEN GENERATED AUTOMATICALLY. DO NOT EDIT!
- */
-
 namespace Syntax_Analyzer {
 
     /**
