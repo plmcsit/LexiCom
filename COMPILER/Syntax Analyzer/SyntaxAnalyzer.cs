@@ -1,9 +1,3 @@
-/*
- * SyntaxAnalyzer.cs
- *
- * THIS FILE HAS BEEN GENERATED AUTOMATICALLY. DO NOT EDIT!
- */
-
 using Core.Library;
 
 namespace Syntax_Analyzer {
