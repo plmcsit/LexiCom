@@ -151,6 +151,7 @@
         {
             public string id;
             public string value;
+            public string datatype;
             public int index_1;
             public int index_2 = -1;
 
@@ -162,6 +163,10 @@
             public void setValue(string value)
             {
                 this.value = value;
+            }
+            public void setDatatype(string datatype)
+            {
+                this.datatype = datatype;
             }
             public void setIndex_1(int index_1)
             {
@@ -179,6 +184,10 @@
             public string getValue()
             {
                 return this.value;
+            }
+            public string getDatatype()
+            {
+                return this.datatype;
             }
             public int getIndex_1()
             {

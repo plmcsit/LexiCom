@@ -202,25 +202,63 @@ namespace Semantics_Analyzer
             return token;
         }
 
-        private void hasGlobalID(Tokens token)
+        private Boolean hasGlobalID(SemanticsConstants.Identifiers id)
         {
             Boolean isdeclared = false;
-            if (GlobalID.Count != 0)
+            if (Identifiers.Count != 0)
             {
-                foreach (var item in GlobalID)
+                foreach (var item in Identifiers)
                 {
-                    if (token.getLexemes() == item.getLexemes())
+                    if (item.getScope() == "Global")
                     {
-                        error += "Semantics Error (Ln" + token.getLines() + "): " + token.getLexemes() + " is already declared.\n";
-                        isdeclared = true;
-                        break;
+                        if (item.getAttrib() == "Variable" || item.getAttrib() == "Let" || item.getAttrib() == "Array")
+                        {
+                            if (item.getId() == id.getId())
+                            {
+                                error += "Semantics Error (Ln" + id.getLines() + "): " + id.getId() + " is already declared.\n";
+                                isdeclared = true;
+                                break;
+                            }
+                        }
                     }
                 }
             }
 
             if (!isdeclared)
             {
-                GlobalID.Add(token);
+                Identifiers.Add(id);
+            }
+            return isdeclared;
+        }
+
+        private void hasMULTIGLOBALID(Node node, string datatype, string scope, string attrib, string default_value)
+        {
+            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            int idline = node.GetChildAt(1).GetStartLine();
+            int idcol = node.GetChildAt(1).GetStartColumn();
+            Tokens token = GetTokens(idline, idcol);
+            string identifier = token.getLexemes();
+            id = setIdentifier(identifier, attrib, datatype, scope, default_value, idline, token.getLexemes());
+            hasGlobalID(id);
+
+            if (node.GetChildCount() > 2)
+            {
+                //If no initialization but has vartail
+                if (node.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
+                {
+                    hasMULTIGLOBALID(node.GetChildAt(2), datatype, scope, attrib, default_value);
+                }
+                //If has initialization and vartail
+                else if (node.GetChildCount() == 4)
+                {
+                    hasMULTIGLOBALID(node.GetChildAt(3), datatype, scope, attrib, default_value);
+                }
+                //If no vartail but has initialization
+                else
+                {
+
+                }
+
             }
         }
 
@@ -249,6 +287,50 @@ namespace Semantics_Analyzer
 
             }
             return dtype;
+        }
+
+        private void populateArray(string id, string datatype, Boolean isMulti, int size_1, int size_2)
+        {
+            string value = "";
+            switch (datatype)
+            {
+                case "INT":
+                    datatype = "Int";
+                    value = "0"; break;
+                case "DOUBLE":
+                    datatype = "Double";
+                    value = "0.0"; break;
+                case "CHAR":
+                    datatype = "Char";
+                    value = "''"; break;
+                case "STRING":
+                    datatype = "String";
+                    value = "\"\""; break;
+                case "Boolean":
+                    datatype = "Boolean";
+                    value = "Yes"; break;
+            }
+            if(isMulti)
+            {
+                for (int i = 0; i < size_1; i++)
+                {
+                    for (int j = 0; j < size_2; j++)
+                    {
+                        SemanticsConstants.Index index = new SemanticsConstants.Index();
+                        index = setIndex(id, datatype, i, j, value);
+                        Indexes.Add(index);
+                    }
+                }
+            }
+            else
+            {
+                for (int k = 0; k < size_1; k++)
+                {
+                    SemanticsConstants.Index index = new SemanticsConstants.Index();
+                    index = setIndex(id, datatype, k, 0, value);
+                    Indexes.Add(index);
+                }
+            }
         }
 
         private SemanticsConstants.Identifiers setIdentifier
@@ -297,10 +379,11 @@ namespace Semantics_Analyzer
         }
 
         private SemanticsConstants.Index setIndex
-        (string identifier, int index_1, int index_2, string value)
+        (string identifier, string datatype, int index_1, int index_2, string value)
         {
             SemanticsConstants.Index Index = new SemanticsConstants.Index();
             Index.setId(identifier);
+            Index.setDatatype(identifier + "." + datatype);
             Index.setIndex_1(index_1);
             Index.setIndex_2(index_2);
             Index.setValue(value);
@@ -351,6 +434,157 @@ namespace Semantics_Analyzer
 
         public override Node ExitProdGlobalChoice(Production node)
         {
+            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            Node GlobalChoice = node;
+            
+            if (GlobalChoice.GetChildAt(0).GetName() == "Prod_let_global")
+            {
+                Node Let_Global = GlobalChoice.GetChildAt(0);
+                Node valueInfo = Let_Global.GetChildAt(3).GetChildAt(0);
+                int idline = Let_Global.GetChildAt(1).GetStartLine();
+                int idcol = Let_Global.GetChildAt(1).GetStartColumn();
+                Tokens token = GetTokens(idline, idcol);
+                string identifier = token.getLexemes();
+                string scope = "Global";
+                string attrib = "Let";
+                string datatype = "";
+                string value = valueInfo.GetName();
+                switch (value)
+                {
+                    case "INTLIT":
+                        datatype = "Int"; break;
+                    case "DOUBLELIT":
+                        datatype = "Double"; break;
+                    case "STRINGLIT":
+                        datatype = "String"; break;
+                    case "CHARLIT":
+                        datatype = "Char"; break;
+                    case "BOOLLIT":
+                        datatype = "Boolean"; break;
+                }
+
+                Tokens token_value = GetTokens(valueInfo.GetStartLine(), valueInfo.GetStartColumn());
+                value = token_value.getLexemes();
+
+                id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
+                hasGlobalID(id);
+                string n = "";
+            }
+            else if (GlobalChoice.GetChildAt(0).GetName() == "Prod_vardec")
+            {
+                Node vardtype = GlobalChoice.GetChildAt(0).GetChildAt(1);
+                int idline = vardtype.GetChildAt(1).GetStartLine();
+                int idcol = vardtype.GetChildAt(1).GetStartColumn();
+                Tokens token = GetTokens(idline, idcol);
+                string identifier = token.getLexemes();
+                string datatype = vardtype.GetChildAt(0).GetName();
+                string scope = "Global", value = "", attrib = "Variable";
+                datatype = getDtype(datatype);
+
+                switch (datatype)
+                {
+                    case "Int":
+                        value = "0"; break;
+                    case "Double":
+                        value = "0.0"; break;
+                    case "String":
+                        value = "\"\""; break;
+                    case "Char":
+                        value = "''"; break;
+                    case "Boolean":
+                        value = "Yes"; break;
+                }
+
+                id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
+                hasGlobalID(id);
+                if(vardtype.GetChildCount() > 2)
+                {
+                    //If no initialization but has vartail
+                    if (vardtype.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
+                    {
+                        hasMULTIGLOBALID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
+                    }
+                    //If has initialization and vartail
+                    else if (vardtype.GetChildCount() == 4)
+                    {
+                        hasMULTIGLOBALID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
+                    }
+                    //If no vartail but has initialization
+                    else
+                    {
+                        //    Node varinitDTYPE = vardtype.GetChildAt(2);
+                        //    string initdtype = "";
+                        //    switch (varinitDTYPE.GetName())
+                        //    {
+                        //        case "Prod_varinitINT":
+                        //            initdtype = "Int";
+                        //            break;
+                        //        case "Prod_varinitDOUBLE":
+                        //            initdtype = "Double";
+                        //            break;
+                        //        case "Prod_varinitSTRING":
+                        //            initdtype = "String";
+                        //            break;
+                        //        case "Prod_varinitCHAR":
+                        //            initdtype = "Char";
+                        //            break;
+                        //        case "Prod_varinitBOOLEAN":
+                        //            initdtype = "Boolean";
+                        //            break;
+                        //    }
+                        //    if(initdtype == "Int")
+                        //    {
+                        //        Node mathopINT = varinitDTYPE.GetChildAt(1);
+                        //    }
+                    }
+                }
+
+                string n = "";
+            }
+            else if (GlobalChoice.GetChildAt(0).GetName() == "Prod_array")
+            {
+                SemanticsConstants.Arrays array = new SemanticsConstants.Arrays();
+                Node Array = GlobalChoice.GetChildAt(0);
+                Node dataInfo = Array.GetChildAt(1);
+                string datatype = dataInfo.GetChildAt(0).GetName();
+                datatype = getDtype(datatype);
+                int dtypeline = dataInfo.GetChildAt(0).GetStartLine();
+                int dtypecol = dataInfo.GetChildAt(0).GetStartColumn();
+                int idline = dataInfo.GetChildAt(1).GetStartLine();
+                int idcol = dataInfo.GetChildAt(1).GetStartColumn();
+                string scope = "Global";
+                string attrib = "Array";
+                Boolean isMulti = false;
+                Tokens id_token = GetTokens(idline, idcol);
+                Tokens dtype_token = GetTokens(dtypeline, dtypecol);
+                Tokens size_1_token = GetTokens(Array.GetChildAt(3).GetStartLine(), Array.GetChildAt(3).GetStartColumn());
+                int size_1 = Int32.Parse(size_1_token.getLexemes());
+                int size_2 = -1;
+                string identifier = id_token.getLexemes();
+                if(Array.GetChildCount() > 4)
+                {
+                    Node size_tail = Array.GetChildAt(4);
+                    Tokens size_2_token = GetTokens(size_tail.GetChildAt(1).GetStartLine(), size_tail.GetChildAt(1).GetStartColumn());
+                    size_2 = Int32.Parse(size_2_token.getLexemes());
+                    isMulti = true;
+                }
+                id = setIdentifier(identifier, attrib, datatype, scope, "-", idline, id_token.getLexemes());
+                Boolean array_add = hasGlobalID(id);
+                if(!array_add)
+                {
+                    array = setArray(identifier, datatype, isMulti, size_1, size_2);
+                    Arrays.Add(array);
+                    populateArray(identifier, datatype, isMulti, size_1, size_2);
+                }
+            }
+            else if (GlobalChoice.GetChildAt(0).GetName() == "Prod_task")
+            {
+
+            }
+            else
+            {
+
+            }
             return node;
         }
 

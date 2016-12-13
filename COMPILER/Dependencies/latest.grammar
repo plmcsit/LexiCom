@@ -116,11 +116,11 @@ Prod_valueBOOLEAN = BOOLLIT | ID [Prod_id_tail] ;
 /* ID CHOICES */
 Prod_id_tail = Prod_ids_tail | OP [Prod_task_param] CP ;
 Prod_ids_tail = Prod_id_choices ;
-Prod_id_choices = AT Prod_elements | OB Prod_index CB Prod_index_tail ;
+Prod_id_choices = AT Prod_elements | OB Prod_index CB [Prod_index_tail] ;
 Prod_task_param = Prod_value [Prod_task_param_tail] ;
 Prod_task_param_tail = SEM [Prod_task_param] ;
 Prod_value = Prod_values | Prod_elements ;
-Prod_index = Prod_index_value Prod_indexop ;
+Prod_index = Prod_index_value [Prod_indexop] ;
 Prod_indexop = Prod_add_min Prod_index_value ;
 Prod_add_min = ADD | MIN ;
 Prod_index_value = ID | INTLIT ;

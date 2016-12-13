@@ -369,7 +369,7 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.OB, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_INDEX, 1, 1);
             alt.AddToken((int) SyntaxConstants.CB, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_INDEX_TAIL, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INDEX_TAIL, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -403,7 +403,7 @@ namespace Syntax_Analyzer {
                                             "Prod_index");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_INDEX_VALUE, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_INDEXOP, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_INDEXOP, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

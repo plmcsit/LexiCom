@@ -21,6 +21,8 @@ namespace LexiCom
             DataLexicalError.Rows.Clear();
             DataSyntaxError.Rows.Clear();
             Grid_Syntax.Rows.Clear();
+            Grid_Dec.Rows.Clear();
+            Grid_Array.Rows.Clear();
             Output.Text = "";
             if (Code.Text != "")
             {
@@ -83,6 +85,14 @@ namespace LexiCom
                         {
                             semantics = SemanticsStart(tokenDumps(lex.token));
                             string semantics_result = semantics.Start();
+                            foreach (var item in semantics.Identifiers)
+                            {
+                                Grid_Dec.Rows.Add(item.getLines(), item.getId(), item.getDtype(), item.getValue(), item.getScope());
+                            }
+                            foreach (var item in semantics.Indexes)
+                            {
+                                Grid_Array.Rows.Add(item.getId(), item.getDatatype(), item.getValue(), item.getIndex_1(), item.getIndex_2());
+                            }
                             if (semantics.error != "" || syntax_result != "Syntax Analyzer Succeeded...\n")
                             {
                                 Output.Text += semantics.error + semantics_result;

@@ -36,10 +36,10 @@
 <task_param_tail> -> ; <task_param> | LAMBDA
 <value> -> <values> | <elements>
 <index> -> <index_value> <indexop>
-<indexop> -> <add_min> <index_value>
+<indexop> -> <add_min> <index_value> | LAMBDA
 <add_min> -> + | -
 <index_value> -> id | intlit
-<index_tail> -> [ <index> ]
+<index_tail> -> [ <index> ] | LAMBDA
 <elements> -> id <elements_tail>
 <elements_tail> -> @ <elements> | LAMBDA
 
