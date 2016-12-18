@@ -1,5 +1,4 @@
 using Core.Library;
-
 namespace Syntax_Analyzer {
 
     /**

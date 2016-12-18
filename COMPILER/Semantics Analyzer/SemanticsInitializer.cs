@@ -294,16 +294,16 @@ namespace Semantics_Analyzer
             string value = "";
             switch (datatype)
             {
-                case "INT":
+                case "Int":
                     datatype = "Int";
                     value = "0"; break;
-                case "DOUBLE":
+                case "Double":
                     datatype = "Double";
                     value = "0.0"; break;
-                case "CHAR":
+                case "Char":
                     datatype = "Char";
                     value = "''"; break;
-                case "STRING":
+                case "String":
                     datatype = "String";
                     value = "\"\""; break;
                 case "Boolean":
@@ -1201,6 +1201,55 @@ namespace Semantics_Analyzer
 
         public override Node ExitProdFunctions(Production node)
         {
+            Node Functions = node;
+            string function = Functions.GetChildAt(0).GetName();
+            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            if(function == "Prod_vardec")
+            {
+                Node vardtype = Functions.GetChildAt(0).GetChildAt(1);
+                int idline = vardtype.GetChildAt(1).GetStartLine();
+                int idcol = vardtype.GetChildAt(1).GetStartColumn();
+                Tokens token = GetTokens(idline, idcol);
+                string identifier = token.getLexemes();
+                string datatype = vardtype.GetChildAt(0).GetName();
+                string scope = "", value = "", attrib = "Variable";
+                datatype = getDtype(datatype);
+
+                switch (datatype)
+                {
+                    case "Int":
+                        value = "0"; break;
+                    case "Double":
+                        value = "0.0"; break;
+                    case "String":
+                        value = "\"\""; break;
+                    case "Char":
+                        value = "''"; break;
+                    case "Boolean":
+                        value = "Yes"; break;
+                }
+
+                id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
+                hasGlobalID(id);
+                if (vardtype.GetChildCount() > 2)
+                {
+                    //If no initialization but has vartail
+                    if (vardtype.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
+                    {
+                        hasMULTIGLOBALID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
+                    }
+                    //If has initialization and vartail
+                    else if (vardtype.GetChildCount() == 4)
+                    {
+                        hasMULTIGLOBALID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
+                    }
+                    //If no vartail but has initialization
+                    else
+                    {
+                 
+                    }
+                }
+            }
             return node;
         }
 
