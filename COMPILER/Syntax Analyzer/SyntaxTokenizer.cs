@@ -1,9 +1,3 @@
-/*
- * SyntaxTokenizer.cs
- *
- * THIS FILE HAS BEEN GENERATED AUTOMATICALLY. DO NOT EDIT!
- */
-
 using System.IO;
 
 using Core.Library;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Lexical_Analyzer;
 using Syntax_Analyzer;
 using Semantics_Analyzer;
+using Code_Generation;
 
 namespace LexiCom
 {
@@ -101,6 +102,9 @@ namespace LexiCom
                             {
                                 Output.Text += "Static Semantics Analyzer Succeeded...";
                                 MessageBox.Show("Code compiled with no error.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                CodeGenInitialize generate = new CodeGenInitialize();
+                                generate = CodeGenStart(TokenDump(lex.token), semantics);
+                                generate.Start();
                             }
                         }
                     }
@@ -121,6 +125,21 @@ namespace LexiCom
             }
 
             return sem;
+        }
+
+        private CodeGenInitialize CodeGenStart(List<CodeGenInitialize.Tokens> tokens, SemanticsInitializer semantics)
+        {
+            CodeGenInitialize gen = null;
+            try
+            {
+                gen = new CodeGenInitialize(tokens, semantics);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return gen;
         }
 
         private string getTokens(List<Tokens> tokens)
@@ -186,6 +205,8 @@ namespace LexiCom
             }
         }
 
+
+
         public List<TokenLibrary.TokensClass> tokenDump(List<Tokens> tokens)
         {
             List<TokenLibrary.TokensClass> token = new List<TokenLibrary.TokensClass>();
@@ -209,6 +230,22 @@ namespace LexiCom
             foreach (var item in tokens)
             {
                 t = new SemanticsInitializer.Tokens();
+                t.setAttributes(item.getAttributes());
+                t.setLexemes(item.getLexemes());
+                t.setLines(item.getLines());
+                t.setTokens(item.getTokens());
+                token.Add(t);
+            }
+            return token;
+        }
+
+        public List<CodeGenInitialize.Tokens> TokenDump(List<Tokens> tokens)
+        {
+            List<CodeGenInitialize.Tokens> token = new List<CodeGenInitialize.Tokens>();
+            CodeGenInitialize.Tokens t = new CodeGenInitialize.Tokens();
+            foreach (var item in tokens)
+            {
+                t = new CodeGenInitialize.Tokens();
                 t.setAttributes(item.getAttributes());
                 t.setLexemes(item.getLexemes());
                 t.setLines(item.getLines());

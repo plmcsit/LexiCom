@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Semantics Analyzer", "Seman
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core Library", "Core Library\Core Library.csproj", "{100BF7E7-B634-4E6B-948E-22D0566FB2AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code Generation", "Code Generation\Code Generation.csproj", "{1966084F-7B59-4963-974A-5D5B1E537317}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{100BF7E7-B634-4E6B-948E-22D0566FB2AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{100BF7E7-B634-4E6B-948E-22D0566FB2AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{100BF7E7-B634-4E6B-948E-22D0566FB2AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1966084F-7B59-4963-974A-5D5B1E537317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1966084F-7B59-4963-974A-5D5B1E537317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1966084F-7B59-4963-974A-5D5B1E537317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1966084F-7B59-4963-974A-5D5B1E537317}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +63,6 @@ Global
 		{B2A3CF3F-A100-4772-8190-781981B41EBF} = {5697ECF6-373D-40B2-B460-1A5C964C2BC9}
 		{5BAAD1B7-1A1B-41CD-AA2A-90D497685963} = {5697ECF6-373D-40B2-B460-1A5C964C2BC9}
 		{100BF7E7-B634-4E6B-948E-22D0566FB2AF} = {5697ECF6-373D-40B2-B460-1A5C964C2BC9}
+		{1966084F-7B59-4963-974A-5D5B1E537317} = {5697ECF6-373D-40B2-B460-1A5C964C2BC9}
 	EndGlobalSection
 EndGlobal
