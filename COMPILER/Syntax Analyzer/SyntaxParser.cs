@@ -84,13 +84,20 @@ namespace Syntax_Analyzer {
                                             "Prod_program");
             alt = new ProductionPatternAlternative();
             alt.AddProduction((int) SyntaxConstants.PROD_GLOBAL, 0, 1);
-            alt.AddToken((int) SyntaxConstants.LEAD, 1, 1);
-            alt.AddToken((int) SyntaxConstants.COL, 1, 1);
-            alt.AddToken((int) SyntaxConstants.START, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_STATEMENTS, 0, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_LEAD, 1, 1);
             alt.AddToken((int) SyntaxConstants.END, 1, 1);
             alt.AddToken((int) SyntaxConstants.PER, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASKDEF, 0, 1);
+            pattern.AddAlternative(alt);
+            AddPattern(pattern);
+
+            pattern = new ProductionPattern((int) SyntaxConstants.PROD_LEAD,
+                                              "Prod_lead");
+            alt = new ProductionPatternAlternative();
+            alt.AddToken((int)SyntaxConstants.LEAD, 1, 1);
+            alt.AddToken((int)SyntaxConstants.COL, 1, 1);
+            alt.AddToken((int)SyntaxConstants.START, 1, 1);
+            alt.AddProduction((int)SyntaxConstants.PROD_STATEMENTS, 0, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

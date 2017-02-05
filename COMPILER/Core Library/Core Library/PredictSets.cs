@@ -4,6 +4,7 @@
     {
         string program = "Let, Array, Object, Var, Task, Lead";
         string global = "Let, Array, Object, Var, Task, Lead";
+        string lead = "Let, Array, Object, Var, Task, Lead";
         string global_choice = "Let, Var, Array, Task, Object";
         string datatype = "Int, Double, Char, String, Boolean";
         string let_global = "Let";
@@ -218,6 +219,7 @@
                 case 2103: return returnSTRING;
                 case 2104: return returnBOOLEAN;
                 case 2105: return returntail;
+                case 2106: return lead;
                 default:
                     return "";
             }

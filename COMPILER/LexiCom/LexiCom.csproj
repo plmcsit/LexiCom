@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E161760E-85E5-4042-A9E2-F529F3BB589F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LexiCom</RootNamespace>
     <AssemblyName>LexiCom</AssemblyName>
@@ -100,8 +100,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Code Generation\Code Generation.csproj">
+    <ProjectReference Include="..\Code Generation\Code Translation.csproj">
       <Project>{1966084f-7b59-4963-974a-5d5b1e537317}</Project>
+      <Name>Code Translation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Code Translator\Code Generation.csproj">
+      <Project>{fb15698d-ee96-4b2d-86bf-42a42125f960}</Project>
       <Name>Code Generation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core Library\Core Library.csproj">

@@ -121,7 +121,15 @@ namespace Syntax_Analyzer
                 }
                 else
                 {
-                    int code = codes[ctr - 1];
+                    int code;
+                    if (codes.Count == 0)
+                    {
+                        code = 2106;
+                    }
+                    else
+                    {
+                        code = codes[ctr - 1];
+                    }
                     message += ps.GetPredictSet(code);
                 }
                 //if (p.GetLastProductionState() == "NULL")

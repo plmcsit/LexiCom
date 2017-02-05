@@ -229,7 +229,7 @@ namespace Core.Library {
             Node child;
 
             for (int i = 0; i < elem.MaxCount; i++) {
-                string pr =  Enum.GetName(typeof(SyntaxConstants), elem.GetId());
+                string pr = Enum.GetName(typeof(SyntaxConstants), elem.GetId());
                 if (i < elem.MinCount || IsNext(elem)) {
                     if (elem.IsToken()) {
                         child = NextToken(elem.Id);

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using Lexical_Analyzer;
 using Syntax_Analyzer;
 using Semantics_Analyzer;
+using Code_Translation;
 using Code_Generation;
+
 
 namespace LexiCom
 {
@@ -102,9 +104,26 @@ namespace LexiCom
                             {
                                 Output.Text += "Static Semantics Analyzer Succeeded...";
                                 MessageBox.Show("Code compiled with no error.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                                CodeGenInitialize generate = new CodeGenInitialize();
+                                CodeTranslator generate = new CodeTranslator();
                                 generate = CodeGenStart(TokenDump(lex.token), semantics);
                                 generate.Start();
+                                string code = generate.code;
+                                code = code.Remove(code.Length - 2,2);
+                                code += "}\n}";
+                                if (generatedCode.Checked)
+                                {
+                                    MessageBox.Show(code);
+                                }
+                                if(consoleOutput.Checked)
+                                {
+                                    //OUTPUT
+                                    OutputInitializer output = new OutputInitializer();
+                                    output.Start(code);
+                                    if(output.error != "")
+                                    {
+                                        MessageBox.Show(output.error, "Woops!");
+                                    }
+                                }
                             }
                         }
                     }
@@ -127,12 +146,12 @@ namespace LexiCom
             return sem;
         }
 
-        private CodeGenInitialize CodeGenStart(List<CodeGenInitialize.Tokens> tokens, SemanticsInitializer semantics)
+        private CodeTranslator CodeGenStart(List<CodeTranslator.Tokens> tokens, SemanticsInitializer semantics)
         {
-            CodeGenInitialize gen = null;
+            CodeTranslator gen = null;
             try
             {
-                gen = new CodeGenInitialize(tokens, semantics);
+                gen = new CodeTranslator(tokens, semantics);
             }
             catch (Exception e)
             {
@@ -239,13 +258,13 @@ namespace LexiCom
             return token;
         }
 
-        public List<CodeGenInitialize.Tokens> TokenDump(List<Tokens> tokens)
+        public List<CodeTranslator.Tokens> TokenDump(List<Tokens> tokens)
         {
-            List<CodeGenInitialize.Tokens> token = new List<CodeGenInitialize.Tokens>();
-            CodeGenInitialize.Tokens t = new CodeGenInitialize.Tokens();
+            List<CodeTranslator.Tokens> token = new List<CodeTranslator.Tokens>();
+            CodeTranslator.Tokens t = new CodeTranslator.Tokens();
             foreach (var item in tokens)
             {
-                t = new CodeGenInitialize.Tokens();
+                t = new CodeTranslator.Tokens();
                 t.setAttributes(item.getAttributes());
                 t.setLexemes(item.getLexemes());
                 t.setLines(item.getLines());
@@ -280,6 +299,32 @@ namespace LexiCom
         {
 
         }
+
+        private void generatedCode_Click(object sender, EventArgs e)
+        {
+            if(generatedCode.Checked == true)
+            {
+                generatedCode.Checked = false;
+            }
+            else
+            {
+                generatedCode.Checked = true;
+            }
+        }
+
+        private void consoleOutput_Click(object sender, EventArgs e)
+        {
+            if (consoleOutput.Checked == true)
+            {
+                consoleOutput.Checked = false;
+            }
+            else
+            {
+                consoleOutput.Checked = true;
+            }
+        }
+
+
 
         //private void LexBtn_Click(object sender, EventArgs e)
         //{

@@ -180,6 +180,7 @@
         Prod_return_char = 2102,
         Prod_returnSTRING = 2103,
         Prod_returnBOOLEAN = 2104,
-        Prod_returntail = 2105
+        Prod_returntail = 2105,
+        Prod_lead = 2106
     }
 }

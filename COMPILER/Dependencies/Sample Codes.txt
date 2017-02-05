@@ -60,19 +60,23 @@ End.#
 ==================================== 5 ====================================
 Lead:
 Start
+Var String Resp.
+Clear.
+Say "Enter a number [1-3]: ".
+Read Resp.
 
-Option Choice
+Option Resp
 Start
-         State "asd" : 
-         Say Num1, "and ", Num2, "is equals".
+         State "1" : 
+         Say "You entered 1\n".
          Stop.
-         State "df" :
-         Say Num1, "and ", Num2, "is equals".
+         State "2" :
+         Say "You entered 2\n".
          Stop.
-         State "jhgj" :
-         Say Num1, "and ", Num2, "is equals".
+         State "3" :
+         Say "You entered 3\n".
          Stop.
-         Default : Say Num1.
+         Default :  Say "Invalid Input!\n".
 End.
 End.#
 

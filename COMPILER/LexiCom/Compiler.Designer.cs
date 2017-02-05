@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.LexGrid = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,7 +76,6 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Scope = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Code = new Lexicom.WinForms.RichTextBoxEx();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.Grid_Array = new System.Windows.Forms.DataGridView();
@@ -85,6 +84,11 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.index_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.index_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.Code = new Lexicom.WinForms.RichTextBoxEx();
+            this.codeTranslatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generatedCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.consoleOutput = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataLexicalError)).BeginInit();
@@ -309,7 +313,9 @@
             this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lecsicalAnalyzerToolStripMenuItem,
             this.syntax_mode,
-            this.semantics_mode});
+            this.semantics_mode,
+            this.toolStripSeparator3,
+            this.codeTranslatedToolStripMenuItem});
             this.toolStripButton1.Image = global::LexiCom.Properties.Resources.mode;
             this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton1.Name = "toolStripButton1";
@@ -361,14 +367,14 @@
             this.Line,
             this.Col,
             this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle4;
             this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DataSyntaxError.Location = new System.Drawing.Point(753, 549);
             this.DataSyntaxError.Name = "DataSyntaxError";
@@ -588,27 +594,6 @@
             this.Scope.ReadOnly = true;
             this.Scope.Width = 80;
             // 
-            // Code
-            // 
-            this.Code.AcceptsTab = true;
-            this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Code.Location = new System.Drawing.Point(12, 87);
-            this.Code.Name = "Code";
-            this.Code.NumberAlignment = System.Drawing.StringAlignment.Near;
-            this.Code.NumberBackground1 = System.Drawing.SystemColors.ControlLightLight;
-            this.Code.NumberBackground2 = System.Drawing.SystemColors.ActiveCaption;
-            this.Code.NumberBorder = System.Drawing.SystemColors.ActiveCaption;
-            this.Code.NumberBorderThickness = 0F;
-            this.Code.NumberColor = System.Drawing.Color.DarkCyan;
-            this.Code.NumberFont = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Code.NumberLeadingZeroes = false;
-            this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
-            this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = true;
-            this.Code.Size = new System.Drawing.Size(483, 430);
-            this.Code.TabIndex = 6;
-            this.Code.Text = "";
-            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label9);
@@ -688,6 +673,57 @@
             this.index_2.Name = "index_2";
             this.index_2.ReadOnly = true;
             this.index_2.Width = 40;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
+            // 
+            // Code
+            // 
+            this.Code.AcceptsTab = true;
+            this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Code.Location = new System.Drawing.Point(12, 87);
+            this.Code.Name = "Code";
+            this.Code.NumberAlignment = System.Drawing.StringAlignment.Near;
+            this.Code.NumberBackground1 = System.Drawing.SystemColors.ControlLightLight;
+            this.Code.NumberBackground2 = System.Drawing.SystemColors.ActiveCaption;
+            this.Code.NumberBorder = System.Drawing.SystemColors.ActiveCaption;
+            this.Code.NumberBorderThickness = 0F;
+            this.Code.NumberColor = System.Drawing.Color.DarkCyan;
+            this.Code.NumberFont = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Code.NumberLeadingZeroes = false;
+            this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
+            this.Code.NumberPadding = 2;
+            this.Code.ShowLineNumbers = true;
+            this.Code.Size = new System.Drawing.Size(483, 430);
+            this.Code.TabIndex = 6;
+            this.Code.Text = "";
+            // 
+            // codeTranslatedToolStripMenuItem
+            // 
+            this.codeTranslatedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generatedCode,
+            this.consoleOutput});
+            this.codeTranslatedToolStripMenuItem.Name = "codeTranslatedToolStripMenuItem";
+            this.codeTranslatedToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.codeTranslatedToolStripMenuItem.Text = "Developer Options";
+            // 
+            // generatedCode
+            // 
+            this.generatedCode.Name = "generatedCode";
+            this.generatedCode.Size = new System.Drawing.Size(159, 22);
+            this.generatedCode.Text = "Generated Code";
+            this.generatedCode.Click += new System.EventHandler(this.generatedCode_Click);
+            // 
+            // consoleOutput
+            // 
+            this.consoleOutput.Checked = true;
+            this.consoleOutput.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.consoleOutput.Name = "consoleOutput";
+            this.consoleOutput.Size = new System.Drawing.Size(159, 22);
+            this.consoleOutput.Text = "Console Output";
+            this.consoleOutput.Click += new System.EventHandler(this.consoleOutput_Click);
             // 
             // LexiCom
             // 
@@ -784,6 +820,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn index_1;
         private System.Windows.Forms.DataGridViewTextBoxColumn index_2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem codeTranslatedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generatedCode;
+        private System.Windows.Forms.ToolStripMenuItem consoleOutput;
     }
 }
 

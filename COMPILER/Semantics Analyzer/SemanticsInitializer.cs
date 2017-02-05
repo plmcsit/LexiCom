@@ -201,14 +201,14 @@ namespace Semantics_Analyzer
             return token;
         }
 
-        private Boolean hasGlobalID(SemanticsConstants.Identifiers id)
+        private Boolean isDeclaredID(SemanticsConstants.Identifiers id)
         {
             Boolean isdeclared = false;
             if (Identifiers.Count != 0)
             {
                 foreach (var item in Identifiers)
                 {
-                    if (item.getScope() == "Global")
+                    if (item.getScope() == "Global" || item.getScope() == currscope)
                     {
                         if (item.getAttrib() == "Variable" || item.getAttrib() == "Let" || item.getAttrib() == "Array")
                         {
@@ -230,7 +230,7 @@ namespace Semantics_Analyzer
             return isdeclared;
         }
 
-        private void hasMULTIGLOBALID(Node node, string datatype, string scope, string attrib, string default_value)
+        private void hasMULTIID(Node node, string datatype, string scope, string attrib, string default_value)
         {
             SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
             int idline = node.GetChildAt(1).GetStartLine();
@@ -238,26 +238,20 @@ namespace Semantics_Analyzer
             Tokens token = GetTokens(idline, idcol);
             string identifier = token.getLexemes();
             id = setIdentifier(identifier, attrib, datatype, scope, default_value, idline, token.getLexemes());
-            hasGlobalID(id);
+            isDeclaredID(id);
 
             if (node.GetChildCount() > 2)
             {
                 //If no initialization but has vartail
                 if (node.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
                 {
-                    hasMULTIGLOBALID(node.GetChildAt(2), datatype, scope, attrib, default_value);
+                    hasMULTIID(node.GetChildAt(2), datatype, scope, attrib, default_value);
                 }
                 //If has initialization and vartail
                 else if (node.GetChildCount() == 4)
                 {
-                    hasMULTIGLOBALID(node.GetChildAt(3), datatype, scope, attrib, default_value);
+                    hasMULTIID(node.GetChildAt(3), datatype, scope, attrib, default_value);
                 }
-                //If no vartail but has initialization
-                else
-                {
-
-                }
-
             }
         }
 
@@ -468,8 +462,7 @@ namespace Semantics_Analyzer
                 value = token_value.getLexemes();
 
                 id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
-                hasGlobalID(id);
-                string n = "";
+                isDeclaredID(id);
             }
             else if (GlobalChoice.GetChildAt(0).GetName() == "Prod_vardec")
             {
@@ -497,50 +490,20 @@ namespace Semantics_Analyzer
                 }
 
                 id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
-                hasGlobalID(id);
+                isDeclaredID(id);
                 if(vardtype.GetChildCount() > 2)
                 {
                     //If no initialization but has vartail
                     if (vardtype.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
                     {
-                        hasMULTIGLOBALID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
+                        hasMULTIID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
                     }
                     //If has initialization and vartail
                     else if (vardtype.GetChildCount() == 4)
                     {
-                        hasMULTIGLOBALID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
-                    }
-                    //If no vartail but has initialization
-                    else
-                    { 
-                        //    Node varinitDTYPE = vardtype.GetChildAt(2);
-                        //    string initdtype = "";
-                        //    switch (varinitDTYPE.GetName())
-                        //    {
-                        //        case "Prod_varinitINT":
-                        //            initdtype = "Int";
-                        //            break;
-                        //        case "Prod_varinitDOUBLE":
-                        //            initdtype = "Double";
-                        //            break;
-                        //        case "Prod_varinitSTRING":
-                        //            initdtype = "String";
-                        //            break;
-                        //        case "Prod_varinitCHAR":
-                        //            initdtype = "Char";
-                        //            break;
-                        //        case "Prod_varinitBOOLEAN":
-                        //            initdtype = "Boolean";
-                        //            break;
-                        //    }
-                        //    if(initdtype == "Int")
-                        //    {
-                        //        Node mathopINT = varinitDTYPE.GetChildAt(1);
-                        //    }
+                        hasMULTIID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
                     }
                 }
-
-                string n = "";
             }
             else if (GlobalChoice.GetChildAt(0).GetName() == "Prod_array")
             {
@@ -570,7 +533,7 @@ namespace Semantics_Analyzer
                     isMulti = true;
                 }
                 id = setIdentifier(identifier, attrib, datatype, scope, "-", idline, id_token.getLexemes());
-                Boolean array_add = hasGlobalID(id);
+                Boolean array_add = isDeclaredID(id);
                 if(!array_add)
                 {
                     array = setArray(identifier, datatype, isMulti, size_1, size_2);
@@ -1205,7 +1168,7 @@ namespace Semantics_Analyzer
             Node Functions = node;
             string function = Functions.GetChildAt(0).GetName();
             SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
-            if(function == "Prod_vardec")
+            if (function == "Prod_vardec")
             {
                 Node vardtype = Functions.GetChildAt(0).GetChildAt(1);
                 int idline = vardtype.GetChildAt(1).GetStartLine();
@@ -1231,27 +1194,58 @@ namespace Semantics_Analyzer
                 }
 
                 id = setIdentifier(identifier, attrib, datatype, scope, value, idline, token.getLexemes());
-                hasGlobalID(id);
+                isDeclaredID(id);
                 if (vardtype.GetChildCount() > 2)
                 {
                     //If no initialization but has vartail
                     if (vardtype.GetChildAt(2).GetName() == ("Prod_vartail" + datatype.ToUpper()))
                     {
-                        hasMULTIGLOBALID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
+                        hasMULTIID(vardtype.GetChildAt(2), datatype, scope, attrib, value);
                     }
                     //If has initialization and vartail
                     else if (vardtype.GetChildCount() == 4)
                     {
-                        hasMULTIGLOBALID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
-                    }
-                    //If no vartail but has initialization
-                    else
-                    {
-                 
+                        hasMULTIID(vardtype.GetChildAt(3), datatype, scope, attrib, value);
                     }
                 }
             }
-            return node;
+            else if (function == "Prod_array")
+            {
+                SemanticsConstants.Arrays array = new SemanticsConstants.Arrays();
+                Node Array = Functions.GetChildAt(0);
+                Node dataInfo = Array.GetChildAt(1);
+                string datatype = dataInfo.GetChildAt(0).GetName();
+                datatype = getDtype(datatype);
+                int dtypeline = dataInfo.GetChildAt(0).GetStartLine();
+                int dtypecol = dataInfo.GetChildAt(0).GetStartColumn();
+                int idline = dataInfo.GetChildAt(1).GetStartLine();
+                int idcol = dataInfo.GetChildAt(1).GetStartColumn();
+                string scope = currscope;
+                string attrib = "Array";
+                Boolean isMulti = false;
+                Tokens id_token = GetTokens(idline, idcol);
+                Tokens dtype_token = GetTokens(dtypeline, dtypecol);
+                Tokens size_1_token = GetTokens(Array.GetChildAt(3).GetStartLine(), Array.GetChildAt(3).GetStartColumn());
+                int size_1 = Int32.Parse(size_1_token.getLexemes());
+                int size_2 = -1;
+                string identifier = id_token.getLexemes();
+                if (Array.GetChildCount() > 4)
+                {
+                    Node size_tail = Array.GetChildAt(4);
+                    Tokens size_2_token = GetTokens(size_tail.GetChildAt(1).GetStartLine(), size_tail.GetChildAt(1).GetStartColumn());
+                    size_2 = Int32.Parse(size_2_token.getLexemes());
+                    isMulti = true;
+                }
+                id = setIdentifier(identifier, attrib, datatype, scope, "-", idline, id_token.getLexemes());
+                Boolean array_add = isDeclaredID(id);
+                if (!array_add)
+                {
+                    array = setArray(identifier, datatype, isMulti, size_1, size_2);
+                    Arrays.Add(array);
+                    populateArray(identifier, datatype, isMulti, size_1, size_2);
+                }
+            }
+                return node;
         }
 
         public override void ChildProdFunctions(Production node, Node child)
@@ -1714,6 +1708,47 @@ namespace Semantics_Analyzer
 
         public override Node ExitProdIdStmt(Production node)
         {
+            Node ID = node.GetChildAt(0);
+            Tokens ident = new Tokens();
+            int idline = ID.GetStartLine();
+            int idcol = ID.GetStartColumn();
+            ident = GetTokens(idline, idcol);
+            string dtype = "";
+            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            foreach (var item in identifiers)
+            {
+                if (item.getId() == ident.getLexemes())
+                {
+                    if (currscope == item.getScope())
+                    {
+                        dtype = item.getDtype();
+                    }
+                }
+            }
+            Node id_stmt_tail = node.GetChildAt(1);
+            if (id_stmt_tail.GetChildCount() < 3)
+            {
+                Node initvalues = id_stmt_tail.GetChildAt(1);
+                if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
+                {
+                    if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
+                    {
+
+                    }
+                    else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
+                    {
+
+                    }
+                    else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "Boolean")
+                    {
+
+                    }
+                    else {
+                        error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
+                    }
+
+                }
+            }
             return node;
         }
 

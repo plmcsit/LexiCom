@@ -230,7 +230,10 @@ namespace Syntax_Analyzer {
             case (int) SyntaxConstants.PROD_PROGRAM:
                 EnterProdProgram((Production) node);
                 break;
-            case (int) SyntaxConstants.PROD_GLOBAL:
+            case (int)SyntaxConstants.PROD_LEAD:
+                EnterProdLead((Production)node);
+                break;
+                case (int) SyntaxConstants.PROD_GLOBAL:
                 EnterProdGlobal((Production) node);
                 break;
             case (int) SyntaxConstants.PROD_GLOBAL_CHOICE:
@@ -697,6 +700,8 @@ namespace Syntax_Analyzer {
                 return ExitProdStartProgram((Production) node);
             case (int) SyntaxConstants.PROD_PROGRAM:
                 return ExitProdProgram((Production) node);
+            case (int)SyntaxConstants.PROD_LEAD:
+                return ExitProdLead((Production) node);
             case (int) SyntaxConstants.PROD_GLOBAL:
                 return ExitProdGlobal((Production) node);
             case (int) SyntaxConstants.PROD_GLOBAL_CHOICE:
@@ -924,6 +929,9 @@ namespace Syntax_Analyzer {
                 break;
             case (int) SyntaxConstants.PROD_PROGRAM:
                 ChildProdProgram(node, child);
+                break;
+            case (int)SyntaxConstants.PROD_LEAD:
+                ChildProdLead(node, child);
                 break;
             case (int) SyntaxConstants.PROD_GLOBAL:
                 ChildProdGlobal(node, child);
@@ -3079,7 +3087,8 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void EnterProdProgram(Production node) {
+        public virtual void EnterProdProgram(Production node)
+        {
         }
 
         /**
@@ -3093,7 +3102,8 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual Node ExitProdProgram(Production node) {
+        public virtual Node ExitProdProgram(Production node)
+        {
             return node;
         }
 
@@ -3107,7 +3117,8 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
-        public virtual void ChildProdProgram(Production node, Node child) {
+        public virtual void ChildProdProgram(Production node, Node child)
+        {
             node.AddChild(child);
         }
 
@@ -3119,6 +3130,60 @@ namespace Syntax_Analyzer {
          * <exception cref='ParseException'>if the node analysis
          * discovered errors</exception>
          */
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void EnterProdLead(Production node)
+        {
+        }
+
+        /**
+         * <summary>Called when exiting a parse tree node.</summary>
+         *
+         * <param name='node'>the node being exited</param>
+         *
+         * <returns>the node to add to the parse tree, or
+         *          null if no parse tree should be created</returns>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual Node ExitProdLead(Production node)
+        {
+            return node;
+        }
+
+        /**
+         * <summary>Called when adding a child to a parse tree
+         * node.</summary>
+         *
+         * <param name='node'>the parent node</param>
+         * <param name='child'>the child node, or null</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+        public virtual void ChildProdLead(Production node, Node child)
+        {
+            node.AddChild(child);
+        }
+
+        /**
+         * <summary>Called when entering a parse tree node.</summary>
+         *
+         * <param name='node'>the node being entered</param>
+         *
+         * <exception cref='ParseException'>if the node analysis
+         * discovered errors</exception>
+         */
+
+
         public virtual void EnterProdGlobal(Production node) {
         }
 

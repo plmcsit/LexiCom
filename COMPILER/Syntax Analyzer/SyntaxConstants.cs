@@ -179,6 +179,7 @@ namespace Syntax_Analyzer {
         PROD_RETURN_CHAR = 2102,
         PROD_RETURN_STRING = 2103,
         PROD_RETURN_BOOLEAN = 2104,
-        PROD_RETURNTAIL = 2105
+        PROD_RETURNTAIL = 2105,
+        PROD_LEAD = 2106
     }
 }
