@@ -16,7 +16,6 @@ namespace Lexical_Analyzer
         //VARIABLES
         public List<Tokens> token = new List<Tokens>();
         public List<int> linetokens = new List<int>();
-        LexicalConstants td = new LexicalConstants();
         public int invalid = 0;
         public byte state = 0;
         public int valid = 0;
@@ -59,14 +58,29 @@ namespace Lexical_Analyzer
 
             if (txt.Length != 1)
             {
-                while ((txt.Length - 1) > tempctr&&!isEnd(txt[tempctr + 1],rwd))
+                Boolean iscomment = false;
+                Boolean foundComment = false;
+                int commentctr = 0;
+                while ((txt.Length - 1) > tempctr&&!isEnd(txt[tempctr + 1],rwd)&&!foundComment)
                 {
                     tempctr++;
+                    if (commentctr == 0 && txt.ElementAt(0) == 'P')
+                    {
+                        iscomment = true;
+                        commentctr++;
+                    }
+                    else if (iscomment && commentctr == 1 && txt.ElementAt(1) == 'S')
+                    {
+                        iscomment = true;
+                        commentctr++;
+                        tempctr = 1;
+                        foundComment = true;
+                    }
                 }
                 tempctr++;
             }
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 ctr = 0;
                 words = new List<String>();
@@ -98,6 +112,9 @@ namespace Lexical_Analyzer
                         words = rw.rw_bool;
                         delims = rwd.delim_bool;
                         break;
+                    case 6:
+                        words.Add("PS");
+                        break;
 
                 }
                 //Check Reserved Words
@@ -121,64 +138,105 @@ namespace Lexical_Analyzer
                                     //CHECK DELIMITER
                                     if ((tempctr - 1) == ctr)
                                     {
-                                        foreach (char delim in delims)
+                                        if (i != 6)
                                         {
-                                            //IF NOT OUT OF RANGE
-                                            if ((txt.Length - 1) > ctr)
+                                            foreach (char delim in delims)
                                             {
-                                                //IF FOUND DELIMITER
-                                                if (txt[ctr + 1] == delim)
+                                                //IF NOT OUT OF RANGE
+                                                if ((txt.Length - 1) > ctr)
+                                                {
+                                                    //IF FOUND DELIMITER
+                                                    if (txt[ctr + 1] == delim)
+                                                    {
+                                                        hastoken = true;
+                                                        nodelim = false;
+                                                        if (w == "Yes" || w == "No")
+                                                        {
+                                                            t.setTokens("boollit");
+                                                        }
+                                                        else
+                                                        {
+                                                            t.setTokens(w);
+                                                        }
+                                                        t.setLexemes(w);
+                                                        t.setAttributes(w);
+                                                        token.Add(t);
+                                                        valid++;
+                                                        break;
+                                                    }
+                                                }
+                                                else if (w == words[limit] && hastoken == false)
+                                                {
+                                                    found = false;
+                                                }
+
+                                            }
+
+                                            if (hastoken == false)
+                                            {
+                                                hastoken = true;
+                                                nodelim = false;
+                                                found = true;
+                                                t.setTokens("NODELIM");
+                                                t.setLexemes(w);
+                                                t.setAttributes(w);
+                                                token.Add(t);
+                                                invalid++;
+                                            }
+                                            else if (nodelim)
+                                            {
+                                                hastoken = true;
+                                                found = true;
+                                                t.setTokens("INVALID");
+                                                t.setLexemes(w);
+                                                t.setAttributes(w);
+                                                token.Add(t);
+                                                invalid++;
+                                                break;
+                                            }
+
+                                            if (hastoken)
+                                            {
+                                                break;
+                                            }
+
+                                        }
+                                        //IF COMMENT
+                                        else
+                                        {
+                                            Boolean endcomment = false;
+                                            while (!endcomment)
+                                            {
+                                                if ((txt.Length - 1) > ctr)
+                                                {
+                                                    //IF FOUND NEWLINE
+                                                    if (txt[ctr + 1] == '\n')
+                                                    {
+                                                        hastoken = true;
+                                                        nodelim = false;
+                                                        endcomment = true;
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     hastoken = true;
-                                                    nodelim = false;
-                                                    t.setTokens(w);
-                                                    t.setLexemes(w);
-                                                    t.setAttributes(w);
-                                                    token.Add(t);
-                                                    valid++;
-                                                    break;
+                                                    endcomment = true;
                                                 }
+
+                                                if (!endcomment)
+                                                    ctr++;
                                             }
-                                            else if (w == words[limit] && hastoken == false)
+
+                                            if (hastoken)
                                             {
-                                                found = false;
+                                                break;
                                             }
-                                            
+                                            lines++;
                                         }
-
-                                        if (hastoken == false)
-                                        {
-                                            hastoken = true;
-                                            nodelim = false;
-                                            found = true;
-                                            t.setTokens("NODELIM");
-                                            t.setLexemes(w);
-                                            t.setAttributes(w);
-                                            token.Add(t);
-                                            invalid++;
-                                        }
-                                        else if (nodelim)
-                                        {
-                                            hastoken = true;
-                                            found = true;
-                                            t.setTokens("INVALID");
-                                            t.setLexemes(w);
-                                            t.setAttributes(w);
-                                            token.Add(t);
-                                            invalid++;
-                                            break;
-                                        }
-
-                                        if (hastoken)
-                                        {
-                                            break;
-                                        }
-
                                     }
                                     else temp.Add(w);
                                 }
                             }
-
                         }
                     }
                     ctr++;
@@ -248,10 +306,22 @@ namespace Lexical_Analyzer
                 {
                     tempctr++;
                 }
-                tempctr++;
+                if((txt.Length - 1) > tempctr)
+                    if (txt.ElementAt(tempctr) != '+' && txt.ElementAt(tempctr) != '-')
+                    tempctr++;
+                if ((txt.Length - 1) > tempctr)
+                    if ((txt.ElementAt(tempctr) == '+' || txt.ElementAt(tempctr) == '-') && tempctr == 0)
+                    tempctr++;
+                if ((txt.Length - 1) > tempctr)
+                    if ((txt.ElementAt(tempctr) == '+' || txt.ElementAt(tempctr) == '-') && tempctr == 1 && (txt.ElementAt(tempctr - 1) == '+' || txt.ElementAt(tempctr - 1) == '-'))
+                    tempctr++;
+                if (txt.Length > tempctr)
+                    if ((txt.ElementAt(0) == ')') && (txt.ElementAt(1) == '&' || txt.ElementAt(1) == '|'))
+                    tempctr = 1;
+
             }
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 13; i++)
             {
                 sctr = 0;
                 words = new List<String>();
@@ -300,15 +370,19 @@ namespace Lexical_Analyzer
                         delims = rsd.relop;
                         break;
                     case 10:
+                        words = rs.rs_rel0p;
+                        delims = rsd.rel0p;
+                        break;
+                    case 11:
                         words = rs.rs_math;
                         delims = rsd.math;
                         break;
-                    case 11:
+                    case 12:
                         words = rs.rs_done;
                         break;
                 }
                 //Check Reserved Symbols
-                if (i != 11)
+                if (i != 12)
                 {
                     foreach (char c in txt)
                     {
@@ -320,7 +394,7 @@ namespace Lexical_Analyzer
                             //IF NOT OUT OF RANGE
                             if ((w.Length - 1) >= sctr)
                             {
-                                if (c == w.ElementAt(sctr))
+                                 if (c == w.ElementAt(sctr))
                                 {
                                     found = true;
                                     //CHECK SIZE OF WORD AND INPUT
@@ -545,7 +619,7 @@ namespace Lexical_Analyzer
                         List<char> num = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
                         id.id.AddRange(id.delim_caplet);
-                        id.id.AddRange(id.delim_caplet);
+                        id.id.AddRange(id.delim_lowlet);
 
                         //If Negative
                         if (txt.ElementAt(lctr) == '~')
@@ -647,6 +721,7 @@ namespace Lexical_Analyzer
                                 {
                                     foreach (char delim in delims)
                                     {
+                                        if ((txt.Length - 1) > lctr)
                                         if (txt.ElementAt(lctr + 1) == delim)
                                         {
                                             hastoken = true;
@@ -666,8 +741,10 @@ namespace Lexical_Analyzer
                                     {
                                         foreach (char c in id.id)
                                         {
+                                        if ((txt.Length - 1) > lctr)
                                             if (txt.ElementAt(lctr + 1) == c)
                                             {
+                                                lctr++;
                                                 hasid = true;
                                             }
                                         }
@@ -717,7 +794,7 @@ namespace Lexical_Analyzer
                                 isvalID = true;
                             }
                     }
-                    if (ictr > 19)
+                    if (ictr > 11)
                         valID = false;
                 }
                 

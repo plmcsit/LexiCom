@@ -11,7 +11,7 @@ namespace Lexical_Analyzer
         //INITIALIZATION
         public LexicalAnalyzer Start(string txt, LexicalAnalyzer lex)
         {
-            Boolean hastoken = false;
+            Boolean hastoken;
             Tokens t = new Tokens();
             lex.token.Clear();
             lex.invalid = 0;
@@ -19,7 +19,11 @@ namespace Lexical_Analyzer
 
             while (txt != "")
             {
-                if (hastoken = lex.GetTokenLines(txt, tokens))
+                if(txt.ElementAt(0) == '\t')
+                {
+                    txt = txt.Remove(0, 1);
+                }
+                else if (hastoken = lex.GetTokenLines(txt, tokens))
                 {
                     txt = txt.Remove(0, lex.ctr);
                     tokens--;
@@ -82,8 +86,6 @@ namespace Lexical_Analyzer
         private int GetCtr(string txt)
         {
             LexicalConstants.ReservedWordsDelims rwd = new LexicalConstants.ReservedWordsDelims();
-            LexicalConstants td = new LexicalConstants();
-
             Boolean ifEnd = false;
             int ctr = 0;
 

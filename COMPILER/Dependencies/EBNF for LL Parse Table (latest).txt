@@ -1,0 +1,144 @@
+/* PROGRAM START */
+<program> -> <global> Lead : Start <statements> End . <taskdef>
+<global> -> <global_choice> . <global> | LAMBDA
+<global_choice> -> <let_global> | <vardec> | <array> | <task> | <object>
+<datatype> -> Int id | Double id | Char id | String id | Boolean id
+
+/* CONSTANT DECLARATION */
+<let_global> -> Let id is <values>
+<values> -> intlit | doublelit | stringlit | charlit | boollit
+
+/* VARIABLE DECLARATION */
+<vardec> -> Var <vardtype>
+<vardtype> -> Int id <varinitINT> <vartailINT> | Double id <varinitDOUBLE> <vartailDOUBLE> | Char id <varinitCHAR> <vartailCHAR> | String id <varinitSTRING> <vartailSTRING> | Boolean id <varinitBOOLEAN> <vartailBOOLEAN>
+
+<varinitINT> -> is <mathopINT> | LAMBDA
+<varinitDOUBLE> -> is <mathopDOUBLE> | LAMBDA
+<varinitCHAR> -> is <valueCHAR> | LAMBDA
+<varinitSTRING> -> is <valueSTRING> | LAMBDA
+<varinitBOOLEAN> -> is <valueBOOLEAN> | LAMBDA
+
+<vartailINT> -> ; id <varinitINT> <vartailINT> | LAMBDA
+<vartailDOUBLE> -> ; id <varinitDOUBLE> <vartailDOUBLE> | LAMBDA
+<vartailCHAR> -> ; id <varinitCHAR> <vartailCHAR> | LAMBDA
+<vartailSTRING> -> ; id <varinitSTRING> <vartailSTRING> | LAMBDA
+<vartailBOOLEAN> -> ; id <varinitBOOLEAN> <vartailBOOLEAN> | LAMBDA
+
+<valueCHAR> -> charlit | id <id_tail>
+<valueSTRING> -> stringlit | id <id_tail>
+<valueBOOLEAN> -> boollit | id <id_tail>
+
+/* ID CHOICES */
+<id_tail> -> <ids_tail> | ( <task_param> )
+<ids_tail> -> <id_choices> | LAMBDA
+<id_choices> -> @ <elements> | [ <index> ] <index_tail>
+<task_param> -> <value> <task_param_tail> | LAMBDA
+<task_param_tail> -> ; <task_param> | LAMBDA
+<value> -> <values> | <elements>
+<index> -> <index_value> <indexop>
+<indexop> -> <add_min> <index_value> | LAMBDA
+<add_min> -> + | -
+<index_value> -> id | intlit
+<index_tail> -> [ <index> ] | LAMBDA
+<elements> -> id <elements_tail>
+<elements_tail> -> @ <elements> | LAMBDA
+
+/* ARRAY DECLARATION */
+<array> -> Array <datatype> of intlit <size_tail>
+<size_tail> -> by intlit | LAMBDA
+
+/* TASK DECLARATION */
+<task> -> Task <return_type> <parameters>
+<return_type> -> <datatype> | Null id
+<parameters> -> ( <datatype> <param_tail> ) | LAMBDA
+<param_tail> -> ; <datatype> <param_tail> | LAMBDA
+
+/* OBJECT DECLARATION */
+<object> -> Object id Start <object_elem> End <object_var>
+<object_elem> -> Var <datatype> . <object_elem_tail> | Object id id . <object_elem_tail>
+<object_elem_tail> -> <object_elem> | LAMBDA
+<object_var> -> id <object_var_tail> | LAMBDA
+<object_var_tail> -> ; <object_var> | LAMBDA
+
+/* STATEMENTS */
+<statements> -> <functions> . <statements> | LAMBDA
+<functions> -> <vardec> | <array> | Object id id | <io_statement> | <pre_incdec> | Clear | <option> | <IfOtherwise> | <loopstate> | <id_stmt>
+
+/* INPUT - OUTPUT STATEMENTS */
+<io_statement> -> Read id <ids_tail> | Say <output_statement>
+<output_statement> -> stringlit <concat> | id <ids_tail> <concat>
+<concat> -> , <output_statement> | LAMBDA
+
+/* INCREMENT - DECREMENT */
+<pre_incdec> -> ++ id | -- id
+
+/* OPTION STATEMENT */
+<option> -> Option <elements> Start State <option_choices> 
+<option_choices> -> <optionINT> | <optionCHAR> | <optionSTRING>
+<optionINT> -> intlit : <statements> Stop . <stateINT> <default> End
+<optionCHAR> -> charlit : <statements> Stop . <stateCHAR> <default> End
+<optionSTRING> -> stringlit : <statements> Stop . <stateSTRING> <default> End
+<stateINT> -> State intlit : <statements> Stop . <stateINT> | LAMBDA
+<stateCHAR> -> State charlit : <statements> Stop . <stateCHAR> | LAMBDA
+<stateSTRING> -> State stringlit : <statements> Stop . <stateSTRING> | LAMBDA
+<default> -> Default : <statements> | LAMBDA
+
+/* CONDITION STATEMENTS */
+<conditions> -> <condition_choices> | <negate> ( <condition_choices> ) <logOp_tail>
+<condition_choices> -> id <condition_ids> <relOp> <condition_tail>  | <values> <relOp> <condition_tail> 
+<condition_tail> -> id <condition_ids> | <values>
+<condition_ids> -> <id_choices> | ( <task_param> )
+<logOp_tail> -> <logOp> <logOp_choices> <logOp_tail> |LAMBDA
+<logOp_choices> -> <negate> ( <condition_choices> ) | boollit <logOp_tail>
+<relOp> -> == | != | > | >= | < | <=
+<logOp> -> && | ??
+<negate> -> ! | LAMBDA
+
+/* IF - OR - OTHERWISE STATEMENTS */
+<IfOtherwise> -> If ( <conditions> ) <cond_loop> <or> <otherwise> EndIf
+<or> -> Or ( <conditions> ) <cond_loop> <or> | LAMBDA
+<otherwise> -> Otherwise <cond_loop> <control> | LAMBDA
+<cond_loop> -> <functions> . <control> <cond_loop> | LAMBDA
+<control> -> Skip . | Stop . | LAMBDA
+
+/* LOOPING STATEMENTS */
+<loopstate> -> Until ( <conditions> ) <cond_loop> Loop | Do <cond_loop> LoopIf ( <conditions> ) | For ( <initialize> ; <cond> ; <incdecvar> ) <cond_loop> Loop
+<initialize> -> id = <init_choices> | LAMBDA
+<init_choices> -> intlit | id 
+<cond> -> <init_choices> <relOp> <init_choices> | LAMBDA
+<incdecvar> -> <incdec> id | id <incdec>
+
+/* ID STATEMENTS */
+<id_stmt> -> id <id_stmt_tail>
+<id_stmt_tail> -> <ids_tail> = <initvalues> | ( <task_param> )
+<initvalues> -> <mathopNUM> | charlit | stringlit | boollit
+
+/* MATH OPERATIONS */
+<mathopINT> -> <intvalue> <mathopINT_tail> | ( <mathopINT> ) <mathopINT_tail>
+<mathopDOUBLE> -> <doublevalue> <mathopDOUBLE_tail> | ( <mathopDOUBLE> ) <mathopDOUBLE_tail>
+<mathopNUM> -> <numvalue> <mathopNUM_tail> | ( <mathopNUM> ) <mathopNUM_tail>
+<intvalue> -> intlit | <exprID>
+<doublevalue> -> doublelit | <exprID>
+<numvalue> -> intlit | doublelit | <exprID>
+<exprID> -> id <id_tail> <incdec_null> | <pre_incdec> <id_tail>
+<mathopINT_tail> -> <operators> <mathopINT> | LAMBDA
+<mathopDOUBLE_tail> -> <operators> <mathopDOUBLE> | LAMBDA
+<mathopNUM_tail> -> <operators> <mathopNUM> | LAMBDA
+
+/* OPERATORS */
+<operators> -> + | - | * | / | %
+<incdec> -> ++ | --
+<incdec_null> -> <incdec> | LAMBDA
+
+/* TASK DEFINITION */
+<taskdef> -> Task <return_id> End . <taskdef> | LAMBDA
+<return_id> -> Int id : <taskbody> Response <returnINT> . | Double id : <taskbody> Response <returnDOUBLE> . | Char id : <taskbody> Response <returnCHAR> . | String id : <taskbody> Response <returnSTRING> . | Boolean id : <taskbody> Response <returnBOOLEAN> . | Null id : <taskbody>
+<taskbody> -> Start <taskbodytail>
+<taskbodytail> -> <statements>
+<returnINT> -> intlit | id <returntail>
+<returnDOUBLE> -> doublelit | id <returntail>
+<returnCHAR> -> charlit | id <returntail>
+<returnSTRING> -> stringlit | id <returntail>
+<returnBOOLEAN> -> boollit | id <returntail>
+<returntail>  -> ( <task_param> ) | <elements> | LAMBDA
+<StartProgram> -> <program> $

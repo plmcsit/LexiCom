@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E161760E-85E5-4042-A9E2-F529F3BB589F}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LexiCom</RootNamespace>
     <AssemblyName>LexiCom</AssemblyName>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -96,25 +100,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Code Generation\Code Generation.csproj">
+      <Project>{1966084f-7b59-4963-974a-5d5b1e537317}</Project>
+      <Name>Code Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core Library\Core Library.csproj">
+      <Project>{100bf7e7-b634-4e6b-948e-22d0566fb2af}</Project>
+      <Name>Core Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lexical Analyzer\Lexical Analyzer.csproj">
-      <Project>{70ddd6d0-45b1-4b63-9a9d-327d744e7316}</Project>
+      <Project>{70DDD6D0-45B1-4B63-9A9D-327D744E7316}</Project>
       <Name>Lexical Analyzer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Semantics Analyzer\Semantics Analyzer.csproj">
+      <Project>{5BAAD1B7-1A1B-41CD-AA2A-90D497685963}</Project>
+      <Name>Semantics Analyzer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Syntax Analyzer\Syntax Analyzer.csproj">
-      <Project>{51778ac8-5916-41d4-a647-e5e33a320f3e}</Project>
+      <Project>{51778AC8-5916-41D4-A647-E5E33A320F3E}</Project>
       <Name>Syntax Analyzer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SyntaxCore\SyntaxCore.csproj">
-      <Project>{b35e54c1-b836-4929-9788-d221cdb3b7c5}</Project>
-      <Name>SyntaxCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj">
-      <Project>{b2a3cf3f-a100-4772-8190-781981b41ebf}</Project>
+      <Project>{B2A3CF3F-A100-4772-8190-781981B41EBF}</Project>
       <Name>TokenLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Code Structures.txt" />
+    <None Include="Resources\clear.png" />
     <None Include="Resources\mode.png" />
     <None Include="Resources\start.png" />
     <None Include="Resources\start1.png" />

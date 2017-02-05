@@ -1,0 +1,2 @@
+CREATE CS OUTPUT:
+java -jar lib\grammatica-1.6.jar latest.grammar --csoutput "LexiCom Syntax" --csnamespace Syntax_Analyzer --csclassname Syntax --cspublic
