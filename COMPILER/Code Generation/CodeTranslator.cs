@@ -82,12 +82,13 @@ namespace Code_Translation
         private bool isFor = false;
         private bool isOutput = false;
         private bool isAt = false;
-        private bool isAdd;
+        private bool isAdd = false;
         private string input_datatype;
-        private bool isDec;
-        private bool isEnd;
-        private bool isEndIf;
-        private bool isOption;
+        private bool isDec = false;
+        private bool isEnd = false;
+        private bool isEndIf = false;
+        private bool isOption = false;
+        private bool isLoop = false;
 
         public string Start()
         {
@@ -255,6 +256,10 @@ namespace Code_Translation
         {
             if (isAdd)
             {
+                if(currscope == "Global")
+                {
+                    code += "\npublic static ";
+                }
                 isDec = true;
                 isAdd = false;
             }
@@ -529,6 +534,7 @@ namespace Code_Translation
             {
                 code += "}\n";
                 isAdd = false;
+                isLoop = true;
             }
             return node;
         }
@@ -540,7 +546,7 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                code += "while ";
+                code += "\n}while ";
                 isDo = true;
                 isAdd = false;
             }
@@ -554,7 +560,7 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                code += "do\n";
+                code += "do{\n";
                 isAdd = false;
             }
             return node;
@@ -834,11 +840,35 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                if (!isEnd && !isEndIf)
+                //if(isLoop)
+                //{
+                //    isLoop = false;
+                //    return node;
+                //}
+                if (!isEnd)
                 {
-                    code += ";\n";
+                    if (!isEndIf)
+                    {
+                        if (!isLoop)
+                        {
+                            code += ";\n";
+                            isEnd = false;
+                            isEndIf = false;
+                            isLoop = false;
+                        }
+                        else
+                        {
+                            isLoop = false;
+                        }
+                    }
+                    else
+                    {
+                        isEndIf = false;
+                    }
+                }
+                else
+                {
                     isEnd = false;
-                    isEndIf = false;
                 }
                 isAdd = false;
             }
@@ -2400,6 +2430,14 @@ namespace Code_Translation
         public override void ChildProdLoopstate(Production node, Node child)
         {
             node.AddChild(child);
+            Node loopstate = node.GetChildAt(0);
+            if (loopstate.GetName() == "FOR" || loopstate.GetName() == "UNTIL")
+            {
+               if(child.GetName() == "CP")
+                {
+                    code += "\n{\n";
+                }
+            }
         }
 
         public override void EnterProdInitialize(Production node)
@@ -2526,109 +2564,109 @@ namespace Code_Translation
 
         public override Node ExitProdIdStmt(Production node)
         {
-            Node ID = node.GetChildAt(0);
-            Tokens ident = new Tokens();
-            int idline = ID.GetStartLine();
-            int idcol = ID.GetStartColumn();
-            ident = GetTokens(idline, idcol);
-            string dtype = "";
-            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
-            foreach (var item in identifiers)
-            {
-                if (item.getId() == ident.getLexemes())
-                {
-                    if (currscope == item.getScope())
-                    {
-                        dtype = item.getDtype();
-                    }
-                }
-            }
-            Node id_stmt_tail = node.GetChildAt(1);
-            if (id_stmt_tail.GetChildCount() < 3)
-            {
-                Node initvalues = id_stmt_tail.GetChildAt(1);
-                if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
-                {
-                    Tokens t = new Tokens();
-                    t = GetTokens(initvalues.GetChildAt(0).GetStartLine(), initvalues.GetChildAt(0).GetStartColumn());
-                    if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
-                    {
-                        foreach (var item in identifiers)
-                        {
-                            if (item.getId() == ident.getLexemes())
-                            {
-                                if (currscope == item.getScope())
-                                {
-                                    string lex = t.getLexemes();
-                                    lex = lex.Remove(lex.Length - 1, 1);
-                                    lex = lex.Remove(0, 1);
-                                    t.setLexemes(lex);
-                                    item.setValue(t.getLexemes());
-                                }
-                            }
-                        }
-                    }
-                    else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
-                    {
-                        foreach (var item in identifiers)
-                        {
-                            if (item.getId() == ident.getLexemes())
-                            {
-                                if (currscope == item.getScope())
-                                {
-                                    string lex = t.getLexemes();
-                                    lex = lex.Remove(lex.Length - 1, 1);
-                                    lex = lex.Remove(0, 1);
-                                    t.setLexemes(lex);
-                                    item.setValue(t.getLexemes());
-                                }
-                            }
-                        }
-                    }
-                    else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "BOOLEAN")
-                    {
-                        foreach (var item in identifiers)
-                        {
-                            if (item.getId() == ident.getLexemes())
-                            {
-                                if (currscope == item.getScope())
-                                {
-                                    item.setValue(t.getLexemes());
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
-                    }
-                }
-                else
-                {
-                    Node mathop_NUM = initvalues.GetChildAt(0);
-                    foreach (var item in identifiers)
-                    {
-                        if (item.getId() == ident.getLexemes())
-                        {
-                            if (currscope == item.getScope())
-                            {
-                                if (item.getDtype() == "Int")
-                                {
-                                    string num = mathop_NUM.GetValue(0).ToString();
-                                    while (num.Contains("."))
-                                    {
-                                        num = num.Remove(num.Length - 1, 1);
-                                    }
-                                    mathop_NUM.Values.Clear();
-                                    mathop_NUM.Values.Add(num);
-                                }
-                                    item.setValue(mathop_NUM.GetValue(0).ToString());
+            //Node ID = node.GetChildAt(0);
+            //Tokens ident = new Tokens();
+            //int idline = ID.GetStartLine();
+            //int idcol = ID.GetStartColumn();
+            //ident = GetTokens(idline, idcol);
+            //string dtype = "";
+            //SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            //foreach (var item in identifiers)
+            //{
+            //    if (item.getId() == ident.getLexemes())
+            //    {
+            //        if (currscope == item.getScope())
+            //        {
+            //            dtype = item.getDtype();
+            //        }
+            //    }
+            //}
+            //Node id_stmt_tail = node.GetChildAt(1);
+            //if (id_stmt_tail.GetChildCount() < 3)
+            //{
+            //    Node initvalues = id_stmt_tail.GetChildAt(1);
+            //    if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
+            //    {
+            //        Tokens t = new Tokens();
+            //        t = GetTokens(initvalues.GetChildAt(0).GetStartLine(), initvalues.GetChildAt(0).GetStartColumn());
+            //        if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
+            //        {
+            //            foreach (var item in identifiers)
+            //            {
+            //                if (item.getId() == ident.getLexemes())
+            //                {
+            //                    if (currscope == item.getScope())
+            //                    {
+            //                        string lex = t.getLexemes();
+            //                        lex = lex.Remove(lex.Length - 1, 1);
+            //                        lex = lex.Remove(0, 1);
+            //                        t.setLexemes(lex);
+            //                        item.setValue(t.getLexemes());
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
+            //        {
+            //            foreach (var item in identifiers)
+            //            {
+            //                if (item.getId() == ident.getLexemes())
+            //                {
+            //                    if (currscope == item.getScope())
+            //                    {
+            //                        string lex = t.getLexemes();
+            //                        lex = lex.Remove(lex.Length - 1, 1);
+            //                        lex = lex.Remove(0, 1);
+            //                        t.setLexemes(lex);
+            //                        item.setValue(t.getLexemes());
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "BOOLEAN")
+            //        {
+            //            foreach (var item in identifiers)
+            //            {
+            //                if (item.getId() == ident.getLexemes())
+            //                {
+            //                    if (currscope == item.getScope())
+            //                    {
+            //                        item.setValue(t.getLexemes());
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Node mathop_NUM = initvalues.GetChildAt(0);
+            //        foreach (var item in identifiers)
+            //        {
+            //            if (item.getId() == ident.getLexemes())
+            //            {
+            //                if (currscope == item.getScope())
+            //                {
+            //                    if (item.getDtype() == "Int")
+            //                    {
+            //                        string num = mathop_NUM.GetValue(0).ToString();
+            //                        while (num.Contains("."))
+            //                        {
+            //                            num = num.Remove(num.Length - 1, 1);
+            //                        }
+            //                        mathop_NUM.Values.Clear();
+            //                        mathop_NUM.Values.Add(num);
+            //                    }
+            //                        item.setValue(mathop_NUM.GetValue(0).ToString());
                                 
-                            }
-                        }
-                    }
-                }
-            }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
 
             return node;
