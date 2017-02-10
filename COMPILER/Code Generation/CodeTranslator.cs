@@ -89,6 +89,7 @@ namespace Code_Translation
         private bool isEndIf = false;
         private bool isOption = false;
         private bool isLoop = false;
+        private bool isID = false;
 
         public string Start()
         {
@@ -275,6 +276,7 @@ namespace Code_Translation
             {
                 if (!isArray)
                 {
+
                     Tokens t = new Tokens();
                     t = GetTokens(node.GetStartLine(), node.GetStartColumn());
                     code += " " + t.getLexemes();
@@ -285,7 +287,7 @@ namespace Code_Translation
                     }
                     if (isSay)
                     {
-                        code += ".ToString() ";
+                        //code += ".ToString() ";
                     }
                 }
                     isAdd = false;
@@ -931,7 +933,7 @@ namespace Code_Translation
             if (isAdd)
             {
                 if (!isArray)
-                    code += "[ ";
+                    code += "[";
                 isAdd = false;
             }
             return node;
@@ -945,7 +947,7 @@ namespace Code_Translation
             if (isAdd)
             {
                 if (!isArray)
-                    code += "] ";
+                    code += "]";
                 isAdd = false;
             }
             return node;
@@ -2080,10 +2082,23 @@ namespace Code_Translation
 
         public override void EnterProdOutputStatement(Production node)
         {
+            if(isID)
+            {
+                code = code.Remove(code.Length - 3, 3);
+                code += ".ToString() + ";
+                isID = false;
+            }
+            string s = code;
         }
 
         public override Node ExitProdOutputStatement(Production node)
         {
+            if (isID)
+            {
+                code = code.Remove(code.Length - 1, 1);
+                code += ".ToString() ";
+                isID = false;
+            }
             return node;
         }
 
@@ -2120,6 +2135,11 @@ namespace Code_Translation
             //    }
             //}
             node.AddChild(child);
+            if(child.GetName() == "ID")
+            {
+                isID = true;
+            }
+            
         }
 
         public override void EnterProdConcat(Production node)
