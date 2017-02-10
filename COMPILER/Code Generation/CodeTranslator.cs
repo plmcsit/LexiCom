@@ -273,17 +273,20 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                code += " " + t.getLexemes();
-                if (isDec)
+                if (!isArray)
                 {
-                    int codenum = t.getCode();
-                    tokens[codenum].setDatatype(input_datatype);
-                }
-                if(isSay)
-                {
-                    code += ".ToString() ";
+                    Tokens t = new Tokens();
+                    t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                    code += " " + t.getLexemes();
+                    if (isDec)
+                    {
+                        int codenum = t.getCode();
+                        tokens[codenum].setDatatype(input_datatype);
+                    }
+                    if (isSay)
+                    {
+                        code += ".ToString() ";
+                    }
                 }
                     isAdd = false;
             }
@@ -614,8 +617,11 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                input_datatype = "Int";
-                code += "int ";
+                if (!isArray)
+                {
+                    input_datatype = "Int";
+                    code += "int ";
+                }
                 isAdd = false;
             }
             return node;
@@ -628,9 +634,12 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                input_datatype = "Double";
-                code += "double ";
-                isAdd = false;
+                if (!isArray)
+                {
+                    input_datatype = "Double";
+                    code += "double ";
+                }
+               isAdd = false;
             }
             return node;
         }
@@ -642,8 +651,11 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                input_datatype = "Char";
-                code += "char ";
+                if (!isArray)
+                {
+                    input_datatype = "Char";
+                    code += "char ";
+                }
                 isAdd = false;
             }
             return node;
@@ -656,8 +668,11 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                code += "string ";
-                input_datatype = "String";
+                if (!isArray)
+                {
+                    code += "string ";
+                    input_datatype = "String";
+                }
                 isAdd = false;
             }
             return node;
@@ -698,7 +713,10 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                code += "bool ";
+                if (!isArray)
+                {
+                    code += "bool ";
+                }
                 isAdd = false;
             }
             return node;
@@ -711,10 +729,14 @@ namespace Code_Translation
         {
             if (isAdd)
             {
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                code += " " + t.getLexemes() + " ";
+                if (!isArray)
+                {
+                    Tokens t = new Tokens();
+                    t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                    code += " " + t.getLexemes() + " ";
+                }
                 isAdd = false;
+                
             }
             return node;
         }
@@ -1677,10 +1699,57 @@ namespace Code_Translation
 
         public override void EnterProdArray(Production node)
         {
+            isArray = true;
         }
 
         public override Node ExitProdArray(Production node)
         {
+            isArray = false;
+            string ident = "";
+            string dtype = "";
+            string size1 = "";
+            string size2 = "";
+            bool isMultiD = false;
+            if(node.GetChildCount() == 5)
+            {
+                isMultiD = true;
+            }
+            Node proddtype = node.GetChildAt(1).GetChildAt(0);
+            Node prodident = node.GetChildAt(1).GetChildAt(1);
+            Node size_1 = node.GetChildAt(3);
+            Tokens t = new Tokens();
+            t = GetTokens(prodident.GetStartLine(), prodident.GetStartColumn());
+            ident = t.getLexemes();
+            t = GetTokens(proddtype.GetStartLine(), proddtype.GetStartColumn());
+            dtype = t.getLexemes();
+            t = GetTokens(size_1.GetStartLine(), size_1.GetStartColumn());
+            size1 = t.getLexemes();
+
+            switch (dtype) {
+                case "Int": dtype = "int"; break;
+                case "Double": dtype = "double"; break;
+                case "String": dtype = "string"; break;
+                case "Char": dtype = "char"; break;
+                case "Boolean": dtype = "bool"; break;
+            }
+
+            if (isMultiD)
+            {
+                Node size_2 = node.GetChildAt(4).GetChildAt(1);
+                t = GetTokens(size_2.GetStartLine(), size_2.GetStartColumn());
+                size2 = t.getLexemes();
+                code += dtype + "[][] " + ident + " = new " + dtype + "["+size1+"][];\n";
+                for(int i = 0; i < Int32.Parse(size1); i++)
+                {
+                    code += ident + "[" + i + "] = new "+ dtype + "["+ size2 +"];\n";
+                }
+                code = code.Remove(code.Length - 2, 2);
+            }
+            else
+            {
+                code += dtype + "[] " + ident + " = new " + dtype + "[" + size1 + "]";
+            }
+            
             return node;
         }
 
