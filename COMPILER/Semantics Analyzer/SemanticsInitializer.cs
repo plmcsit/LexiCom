@@ -1081,12 +1081,19 @@ namespace Semantics_Analyzer
 
         public override Node ExitProdObject(Production node)
         {
+            currscope = "Global";
             return node;
         }
 
         public override void ChildProdObject(Production node, Node child)
         {
             node.AddChild(child);
+            if (child.GetName() == "ID")
+            {
+                Tokens t = new Tokens();
+                t = GetTokens(child.GetStartLine(), child.GetStartColumn());
+                currscope = "Object." + t.getLexemes();
+            }
         }
 
         public override void EnterProdObjectElem(Production node)

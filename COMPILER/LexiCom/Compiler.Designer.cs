@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.LexGrid = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +53,10 @@
             this.lecsicalAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
             this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.codeTranslatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generatedCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.consoleOutput = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.DataSyntaxError = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,11 +88,7 @@
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.index_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.index_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
-            this.codeTranslatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generatedCode = new System.Windows.Forms.ToolStripMenuItem();
-            this.consoleOutput = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataLexicalError)).BeginInit();
@@ -349,6 +349,36 @@
             this.semantics_mode.Text = "Semantics Analyzer";
             this.semantics_mode.Click += new System.EventHandler(this.semantics_mode_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
+            // 
+            // codeTranslatedToolStripMenuItem
+            // 
+            this.codeTranslatedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generatedCode,
+            this.consoleOutput});
+            this.codeTranslatedToolStripMenuItem.Name = "codeTranslatedToolStripMenuItem";
+            this.codeTranslatedToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.codeTranslatedToolStripMenuItem.Text = "Developer Options";
+            // 
+            // generatedCode
+            // 
+            this.generatedCode.Name = "generatedCode";
+            this.generatedCode.Size = new System.Drawing.Size(159, 22);
+            this.generatedCode.Text = "Generated Code";
+            this.generatedCode.Click += new System.EventHandler(this.generatedCode_Click);
+            // 
+            // consoleOutput
+            // 
+            this.consoleOutput.Checked = true;
+            this.consoleOutput.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.consoleOutput.Name = "consoleOutput";
+            this.consoleOutput.Size = new System.Drawing.Size(159, 22);
+            this.consoleOutput.Text = "Console Output";
+            this.consoleOutput.Click += new System.EventHandler(this.consoleOutput_Click);
+            // 
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
@@ -367,14 +397,14 @@
             this.Line,
             this.Col,
             this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DataSyntaxError.Location = new System.Drawing.Point(753, 549);
             this.DataSyntaxError.Name = "DataSyntaxError";
@@ -674,11 +704,6 @@
             this.index_2.ReadOnly = true;
             this.index_2.Width = 40;
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
-            // 
             // Code
             // 
             this.Code.AcceptsTab = true;
@@ -698,32 +723,7 @@
             this.Code.ShowLineNumbers = true;
             this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
-            this.Code.Text = "";
-            // 
-            // codeTranslatedToolStripMenuItem
-            // 
-            this.codeTranslatedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generatedCode,
-            this.consoleOutput});
-            this.codeTranslatedToolStripMenuItem.Name = "codeTranslatedToolStripMenuItem";
-            this.codeTranslatedToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.codeTranslatedToolStripMenuItem.Text = "Developer Options";
-            // 
-            // generatedCode
-            // 
-            this.generatedCode.Name = "generatedCode";
-            this.generatedCode.Size = new System.Drawing.Size(159, 22);
-            this.generatedCode.Text = "Generated Code";
-            this.generatedCode.Click += new System.EventHandler(this.generatedCode_Click);
-            // 
-            // consoleOutput
-            // 
-            this.consoleOutput.Checked = true;
-            this.consoleOutput.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.consoleOutput.Name = "consoleOutput";
-            this.consoleOutput.Size = new System.Drawing.Size(159, 22);
-            this.consoleOutput.Text = "Console Output";
-            this.consoleOutput.Click += new System.EventHandler(this.consoleOutput_Click);
+            this.Code.Text = "Lead:\nStart\n\nEnd.#";
             // 
             // LexiCom
             // 
