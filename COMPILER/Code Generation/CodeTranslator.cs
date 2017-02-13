@@ -3346,7 +3346,7 @@ namespace Code_Translation
 
         public override void EnterProdReturnId(Production node)
         {
-            code += "\n public static";
+            code += "\n public static ";
         }
 
         public override Node ExitProdReturnId(Production node)
