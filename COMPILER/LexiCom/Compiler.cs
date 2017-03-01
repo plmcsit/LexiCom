@@ -111,6 +111,7 @@ namespace LexiCom
                                 code = code.Remove(code.Length - 2,2);
                                 code += "}\n    public static int[] Random(int start, int end)\n{\nList<int> listNumbers = new List<int>();\nint length = (end - start) + 1;\nif (length < 2)\n{\n    Console.WriteLine(\"Insufficient Length of Random Numbers...\");\n    return listNumbers.ToArray();\n}\n\nRandom rand = new Random();\nint number;\nfor (int i = 0; i < length; i++)\n{\n    do\n    {\n        number = rand.Next(start, end + 1);\n    } while (listNumbers.Contains(number));\n    listNumbers.Add(number);\n}\nreturn listNumbers.ToArray();\n}";
                                 code += "\nprivate static string Substr(string str, int index)\n{\nreturn str.Substring(index);\n}\nprivate static string Substr(string str, int index, int length)\n{\nreturn str.Substring(index, length);\n}\nprivate static int StrLen(string str)\n{\nreturn str.Length;\n}\npublic static int PInt(string s)\n{\n    int num = -1;\n bool p = false;\n  p = Int32.TryParse(s,out num);\n    return num;\n}";
+                                code += "\npublic static char[] ToCharArray (string str)\n{\nreturn str.ToCharArray();\n}\n";
                                 code += "\npublic static double PDouble(string s)\n{\n    double num = -1;\n bool p = false;\n  p = Double.TryParse(s,out num);\n    return num;\n}\n}\n";
                                 if (generatedCode.Checked)
                                 {
