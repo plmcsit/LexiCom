@@ -1736,25 +1736,7 @@ namespace Semantics_Analyzer
             if (id_stmt_tail.GetChildCount() < 3)
             {
                 Node initvalues = id_stmt_tail.GetChildAt(1);
-                if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
-                {
-                    if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
-                    {
-
-                    }
-                    else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
-                    {
-
-                    }
-                    else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "Boolean")
-                    {
-
-                    }
-                    else {
-                        error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
-                    }
-
-                }
+                
             }
             return node;
         }

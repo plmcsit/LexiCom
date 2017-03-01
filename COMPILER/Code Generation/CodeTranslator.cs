@@ -95,10 +95,34 @@ namespace Code_Translation
             }
         }
 
+
+        public static int[] Random(int start, int end)
+        {
+            List<int> listNumbers = new List<int>();
+            int length = start - end;
+            if (length < 2)
+            {
+                Console.WriteLine("Insufficient Length of Random Numbers...");
+                return listNumbers.ToArray();
+            }
+
+            Random rand = new Random();
+            int number;
+            for (int i = 0; i < 5; i++)
+            {
+                do
+                {
+                    number = rand.Next(1, 6);
+                } while (listNumbers.Contains(number));
+                listNumbers.Add(number);
+            }
+            return listNumbers.ToArray();
+        }
+
         private List<Functions> functions = new List<Functions>();
 
         public string error = "";
-        public string code = "using System;\npublic class LexiCom\n{\n";
+        public string code = "using System;\nusing System.Collections.Generic;\npublic class LexiCom\n{\n";
         private bool isRead = false;
         private bool isSay = false;
         private bool isSwitch = false;
@@ -127,6 +151,7 @@ namespace Code_Translation
 
         public string Start()
         {
+
             string tokenstream = "";
             string result = "Code Generation Failed...\n";
             int line = 1;
@@ -317,14 +342,12 @@ namespace Code_Translation
                     {
                         if (!isTaskDef)
                         {
-                            Tokens t = new Tokens();
-                            t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                            code += " " + t.getLexemes();
-                            if (isDec)
+                            if (!isRead)
                             {
-                                int codenum = t.getCode();
-                                tokens[codenum].setDatatype(input_datatype);
-                            }
+                                Tokens t = new Tokens();
+                                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                                code += " " + t.getLexemes();
+                            }                            
                         }
                         else
                         {
@@ -455,6 +478,7 @@ namespace Code_Translation
         }
         public override void EnterRead(Token node)
         {
+            isRead = true;
             isAdd = true;
         }
         public override Node ExitRead(Token node)
@@ -462,7 +486,6 @@ namespace Code_Translation
             if (isAdd)
             {
                 //code += "Console.ReadLine(";
-                isRead = true;
                 isAdd = false;
             }
             return node;
@@ -704,7 +727,10 @@ namespace Code_Translation
                         {
                             if (item.getId() == currFunct)
                             {
-                                string desc = item.getDescription() + "int ";
+                                
+                                string desc = item.getDescription();
+                                if (!item.getDescription().Contains("\n"))
+                                    desc += "int ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -736,7 +762,9 @@ namespace Code_Translation
                         {
                             if (item.getId() == currFunct)
                             {
-                                string desc = item.getDescription() + "double ";
+                                string desc = item.getDescription();
+                                if (!item.getDescription().Contains("\n"))
+                                    desc += "double ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -768,7 +796,9 @@ namespace Code_Translation
                         {
                             if (item.getId() == currFunct)
                             {
-                                string desc = item.getDescription() + "double ";
+                                string desc = item.getDescription();
+                                if (!item.getDescription().Contains("\n"))
+                                    desc += "char ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -800,7 +830,9 @@ namespace Code_Translation
                         {
                             if (item.getId() == currFunct)
                             {
-                                string desc = item.getDescription() + "double ";
+                                string desc = item.getDescription();
+                                if (!item.getDescription().Contains("\n"))
+                                    desc += "string ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -830,7 +862,7 @@ namespace Code_Translation
                     {
                         if (item.getId() == currFunct)
                         {
-                            string desc = item.getDescription() + "void ";
+                            string desc = item.getDescription();
                             item.setDescription(desc);
                             break;
                         }
@@ -874,7 +906,9 @@ namespace Code_Translation
                         {
                             if (item.getId() == currFunct)
                             {
-                                string desc = item.getDescription() + "bool ";
+                                string desc = item.getDescription();
+                                if (!item.getDescription().Contains("\n"))
+                                    desc += "bool ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -898,6 +932,10 @@ namespace Code_Translation
                 {
                     Tokens t = new Tokens();
                     t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                    if(t.getLexemes().Contains("~"))
+                    {
+                        t.setLexemes("(" + t.getLexemes().Remove(0, 1) + " * -1)");
+                    }
                     code += " " + t.getLexemes() + " ";
                 }
                 isAdd = false;
@@ -1937,6 +1975,7 @@ namespace Code_Translation
             string dtype = "";
             string size1 = "";
             string size2 = "";
+            string scope = "";
             bool isMultiD = false;
             if(node.GetChildCount() == 5)
             {
@@ -1953,6 +1992,12 @@ namespace Code_Translation
             t = GetTokens(size_1.GetStartLine(), size_1.GetStartColumn());
             size1 = t.getLexemes();
 
+
+            if (currscope == "Global")
+            {
+                scope += "public static ";
+            }
+
             switch (dtype) {
                 case "Int": dtype = "int"; break;
                 case "Double": dtype = "double"; break;
@@ -1966,7 +2011,7 @@ namespace Code_Translation
                 Node size_2 = node.GetChildAt(4).GetChildAt(1);
                 t = GetTokens(size_2.GetStartLine(), size_2.GetStartColumn());
                 size2 = t.getLexemes();
-                code += dtype + "[][] " + ident + " = new " + dtype + "["+size1+"][];\n";
+                code += scope + dtype + "[][] " + ident + " = new " + dtype + "["+size1+"][];\n";
                 for(int i = 0; i < Int32.Parse(size1); i++)
                 {
                     code += ident + "[" + i + "] = new "+ dtype + "["+ size2 +"];\n";
@@ -1975,7 +2020,7 @@ namespace Code_Translation
             }
             else
             {
-                code += dtype + "[] " + ident + " = new " + dtype + "[" + size1 + "]";
+                code += scope + dtype + "[] " + ident + " = new " + dtype + "[" + size1 + "]";
             }
             
             return node;
@@ -2234,13 +2279,14 @@ namespace Code_Translation
                 t = GetTokens(Ident.GetStartLine(), Ident.GetStartColumn());
                 t = tokens[t.getCode()];
                 string input_datatype = "";
-
+                string varname = "";
                 foreach (var item in identifiers)
                 {
                     if(item.getScope() == currscope)
                     {
                         if(item.getId() == t.getLexemes())
                         {
+                            varname = item.getId();
                             input_datatype = item.getDtype();
                         }
                     }
@@ -2248,118 +2294,16 @@ namespace Code_Translation
 
                 switch (input_datatype)
                 {
-                    case "Int": code += " = Int32.Parse(Console.ReadLine())"; break;
-                    case "Double": code += " = Double.Parse(Console.ReadLine())"; break;
-                    case "Char": code += " = Char.Parse(Console.ReadLine())"; break;
-                    case "String": code += " = Console.ReadLine()"; break;
-                    case "Boolean": code += " = Boolean.Parse(Console.ReadLine())"; break;
+                    case "Int": code += "do { try {\n"+ varname + " = Int32.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
+                    case "Double": code += "do { try {\n" + varname + " = Double.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
+                    case "Char": code += "do { try {\n" + varname + " = Char.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
+                    case "String": code += varname + " = Console.ReadLine()"; break;
+                    case "Boolean": code += "do { try {\n" + varname + " = Boolean.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
                     default:
                         break;
                 }
+                isRead = false;
             }
-            //if (!runtime_error)
-            //{
-            //    Node isRead = node.GetChildAt(0);
-            //    if (isRead.GetName() == "READ")
-            //    {
-            //        Node id = node.GetChildAt(1);
-            //        int idcol = id.GetStartColumn();
-            //        int idline = id.GetStartLine();
-            //        Tokens token = GetTokens(idline, idcol);
-            //        foreach (var item in identifiers)
-            //        {
-            //            if (item.getId() == token.getLexemes())
-            //            {
-            //                var input = (String)Console.ReadLine();
-            //                if(String.IsNullOrEmpty(input))
-            //                {
-                                
-            //                    input = Console.ReadLine();
-            //                }
-            //                string dtype = item.getDtype();
-            //                bool isneg = false;
-            //                switch (dtype)
-            //                {
-            //                    case "Int":
-            //                        int input_int = 0;
-            //                        if (input.Contains("~"))
-            //                        {
-            //                            isneg = true;
-            //                            input = input.Remove(0, 1);
-            //                        }
-            //                        if (Int32.TryParse(input, out input_int))
-            //                        {
-            //                            if (isneg)
-            //                            {
-            //                                input_int *= -1;
-            //                            }
-            //                            item.setValue(input_int.ToString());
-            //                        }
-            //                        else
-            //                        {
-            //                            runtime_error = true;
-            //                            Console.WriteLine("");
-            //                            Console.WriteLine("Runtime error: Type mismatch!");
-
-            //                        }
-            //                        break;
-            //                    case "Double":
-            //                        double input_double = 0;
-            //                        if (input.Contains("~"))
-            //                        {
-            //                            isneg = true;
-            //                            input = input.Remove(0, 1);
-            //                        }
-            //                        if (Double.TryParse(input, out input_double))
-            //                        {
-            //                            if (isneg)
-            //                            {
-            //                                input_double *= -1;
-            //                            }
-            //                            item.setValue(input_double.ToString());
-            //                        }
-            //                        else
-            //                        {
-            //                            runtime_error = true;
-            //                            Console.WriteLine("");
-            //                            Console.WriteLine("Runtime error: Type mismatch!");
-            //                        }
-
-            //                        break;
-            //                    case "Char":
-            //                        if (input.Count() < 2)
-            //                        {
-            //                            item.setValue(input);
-            //                        }
-            //                        else
-            //                        {
-            //                            runtime_error = true;
-            //                            Console.WriteLine("");
-            //                            Console.WriteLine("Runtime error: invalid character input.");
-            //                        }
-            //                        break;
-            //                    case "String":
-            //                        item.setValue(input);
-            //                        break;
-            //                    case "Boolean":
-            //                        if (input == "Yes" || input == "No")
-            //                        {
-            //                            item.setValue(input);
-            //                        }
-            //                        else
-            //                        {
-            //                            runtime_error = true;
-            //                            Console.WriteLine("");
-            //                            Console.WriteLine("Runtime error: invalid boolean input.");
-            //                        }
-            //                        break;
-            //                    default:
-            //                        break;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
             return node;
         }
 
@@ -2814,6 +2758,11 @@ namespace Code_Translation
                 {
                     code += "\n{\n";
                 }
+            }
+            if(node.GetChildAt(0).GetName() == "FOR" && child.GetName() == "CP")
+            {
+                if (isFor)
+                    isFor = false;
             }
         }
 
@@ -3474,5 +3423,7 @@ namespace Code_Translation
         {
             return node;
         }
+
+
     }
 }
