@@ -198,6 +198,25 @@
   <metadata name="Code.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="Code.Text" xml:space="preserve">
+    <value>Lead:
+Start
+Var String Resp.
+Var Boolean Exit is No.
+Do
+    Clear.
+
+    PS PROGRAM BODY
+
+    Say "\nDo you want to try again [Any/0]: ".
+    Read Resp.
+    If(Resp == "0")
+        Exit = Yes.
+    EndIf.
+LoopIf(Exit != Yes).
+Say "Program will terminate at enter...".
+End.#</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>
   </metadata>

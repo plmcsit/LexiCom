@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LexiCom));
             this.LexGrid = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -723,7 +724,7 @@
             this.Code.ShowLineNumbers = true;
             this.Code.Size = new System.Drawing.Size(483, 430);
             this.Code.TabIndex = 6;
-            this.Code.Text = "Lead:\nStart\n\nEnd.#";
+            this.Code.Text = resources.GetString("Code.Text");
             // 
             // LexiCom
             // 
