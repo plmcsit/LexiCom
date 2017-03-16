@@ -37,9 +37,12 @@ namespace Code_Generation
 
                 foreach (CompilerError ce in cr.Errors)
                 {
-                    error += ce.ErrorText + "\n";
-                    Console.WriteLine("  {0}", ce.ToString());
-                    Console.WriteLine();
+                    if (!ce.IsWarning)
+                    {
+                        error += ce.ErrorText + "\n";
+                        Console.WriteLine("  {0}", ce.ToString());
+                        Console.WriteLine();
+                    }
                 }
             }
         }

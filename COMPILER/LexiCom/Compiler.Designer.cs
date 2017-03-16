@@ -162,7 +162,7 @@
             this.Output.Location = new System.Drawing.Point(12, 549);
             this.Output.Name = "Output";
             this.Output.ReadOnly = true;
-            this.Output.Size = new System.Drawing.Size(391, 97);
+            this.Output.Size = new System.Drawing.Size(431, 97);
             this.Output.TabIndex = 3;
             this.Output.Text = "";
             // 
@@ -173,7 +173,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label1.Location = new System.Drawing.Point(0, 651);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1202, 22);
+            this.label1.Size = new System.Drawing.Size(1240, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "version 1.0 Build 1 (Alpha Version)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -186,7 +186,7 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.label2.Location = new System.Drawing.Point(0, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1202, 45);
+            this.label2.Size = new System.Drawing.Size(1240, 45);
             this.label2.TabIndex = 5;
             this.label2.Text = "LexiCom (Lexis Compiler)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -195,7 +195,7 @@
             // 
             this.LexPanel.Controls.Add(this.label3);
             this.LexPanel.Controls.Add(this.LexGrid);
-            this.LexPanel.Location = new System.Drawing.Point(498, 86);
+            this.LexPanel.Location = new System.Drawing.Point(543, 86);
             this.LexPanel.Name = "LexPanel";
             this.LexPanel.Size = new System.Drawing.Size(346, 256);
             this.LexPanel.TabIndex = 9;
@@ -217,7 +217,7 @@
             this.label6.BackColor = System.Drawing.Color.DarkCyan;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label6.Location = new System.Drawing.Point(410, 526);
+            this.label6.Location = new System.Drawing.Point(451, 526);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(338, 21);
             this.label6.TabIndex = 4;
@@ -236,7 +236,7 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn6});
             this.DataLexicalError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DataLexicalError.Location = new System.Drawing.Point(408, 549);
+            this.DataLexicalError.Location = new System.Drawing.Point(449, 549);
             this.DataLexicalError.Name = "DataLexicalError";
             this.DataLexicalError.ReadOnly = true;
             this.DataLexicalError.RowHeadersVisible = false;
@@ -276,7 +276,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 45);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1202, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1240, 39);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "Select Mode";
             // 
@@ -407,7 +407,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle1;
             this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DataSyntaxError.Location = new System.Drawing.Point(753, 549);
+            this.DataSyntaxError.Location = new System.Drawing.Point(794, 549);
             this.DataSyntaxError.Name = "DataSyntaxError";
             this.DataSyntaxError.RowHeadersVisible = false;
             this.DataSyntaxError.RowTemplate.Height = 70;
@@ -449,7 +449,7 @@
             this.label4.BackColor = System.Drawing.Color.DarkCyan;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label4.Location = new System.Drawing.Point(753, 526);
+            this.label4.Location = new System.Drawing.Point(794, 526);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(438, 21);
             this.label4.TabIndex = 4;
@@ -463,7 +463,7 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.label5.Location = new System.Drawing.Point(12, 526);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(391, 21);
+            this.label5.Size = new System.Drawing.Size(431, 21);
             this.label5.TabIndex = 10;
             this.label5.Text = "RUNTIME OUTPUT";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -537,7 +537,7 @@
             // 
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.Grid_Syntax);
-            this.panel1.Location = new System.Drawing.Point(845, 86);
+            this.panel1.Location = new System.Drawing.Point(890, 86);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(346, 256);
             this.panel1.TabIndex = 11;
@@ -547,7 +547,7 @@
             // 
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.Grid_Dec);
-            this.panel2.Location = new System.Drawing.Point(495, 342);
+            this.panel2.Location = new System.Drawing.Point(540, 342);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(346, 184);
             this.panel2.TabIndex = 12;
@@ -629,7 +629,7 @@
             // 
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.Grid_Array);
-            this.panel3.Location = new System.Drawing.Point(844, 342);
+            this.panel3.Location = new System.Drawing.Point(889, 342);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(346, 184);
             this.panel3.TabIndex = 13;
@@ -708,7 +708,7 @@
             // Code
             // 
             this.Code.AcceptsTab = true;
-            this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Code.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Code.Location = new System.Drawing.Point(12, 87);
             this.Code.Name = "Code";
             this.Code.NumberAlignment = System.Drawing.StringAlignment.Near;
@@ -722,7 +722,7 @@
             this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
             this.Code.NumberPadding = 2;
             this.Code.ShowLineNumbers = true;
-            this.Code.Size = new System.Drawing.Size(483, 430);
+            this.Code.Size = new System.Drawing.Size(523, 430);
             this.Code.TabIndex = 6;
             this.Code.Text = resources.GetString("Code.Text");
             // 
@@ -730,7 +730,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1202, 673);
+            this.ClientSize = new System.Drawing.Size(1240, 673);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

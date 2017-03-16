@@ -1016,12 +1016,10 @@ namespace Syntax_Analyzer {
             pattern = new ProductionPattern((int) SyntaxConstants.PROD_INCDECVAR,
                                             "Prod_incdecvar");
             alt = new ProductionPatternAlternative();
-            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
-            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_PRE_INCDEC, 1, 1);
             pattern.AddAlternative(alt);
             alt = new ProductionPatternAlternative();
-            alt.AddToken((int) SyntaxConstants.ID, 1, 1);
-            alt.AddProduction((int) SyntaxConstants.PROD_INCDEC, 1, 1);
+            alt.AddProduction((int) SyntaxConstants.PROD_ID_STMT, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 
@@ -1044,6 +1042,9 @@ namespace Syntax_Analyzer {
             alt.AddToken((int) SyntaxConstants.OP, 1, 1);
             alt.AddProduction((int) SyntaxConstants.PROD_TASK_PARAM, 0, 1);
             alt.AddToken((int) SyntaxConstants.CP, 1, 1);
+            pattern.AddAlternative(alt);
+            alt = new ProductionPatternAlternative();
+            alt.AddProduction((int)SyntaxConstants.PROD_INCDEC, 1, 1);
             pattern.AddAlternative(alt);
             AddPattern(pattern);
 

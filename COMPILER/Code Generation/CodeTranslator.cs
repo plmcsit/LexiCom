@@ -122,7 +122,7 @@ namespace Code_Translation
         private List<Functions> functions = new List<Functions>();
 
         public string error = "";
-        public string code = "using System;\nusing System.Collections.Generic;\npublic class LexiCom\n{\n";
+        public string code = "using System;\nusing System.Collections.Generic;\npublic class LexiCom\n{\n public static bool pass = false;\n";
         private bool isRead = false;
         private bool isSay = false;
         private bool isSwitch = false;
@@ -148,6 +148,9 @@ namespace Code_Translation
         private bool hasCurrFunct;
         private string currFunct;
         private bool isTaskPer = false;
+        private int sem = 0;
+        private string formula = "";
+        private bool isPass = false;
 
         public string Start()
         {
@@ -377,7 +380,25 @@ namespace Code_Translation
                         }
                     }
                 }
-                    isAdd = false;
+                Tokens tok = new Tokens();
+                tok = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                if (identifiers.Count != 0)
+                {
+                    foreach (var item in identifiers)
+                    {
+                        if (item.getScope() == "Global" || item.getScope() == currscope)
+                        {
+                            if (item.getAttrib() == "Variable" || item.getAttrib() == "Let")
+                            {
+                                if (item.getId() == tok.getLexemes())
+                                {
+                                    node.Values.Add(item.getValue());
+                                }
+                            }
+                        }
+                    }
+                }
+                isAdd = false;
             }
             return node;
         }
@@ -718,7 +739,7 @@ namespace Code_Translation
                     if (!isTaskDef)
                     {
                         input_datatype = "Int";
-                        code += "int ";
+                        code += "Int64 ";
                     }
                     else
                     {
@@ -730,7 +751,7 @@ namespace Code_Translation
                                 
                                 string desc = item.getDescription();
                                 if (!item.getDescription().Contains("\n"))
-                                    desc += "int ";
+                                    desc += "Int64 ";
                                 item.setDescription(desc);
                                 break;
                             }
@@ -924,95 +945,101 @@ namespace Code_Translation
         {
             isAdd = true;
         }
-        public override Node ExitIntlit(Token node)
-        {
-            if (isAdd)
-            {
-                if (!isArray)
-                {
-                    Tokens t = new Tokens();
-                    t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                    if(t.getLexemes().Contains("~"))
-                    {
-                        t.setLexemes("(" + t.getLexemes().Remove(0, 1) + " * -1)");
-                    }
-                    code += " " + t.getLexemes() + " ";
-                }
-                isAdd = false;
-                
-            }
-            return node;
-        }
+
         public override void EnterDoublelit(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitDoublelit(Token node)
-        {
-            if (isAdd)
-            {
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                code += " " + t.getLexemes() + " ";
-                isAdd = false;
-            }
-            return node;
-        }
+
         public override void EnterCharlit(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitCharlit(Token node)
-        {
-            if (isAdd)
-            {
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                code += " " + t.getLexemes() + " ";
-                isAdd = false;
-            }
-            return node;
-        }
+
         public override void EnterStringlit(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitStringlit(Token node)
-        {
-            if(isAdd)
-            {
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(),node.GetStartColumn());
-                code += t.getLexemes();
-                isAdd = false;
-            }
-            return node;
-        }
+        
         public override void EnterBoollit(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitBoollit(Token node)
-        {
-            if (isAdd)
-            {
-                string value = "";
-                Tokens t = new Tokens();
-                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
-                if(t.getLexemes() == "Yes")
-                {
-                    value = " true ";
-                }
-                else
-                {
-                    value = " false ";
-                }
-                    code += value;
 
-                isAdd = false;
-            }
-            return node;
-        }
+
+        //public override Node ExitIntlit(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        if (!isArray)
+        //        {
+        //            Tokens t = new Tokens();
+        //            t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+        //            if (t.getLexemes().Contains("~"))
+        //            {
+        //                t.setLexemes("(" + t.getLexemes().Remove(0, 1) + " * -1)");
+        //            }
+        //            code += " " + t.getLexemes() + " ";
+        //        }
+        //        isAdd = false;
+
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitDoublelit(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        Tokens t = new Tokens();
+        //        t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+        //        code += " " + t.getLexemes() + " ";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitCharlit(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        Tokens t = new Tokens();
+        //        t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+        //        code += " " + t.getLexemes() + " ";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitStringlit(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        Tokens t = new Tokens();
+        //        t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+        //        code += t.getLexemes();
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitBoollit(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        string value = "";
+        //        Tokens t = new Tokens();
+        //        t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+        //        if(t.getLexemes() == "Yes")
+        //        {
+        //            value = " true ";
+        //        }
+        //        else
+        //        {
+        //            value = " false ";
+        //        }
+        //            code += value;
+
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
         public override void EnterCol(Token node)
         {
             isAdd = true;
@@ -1219,67 +1246,71 @@ namespace Code_Translation
         {
             isAdd = true;
         }
-        public override Node ExitAdd(Token node)
-        {
-            if (isAdd)
-            {
-                code += "+";
-                isAdd = false;
-            }
-            return node;
-        }
+
         public override void EnterMin(Token node)
         {
             isAdd = true;
-        }
-        public override Node ExitMin(Token node)
-        {
-            if (isAdd)
-            {
-                code += "-";
-                isAdd = false;
-            }
-            return node;
         }
         public override void EnterMul(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitMul(Token node)
-        {
-            if (isAdd)
-            {
-                code += "*";
-                isAdd = false;
-            }
-            return node;
-        }
         public override void EnterDiv(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitDiv(Token node)
-        {
-            if (isAdd)
-            {
-                code += "/";
-                isAdd = false;
-            }
-            return node;
-        }
+
         public override void EnterMod(Token node)
         {
             isAdd = true;
         }
-        public override Node ExitMod(Token node)
-        {
-            if (isAdd)
-            {
-                code += "%";
-                isAdd = false;
-            }
-            return node;
-        }
+        //public override Node ExitAdd(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        code += "+";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitMin(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        code += "-";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+
+        //public override Node ExitMul(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        code += "*";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+
+        //public override Node ExitDiv(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        code += "/";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
+        //public override Node ExitMod(Token node)
+        //{
+        //    if (isAdd)
+        //    {
+        //        code += "%";
+        //        isAdd = false;
+        //    }
+        //    return node;
+        //}
         public override void EnterInc(Token node)
         {
             isAdd = true;
@@ -1999,7 +2030,7 @@ namespace Code_Translation
             }
 
             switch (dtype) {
-                case "Int": dtype = "int"; break;
+                case "Int": dtype = "Int64"; break;
                 case "Double": dtype = "double"; break;
                 case "String": dtype = "string"; break;
                 case "Char": dtype = "char"; break;
@@ -2197,7 +2228,7 @@ namespace Code_Translation
             {
                 Tokens t = new Tokens();
                 t = GetTokens(child.GetStartLine(), child.GetStartColumn());
-                code += ";\n" + objectName + " " + t.getLexemes() + " = new " + objectName + "()";
+                code += ";\npublic static " + objectName + " " + t.getLexemes() + " = new " + objectName + "()";
             }
         }
 
@@ -2294,7 +2325,7 @@ namespace Code_Translation
 
                 switch (input_datatype)
                 {
-                    case "Int": code += "do { try {\n"+ varname + " = Int32.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
+                    case "Int": code += "do { try {\n"+ varname + " = Int64.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
                     case "Double": code += "do { try {\n" + varname + " = Double.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
                     case "Char": code += "do { try {\n" + varname + " = Char.Parse(Console.ReadLine()); break;\n } catch { Console.Write(\"Invalid Input! Try again: \"); }} while (true) "; break;
                     case "String": code += varname + " = Console.ReadLine()"; break;
@@ -2745,13 +2776,22 @@ namespace Code_Translation
 
         public override Node ExitProdLoopstate(Production node)
         {
+           
             return node;
+
         }
 
         public override void ChildProdLoopstate(Production node, Node child)
         {
             node.AddChild(child);
             Node loopstate = node.GetChildAt(0);
+
+            if(child.GetName() == "FOR")
+            {
+                code = code.Remove(code.Length - 4, 4);
+                code += "pass = false; \n for ";
+            }
+
             if (loopstate.GetName() == "FOR" || loopstate.GetName() == "UNTIL")
             {
                if(child.GetName() == "CP")
@@ -2759,11 +2799,40 @@ namespace Code_Translation
                     code += "\n{\n";
                 }
             }
-            if(node.GetChildAt(0).GetName() == "FOR" && child.GetName() == "CP")
+            if (node.GetChildAt(0).GetName() == "FOR" && child.GetName() == "CP")
             {
                 if (isFor)
                     isFor = false;
+                code += formula;
+                formula = "";
             }
+
+            if (sem == 2)
+            {
+                sem = 0;
+                Node incdecvar = child.GetChildAt(0);
+                if(incdecvar.GetName() == "Prod_pre_incdec")
+                {
+                    Node IDENT = incdecvar.GetChildAt(1);
+                    string op = incdecvar.GetChildAt(0).GetName();
+                    Tokens t = new Tokens();
+                    t = GetTokens(IDENT.GetStartLine(), IDENT.GetStartColumn());
+                    formula += "\nif(pass == false) {\n";
+                    if (op == "DEC") formula += "--";
+                    else formula += "++";
+                    string id = t.getLexemes();
+                    formula += id + ";\npass = true; }\n";
+                    isPass = true;
+                }
+            }
+
+
+            if (node.GetChildAt(0).GetName() == "FOR" && child.GetName() == "SEM")
+            {
+                sem++;
+            }
+
+
         }
 
         public override void EnterProdInitialize(Production node)
@@ -2826,173 +2895,277 @@ namespace Code_Translation
         {
         }
 
-        //public override Node ExitAdd(Token node)
-        //{
-        //    node.Values.Add("+");
-        //    return node;
-        //}
 
-        //public override Node ExitMin(Token node)
-        //{
-        //    node.Values.Add("-");
-        //    return node;
-        //}
-        //public override Node ExitDiv(Token node)
-        //{
-        //    node.Values.Add("/");
-        //    return node;
-        //}
 
-        //public override Node ExitMul(Token node)
-        //{
-        //    node.Values.Add("*");
-        //    return node;
-        //}
-        //public override Node ExitMod(Token node)
-        //{
-        //    node.Values.Add("%");
-        //    return node;
-        //}
 
-        //public override Node ExitIntlit(Token node)
-        //{
-        //    //Tokens token = new Tokens();
-        //    //token = GetTokens(node.GetStartLine(), node.GetStartColumn());
-        //    //node.Values.Add(Int32.Parse(token.getLexemes()));
-        //    return node;
-        //}
+        public override Node ExitAdd(Token node)
+        {
+            if (isAdd)
+            {
+                code += "+";
+                isAdd = false;
+            node.Values.Add("+");
+            }
+            return node;
+        }
 
-        //public override Node ExitDoublelit(Token node)
-        //{
-        //    //Tokens token = new Tokens();
-        //    //token = GetTokens(node.GetStartLine(), node.GetStartColumn());
-        //    //node.Values.Add(Double.Parse(token.getLexemes()));
-        //    return node;
-        //}
+        public override Node ExitMin(Token node)
+        {
+            if (isAdd)
+            {
+                code += "-";
+                isAdd = false;
+                node.Values.Add("-");
+            }
+            return node;
+        }
+        public override Node ExitDiv(Token node)
+        {
+            if (isAdd)
+            {
+                code += "/";
+                isAdd = false;
+                node.Values.Add("/");
+            }
+            return node;
+        }
 
-        //public override Node ExitCharlit(Token node)
-        //{
-        //    //Tokens token = new Tokens();
-        //    //token = GetTokens(node.GetStartLine(), node.GetStartColumn());
-        //    //node.Values.Add(token.getLexemes());
-        //    return node;
-        //}
+        public override Node ExitMul(Token node)
+        {
+            if (isAdd)
+            {
+                code += "*";
+                isAdd = false;
+                node.Values.Add("*");
+            }
+            return node;
+        }
+        public override Node ExitMod(Token node)
+        {
+            if (isAdd)
+            {
+                code += "%";
+                isAdd = false;
+                node.Values.Add("%");
+            }
+            return node;
+        }
 
-        //public override Node ExitStringlit(Token node)
-        //{
-        //    //Tokens token = new Tokens();
-        //    //token = GetTokens(node.GetStartLine(), node.GetStartColumn());
-        //    //node.Values.Add(token.getLexemes());
-        //    return node;
-        //}
+        public override Node ExitIntlit(Token node)
+        {
+            if (isAdd)
+            {
+                if (!isArray)
+                {
+                    Tokens t = new Tokens();
+                    t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                    if (t.getLexemes().Contains("~"))
+                    {
+                        int n = 0;
+                        n = Int32.Parse(t.getLexemes().Remove(0, 1));
+                        n = n * -1;
+                        t.setLexemes(n.ToString());
+                    }
+                    code += " " + t.getLexemes() + " ";
+                }
+                isAdd = false;
+                Tokens token = new Tokens();
+                token = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                node.Values.Add(Int32.Parse(token.getLexemes()));
 
-        
+            }
+            return node;
+        }
+        public override Node ExitDoublelit(Token node)
+        {
+            if (isAdd)
+            {
+                Tokens t = new Tokens();
+                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                code += " " + t.getLexemes() + " ";
+                isAdd = false;
+                Tokens token = new Tokens();
+                token = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                node.Values.Add(Double.Parse(token.getLexemes()));
+            }
+
+            return node;
+        }
+        public override Node ExitCharlit(Token node)
+        {
+            if (isAdd)
+            {
+                Tokens t = new Tokens();
+                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                code += " " + t.getLexemes() + " ";
+                isAdd = false;
+                Tokens token = new Tokens();
+                token = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                node.Values.Add(token.getLexemes());
+            }
+
+            return node;
+        }
+        public override Node ExitStringlit(Token node)
+        {
+            if (isAdd)
+            {
+                Tokens t = new Tokens();
+                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                code += t.getLexemes();
+                isAdd = false;
+
+                Tokens token = new Tokens();
+                token = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                node.Values.Add(token.getLexemes());
+            }
+            return node;
+        }
+        public override Node ExitBoollit(Token node)
+        {
+            if (isAdd)
+            {
+                string value = "";
+                Tokens t = new Tokens();
+                t = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                if (t.getLexemes() == "Yes")
+                {
+                    value = " true ";
+                }
+                else
+                {
+                    value = " false ";
+                }
+                code += value;
+
+                Tokens token = new Tokens();
+                token = GetTokens(node.GetStartLine(), node.GetStartColumn());
+                if (token.getLexemes() == "Yes")
+                {
+                    node.Values.Add(true);
+                }
+                else
+                {
+                    node.Values.Add(false);
+                }
+
+
+                isAdd = false;
+            }
+
+            return node;
+        }
+
 
         public override Node ExitProdIdStmt(Production node)
         {
-            //Node ID = node.GetChildAt(0);
-            //Tokens ident = new Tokens();
-            //int idline = ID.GetStartLine();
-            //int idcol = ID.GetStartColumn();
-            //ident = GetTokens(idline, idcol);
-            //string dtype = "";
-            //SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
-            //foreach (var item in identifiers)
-            //{
-            //    if (item.getId() == ident.getLexemes())
-            //    {
-            //        if (currscope == item.getScope())
-            //        {
-            //            dtype = item.getDtype();
-            //        }
-            //    }
-            //}
-            //Node id_stmt_tail = node.GetChildAt(1);
-            //if (id_stmt_tail.GetChildCount() < 3)
-            //{
-            //    Node initvalues = id_stmt_tail.GetChildAt(1);
-            //    if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
-            //    {
-            //        Tokens t = new Tokens();
-            //        t = GetTokens(initvalues.GetChildAt(0).GetStartLine(), initvalues.GetChildAt(0).GetStartColumn());
-            //        if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
-            //        {
-            //            foreach (var item in identifiers)
-            //            {
-            //                if (item.getId() == ident.getLexemes())
-            //                {
-            //                    if (currscope == item.getScope())
-            //                    {
-            //                        string lex = t.getLexemes();
-            //                        lex = lex.Remove(lex.Length - 1, 1);
-            //                        lex = lex.Remove(0, 1);
-            //                        t.setLexemes(lex);
-            //                        item.setValue(t.getLexemes());
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
-            //        {
-            //            foreach (var item in identifiers)
-            //            {
-            //                if (item.getId() == ident.getLexemes())
-            //                {
-            //                    if (currscope == item.getScope())
-            //                    {
-            //                        string lex = t.getLexemes();
-            //                        lex = lex.Remove(lex.Length - 1, 1);
-            //                        lex = lex.Remove(0, 1);
-            //                        t.setLexemes(lex);
-            //                        item.setValue(t.getLexemes());
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "BOOLEAN")
-            //        {
-            //            foreach (var item in identifiers)
-            //            {
-            //                if (item.getId() == ident.getLexemes())
-            //                {
-            //                    if (currscope == item.getScope())
-            //                    {
-            //                        item.setValue(t.getLexemes());
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-            //            error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
-            //        }
-            //    }
-            //    else
-            //    {
-            //        Node mathop_NUM = initvalues.GetChildAt(0);
-            //        foreach (var item in identifiers)
-            //        {
-            //            if (item.getId() == ident.getLexemes())
-            //            {
-            //                if (currscope == item.getScope())
-            //                {
-            //                    if (item.getDtype() == "Int")
-            //                    {
-            //                        string num = mathop_NUM.GetValue(0).ToString();
-            //                        while (num.Contains("."))
-            //                        {
-            //                            num = num.Remove(num.Length - 1, 1);
-            //                        }
-            //                        mathop_NUM.Values.Clear();
-            //                        mathop_NUM.Values.Add(num);
-            //                    }
-            //                        item.setValue(mathop_NUM.GetValue(0).ToString());
-                                
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            Node ID = node.GetChildAt(0);
+            Tokens ident = new Tokens();
+            int idline = ID.GetStartLine();
+            int idcol = ID.GetStartColumn();
+            ident = GetTokens(idline, idcol);
+            string dtype = "";
+            SemanticsConstants.Identifiers id = new SemanticsConstants.Identifiers();
+            foreach (var item in identifiers)
+            {
+                if (item.getId() == ident.getLexemes())
+                {
+                    if (currscope == item.getScope())
+                    {
+                        dtype = item.getDtype();
+                    }
+                }
+            }
+            Node id_stmt_tail = node.GetChildAt(1);
+            if (id_stmt_tail.GetChildCount() < 3)
+            {
+                Node initvalues = id_stmt_tail.GetChildAt(1);
+                if(id_stmt_tail.GetChildCount() > 1)
+                if (initvalues.GetChildAt(0).GetName() != "Prod_mathopNUM")
+                {
+                    Tokens t = new Tokens();
+                    t = GetTokens(initvalues.GetChildAt(0).GetStartLine(), initvalues.GetChildAt(0).GetStartColumn());
+                    if (initvalues.GetChildAt(0).GetName() == "STRINGLIT" && dtype == "String")
+                    {
+                        foreach (var item in identifiers)
+                        {
+                            if (item.getId() == ident.getLexemes())
+                            {
+                                if (currscope == item.getScope())
+                                {
+                                    string lex = t.getLexemes();
+                                    lex = lex.Remove(lex.Length - 1, 1);
+                                    lex = lex.Remove(0, 1);
+                                    t.setLexemes(lex);
+                                    item.setValue(t.getLexemes());
+                                }
+                            }
+                        }
+                    }
+                    else if (initvalues.GetChildAt(0).GetName() == "CHARLIT" && dtype == "Char")
+                    {
+                        foreach (var item in identifiers)
+                        {
+                            if (item.getId() == ident.getLexemes())
+                            {
+                                if (currscope == item.getScope())
+                                {
+                                    string lex = t.getLexemes();
+                                    lex = lex.Remove(lex.Length - 1, 1);
+                                    lex = lex.Remove(0, 1);
+                                    t.setLexemes(lex);
+                                    item.setValue(t.getLexemes());
+                                }
+                            }
+                        }
+                    }
+                    else if (initvalues.GetChildAt(0).GetName() == "BOOLLIT" && dtype == "BOOLEAN")
+                    {
+                        foreach (var item in identifiers)
+                        {
+                            if (item.getId() == ident.getLexemes())
+                            {
+                                if (currscope == item.getScope())
+                                {
+                                    item.setValue(t.getLexemes());
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        error += "Semantics Error: Type Mismatch at Ln(" + ident.getLines() + ")\n";
+                    }
+                }
+                else
+                {
+                    Node mathop_NUM = initvalues.GetChildAt(0);
+                    foreach (var item in identifiers)
+                    {
+                        if (item.getId() == ident.getLexemes())
+                        {
+                            if (currscope == item.getScope())
+                            {
+                                if (item.getDtype() == "Int")
+                                {
+                                    string num = "";
+                                        if (mathop_NUM.GetValueCount() != 0)
+                                            mathop_NUM.GetValue(0).ToString();
+                                    while (num.Contains("."))
+                                    {
+                                        num = num.Remove(num.Length - 1, 1);
+                                    }
+                                    mathop_NUM.Values.Clear();
+                                    mathop_NUM.Values.Add(num);
+                                }
+                                    if (mathop_NUM.GetValueCount() != 0)
+                                        item.setValue(mathop_NUM.GetValue(0).ToString());
+
+                            }
+                        }
+                    }
+                }
+            }
 
 
             return node;
@@ -3023,7 +3196,7 @@ namespace Code_Translation
 
         public override Node ExitProdInitvalues(Production node)
         {
-            //node.Values.AddRange(GetChildValues(node));
+            node.Values.AddRange(GetChildValues(node));
             return node;
         }
 
@@ -3066,66 +3239,82 @@ namespace Code_Translation
 
         public override Node ExitProdMathopNum(Production node)
         {
-            //node.Values.AddRange(GetChildValues(node));
-            //if(node.GetValueCount() == 3)
-            //{
-            //    double result = Operate((string)node.GetValue(1),Double.Parse(node.GetValue(0).ToString()), Double.Parse(node.GetValue(2).ToString()));
-            //    node.Values.Clear();
-            //    node.Values.Add(result);
-            //}
+            node.Values.AddRange(GetChildValues(node));
+            if (node.GetValueCount() == 5)
+            {
+                double result = Operate((string)node.GetValue(2), Double.Parse(node.GetValue(0).ToString()), Double.Parse(node.GetValue(3).ToString()));
+                node.Values.Clear();
+                node.Values.Add(result);
+            }
+            if (node.GetValueCount() == 4)
+            {
+                double result = 0;
+                string type = node.GetValue(2).GetType().ToString();
+                if (node.GetValue(2).GetType().ToString() != "System.String")
+                {
+                    if (node.GetValue(0) != "" && node.GetValue(0) != "+" && node.GetValue(0) != "-" && node.GetValue(0) != "*" && node.GetValue(0) != "/" && node.GetValue(0) != "%")
+                    result = Operate((string)node.GetValue(1), Double.Parse(node.GetValue(0).ToString()), Double.Parse(node.GetValue(3).ToString()));
+                }
+                else
+                {
+                    result = Operate((string)node.GetValue(2), Double.Parse(node.GetValue(0).ToString()), Double.Parse(node.GetValue(3).ToString()));
+                }
+                node.Values.Clear();
+                node.Values.Add(result);
+            }
             return node;
         }
 
         public override void ChildProdMathopNum(Production node, Node child)
         {
-            //Tokens t = new Tokens();
-            //if (child.GetName() == "Prod_numvalue")
-            //{
-            //    Node value = child.GetChildAt(0);
-            //    if (value.GetName() == "INTLIT" || value.GetName() == "DOUBLELIT")
-            //    {
-            //        t = GetTokens(value.GetStartLine(), value.GetStartColumn());
-            //        child.Values.Add(t.getLexemes());
-            //    }
-            //    else
-            //    {
-            //        Node ident = value.GetChildAt(0);
-            //        Tokens tok = new Tokens();
-            //        tok = GetTokens(ident.GetStartLine(), ident.GetStartColumn());
-            //        foreach (var item in identifiers)
-            //        {
-            //            if(item.getId() == tok.getLexemes())
-            //            {
-            //                if(item.getScope() == currscope)
-            //                {
-            //                    child.Values.Add(item.getValue());
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            Tokens t = new Tokens();
+            if (child.GetName() == "Prod_numvalue")
+            {
+                Node value = child.GetChildAt(0);
+                if (value.GetName() == "INTLIT" || value.GetName() == "DOUBLELIT")
+                {
+                    t = GetTokens(value.GetStartLine(), value.GetStartColumn());
+                    child.Values.Add(t.getLexemes());
+                }
+                else
+                {
+                    Node ident = value.GetChildAt(0);
+                    Tokens tok = new Tokens();
+                    tok = GetTokens(ident.GetStartLine(), ident.GetStartColumn());
+                    foreach (var item in identifiers)
+                    {
+                        if (item.getId() == tok.getLexemes())
+                        {
+                            if (item.getScope() == currscope)
+                            {
+                                child.Values.Add(item.getValue());
+                            }
+                        }
+                    }
+                }
+            }
             node.AddChild(child);
         }
 
 
-        //private double Operate(string op, double value1, double value2)
-        //{
-        //    switch (op[0])
-        //    {
-        //        case '+':
-        //            return value1 + value2;
-        //        case '-':
-        //            return value1 - value2;
-        //        case '*':
-        //            return value1 * value2;
-        //        case '/':
-        //            return value1 / value2;
-        //        case '%':
-        //            return value1 % value2;
-        //        default:
-        //            throw new Exception("unknown operator: " + op);
-        //    }
-        //}
+        private double Operate(string op, double value1, double value2)
+        {
+            switch (op[0])
+            {
+                case '+':
+                    return value1 + value2;
+                case '-':
+                    return value1 - value2;
+                case '*':
+                    return value1 * value2;
+                case '/':
+                    return value1 / value2;
+                case '%':
+                    return value1 % value2;
+                default:
+                    throw new Exception("unknown operator: " + op);
+            }
+        }
 
         public override void EnterProdIntvalue(Production node)
         {
@@ -3161,7 +3350,7 @@ namespace Code_Translation
 
         public override Node ExitProdNumvalue(Production node)
         {
-            //node.Values.AddRange(GetChildValues(node));
+            node.Values.AddRange(GetChildValues(node));
             return node;
         }
 
@@ -3218,23 +3407,23 @@ namespace Code_Translation
 
         public override Node ExitProdMathopNumTail(Production node)
         {
-            //node.Values.AddRange(GetChildValues(node));
+            node.Values.AddRange(GetChildValues(node));
             return node;
         }
 
         public override void ChildProdMathopNumTail(Production node, Node child)
         {
-            //Tokens t = new Tokens();
-            //if (child.GetName() == "Prod_operators")
-            //{
-            //    Node op = child.GetChildAt(0);
-            //    t = GetTokens(op.GetStartLine(), op.GetStartColumn());
-            //    child.Values.Add(t.getLexemes());
-            //}
-            //else
-            //{
-                
-            //}
+            Tokens t = new Tokens();
+            if (child.GetName() == "Prod_operators")
+            {
+                Node op = child.GetChildAt(0);
+                t = GetTokens(op.GetStartLine(), op.GetStartColumn());
+                child.Values.Add(t.getLexemes());
+            }
+            else
+            {
+
+            }
             node.AddChild(child);
         }
 

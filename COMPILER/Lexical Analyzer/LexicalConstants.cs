@@ -54,7 +54,7 @@ namespace Lexical_Analyzer
             public List<char> delim4 = new List<char> { '\t', ' ', '\n', '#' };
             public List<char> delim5 = new List<char> { '\t', '&', '|', ')', '.', ' ', '\n' };
             public List<char> delim6 = new List<char> { '\t', ' ' };
-            public List<char> delim7 = new List<char> { '\t', '[', '=' };
+            public List<char> delim7 = new List<char> { '\t', '[', '='};
             public List<char> delim8 = new List<char> { '\t', ' ', ')', '.', ',', ';' };
             public List<char> math = new List<char> { '\t', '(' };    
             public List<char> delim_numbers = new List<char> { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };

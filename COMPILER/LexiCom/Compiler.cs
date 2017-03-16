@@ -102,17 +102,18 @@ namespace LexiCom
                             }
                             else
                             {
-                                Output.Text += "Static Semantics Analyzer Succeeded...";
-                                MessageBox.Show("Code compiled with no error.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
                                 CodeTranslator generate = new CodeTranslator();
                                 generate = CodeGenStart(TokenDump(lex.token), semantics);
                                 generate.Start();
                                 string code = generate.code;
                                 code = code.Remove(code.Length - 2,2);
-                                code += "}\n    public static int[] Random(int start, int end)\n{\nList<int> listNumbers = new List<int>();\nint length = (end - start) + 1;\nif (length < 2)\n{\n    Console.WriteLine(\"Insufficient Length of Random Numbers...\");\n    return listNumbers.ToArray();\n}\n\nRandom rand = new Random();\nint number;\nfor (int i = 0; i < length; i++)\n{\n    do\n    {\n        number = rand.Next(start, end + 1);\n    } while (listNumbers.Contains(number));\n    listNumbers.Add(number);\n}\nreturn listNumbers.ToArray();\n}";
-                                code += "\nprivate static string Substr(string str, int index)\n{\nreturn str.Substring(index);\n}\nprivate static string Substr(string str, int index, int length)\n{\nreturn str.Substring(index, length);\n}\nprivate static int StrLen(string str)\n{\nreturn str.Length;\n}\npublic static int PInt(string s)\n{\n    int num = -1;\n bool p = false;\n  p = Int32.TryParse(s,out num);\n    return num;\n}";
+                                code += "}\n    public static Int64[] Random(Int64 start, Int64 end)\n{\nList<Int64> listNumbers = new List<Int64>();\nInt64 length = (end - start) + 1;\nif (length < 2)\n{\n    Console.WriteLine(\"Insufficient Length of Random Numbers...\");\n    return listNumbers.ToArray();\n}\n\nRandom rand = new Random();\nInt64 number;\nfor (Int64 i = 0; i < length; i++)\n{\n    do\n    {\n        number = Int64.Parse(rand.Next(Int32.Parse(start.ToString()), Int32.Parse(end.ToString()) + 1).ToString());\n    } while (listNumbers.Contains(number));\n    listNumbers.Add(number);\n}\nreturn listNumbers.ToArray();\n}";
+                                code += "\nprivate static string Substr(string str, Int64 index)\n{\nreturn str.Substring(Int32.Parse(index.ToString()));\n}\nprivate static string Substr(string str, Int64 index, Int64 length)\n{\nreturn str.Substring(Int32.Parse(index.ToString()), Int32.Parse(length.ToString()));\n}\nprivate static Int64 StrLen(string str)\n{\nreturn Int64.Parse(str.Length.ToString());\n}\npublic static Int64 PInt(string s)\n{\n    Int64 num = -1;\n bool p = false;\n  p = Int64.TryParse(s,out num);\n    return num;\n}";
                                 code += "\npublic static char[] ToCharArray (string str)\n{\nreturn str.ToCharArray();\n}\n";
-                                code += "\n   private static double Sqrt(int intNum)\n   {\n           return Double.Parse(Math.Sqrt(intNum).ToString(\"0.00##\"));\n   }\n";
+                                code += "\npublic static string ToUpper(string str)\n{\n    return str.ToUpper();\n}\n\npublic static string ToLower(string str)\n{\n    return str.ToLower();\n}\n";
+                                code += "\n   private static double Sqrt(Int64 intNum)\n   {\n           return Double.Parse(Math.Sqrt(Int32.Parse(intNum.ToString())).ToString(\"0.00##\"));\n   }\n";
+                                code += " \npublic static Int64 CompareTo(string a, string b)\n{\n    return Int64.Parse(a.CompareTo(b).ToString());\n}";
                                 code += "\npublic static double PDouble(string s)\n{\n    double num = -1;\n bool p = false;\n  p = Double.TryParse(s,out num);\n    return num;\n}\n}\n";
                                 if (generatedCode.Checked)
                                 {
@@ -125,7 +126,12 @@ namespace LexiCom
                                     output.Start(code);
                                     if(output.error != "")
                                     {
-                                        MessageBox.Show(output.error, "Woops!");
+                                        Output.Text += "Semantic Error/s: \n" + output.error;
+                                        MessageBox.Show("Code compiled with error.", "FAILED!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                    else
+                                    {
+                                        Output.Text += "Static Semantics Analyzer Succeeded...";
                                     }
                                 }
                             }

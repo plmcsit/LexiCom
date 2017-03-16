@@ -519,7 +519,6 @@ namespace Lexical_Analyzer
                                             {
                                                 if (txt[lctr + 1] == c)
                                                 {
-
                                                     hastoken = true;
                                                     break;
                                                 }
@@ -794,7 +793,7 @@ namespace Lexical_Analyzer
                                 isvalID = true;
                             }
                     }
-                    if (ictr > 11)
+                    if (ictr > 18)
                         valID = false;
                 }
                 
