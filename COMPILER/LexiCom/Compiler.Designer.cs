@@ -29,27 +29,78 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LexiCom));
             this.LexGrid = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Token_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Attribute_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Output = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.LexPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.DataLexicalError = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.LexButton = new System.Windows.Forms.ToolStripButton();
+            this.ClearButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.lecsicalAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.syntax_mode = new System.Windows.Forms.ToolStripMenuItem();
+            this.semantics_mode = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.codeTranslatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generatedCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.consoleOutput = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.DataSyntaxError = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Grid_Syntax = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Grid_Dec = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Scope = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Grid_Array = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.index_1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.index_2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Code = new Lexicom.WinForms.RichTextBoxEx();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lexeme_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Token_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Attribute_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).BeginInit();
             this.LexPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataLexicalError)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataSyntaxError)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Syntax)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Dec)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Array)).BeginInit();
             this.SuspendLayout();
             // 
             // LexGrid
@@ -66,156 +117,13 @@
             this.Token_col,
             this.Attribute_col});
             this.LexGrid.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.LexGrid.Location = new System.Drawing.Point(3, 27);
+            this.LexGrid.Location = new System.Drawing.Point(2, 27);
             this.LexGrid.Name = "LexGrid";
             this.LexGrid.ReadOnly = true;
             this.LexGrid.RowHeadersVisible = false;
-            this.LexGrid.Size = new System.Drawing.Size(340, 449);
+            this.LexGrid.Size = new System.Drawing.Size(340, 229);
             this.LexGrid.TabIndex = 1;
-            // 
-            // Output
-            // 
-            this.Output.BackColor = System.Drawing.SystemColors.ControlText;
-            this.Output.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Output.ForeColor = System.Drawing.Color.Lime;
-            this.Output.Location = new System.Drawing.Point(12, 446);
-            this.Output.Name = "Output";
-            this.Output.ReadOnly = true;
-            this.Output.Size = new System.Drawing.Size(691, 120);
-            this.Output.TabIndex = 3;
-            this.Output.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.DarkCyan;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(0, 571);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1063, 22);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "version 0.1 (Beta Version)";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.DarkCyan;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("Code Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1063, 45);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "LexiCom (Lexis Compiler)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LexPanel
-            // 
-            this.LexPanel.Controls.Add(this.label3);
-            this.LexPanel.Controls.Add(this.LexGrid);
-            this.LexPanel.Location = new System.Drawing.Point(709, 87);
-            this.LexPanel.Name = "LexPanel";
-            this.LexPanel.Size = new System.Drawing.Size(346, 479);
-            this.LexPanel.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.DarkCyan;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label3.Location = new System.Drawing.Point(4, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(338, 21);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "LEXICAL ANALYZER";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LexButton,
-            this.toolStripSeparator1,
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 45);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1063, 39);
-            this.toolStrip1.TabIndex = 8;
-            this.toolStrip1.Text = "Select Mode";
-            // 
-            // LexButton
-            // 
-            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
-            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LexButton.Name = "LexButton";
-            this.LexButton.Size = new System.Drawing.Size(73, 36);
-            this.LexButton.Text = "Start";
-            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lecsicalAnalyzerToolStripMenuItem,
-            this.syntax_mode});
-            this.toolStripButton1.Image = global::LexiCom.Properties.Resources.mode;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(82, 36);
-            this.toolStripButton1.Text = "Select Mode";
-            // 
-            // lecsicalAnalyzerToolStripMenuItem
-            // 
-            this.lecsicalAnalyzerToolStripMenuItem.Checked = true;
-            this.lecsicalAnalyzerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.lecsicalAnalyzerToolStripMenuItem.Enabled = false;
-            this.lecsicalAnalyzerToolStripMenuItem.Name = "lecsicalAnalyzerToolStripMenuItem";
-            this.lecsicalAnalyzerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.lecsicalAnalyzerToolStripMenuItem.Text = "Lecsical Analyzer";
-            // 
-            // syntax_mode
-            // 
-            this.syntax_mode.Checked = true;
-            this.syntax_mode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.syntax_mode.Name = "syntax_mode";
-            this.syntax_mode.Size = new System.Drawing.Size(163, 22);
-            this.syntax_mode.Text = "Syntax Analyzer";
-            this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ToolTipTitle = "Execute Program";
-            // 
-            // Code
-            // 
-            this.Code.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Code.Location = new System.Drawing.Point(12, 87);
-            this.Code.Name = "Code";
-            this.Code.NumberAlignment = System.Drawing.StringAlignment.Near;
-            this.Code.NumberBackground1 = System.Drawing.SystemColors.ControlLightLight;
-            this.Code.NumberBackground2 = System.Drawing.SystemColors.ActiveCaption;
-            this.Code.NumberBorder = System.Drawing.SystemColors.ActiveCaption;
-            this.Code.NumberBorderThickness = 0F;
-            this.Code.NumberColor = System.Drawing.Color.DarkCyan;
-            this.Code.NumberFont = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Code.NumberLeadingZeroes = false;
-            this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
-            this.Code.NumberPadding = 2;
-            this.Code.ShowLineNumbers = true;
-            this.Code.Size = new System.Drawing.Size(691, 353);
-            this.Code.TabIndex = 6;
-            this.Code.Text = "";
+            this.LexGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LexGrid_CellContentClick);
             // 
             // id
             // 
@@ -246,11 +154,591 @@
             this.Attribute_col.ReadOnly = true;
             this.Attribute_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // Output
+            // 
+            this.Output.BackColor = System.Drawing.SystemColors.ControlText;
+            this.Output.Font = new System.Drawing.Font("Lucida Console", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Output.ForeColor = System.Drawing.Color.Lime;
+            this.Output.Location = new System.Drawing.Point(12, 549);
+            this.Output.Name = "Output";
+            this.Output.ReadOnly = true;
+            this.Output.Size = new System.Drawing.Size(431, 97);
+            this.Output.TabIndex = 3;
+            this.Output.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.DarkCyan;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(0, 651);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1240, 22);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "version 1.0 Build 1 (Alpha Version)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.DarkCyan;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(77)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1240, 45);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "LexiCom (Lexis Compiler)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LexPanel
+            // 
+            this.LexPanel.Controls.Add(this.label3);
+            this.LexPanel.Controls.Add(this.LexGrid);
+            this.LexPanel.Location = new System.Drawing.Point(543, 86);
+            this.LexPanel.Name = "LexPanel";
+            this.LexPanel.Size = new System.Drawing.Size(346, 256);
+            this.LexPanel.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.DarkCyan;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label3.Location = new System.Drawing.Point(4, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(338, 21);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "LEXICAL TABLE";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.DarkCyan;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label6.Location = new System.Drawing.Point(451, 526);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(338, 21);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "LEXICAL ERRORS";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DataLexicalError
+            // 
+            this.DataLexicalError.AllowUserToAddRows = false;
+            this.DataLexicalError.AllowUserToDeleteRows = false;
+            this.DataLexicalError.AllowUserToResizeColumns = false;
+            this.DataLexicalError.AllowUserToResizeRows = false;
+            this.DataLexicalError.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.DataLexicalError.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataLexicalError.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn6});
+            this.DataLexicalError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DataLexicalError.Location = new System.Drawing.Point(449, 549);
+            this.DataLexicalError.Name = "DataLexicalError";
+            this.DataLexicalError.ReadOnly = true;
+            this.DataLexicalError.RowHeadersVisible = false;
+            this.DataLexicalError.Size = new System.Drawing.Size(340, 94);
+            this.DataLexicalError.TabIndex = 3;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Errors";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn6.Width = 300;
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LexButton,
+            this.toolStripSeparator1,
+            this.ClearButton,
+            this.toolStripSeparator2,
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 45);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1240, 39);
+            this.toolStrip1.TabIndex = 8;
+            this.toolStrip1.Text = "Select Mode";
+            // 
+            // LexButton
+            // 
+            this.LexButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.LexButton.Image = global::LexiCom.Properties.Resources.start5;
+            this.LexButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.LexButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LexButton.Name = "LexButton";
+            this.LexButton.Size = new System.Drawing.Size(73, 36);
+            this.LexButton.Text = "Start";
+            this.LexButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LexButton.Click += new System.EventHandler(this.LexButton_Click);
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClearButton.Image = global::LexiCom.Properties.Resources.clear;
+            this.ClearButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ClearButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(73, 36);
+            this.ClearButton.Text = "Clear Text Editor";
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lecsicalAnalyzerToolStripMenuItem,
+            this.syntax_mode,
+            this.semantics_mode,
+            this.toolStripSeparator3,
+            this.codeTranslatedToolStripMenuItem});
+            this.toolStripButton1.Image = global::LexiCom.Properties.Resources.mode;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(82, 36);
+            this.toolStripButton1.Text = "Select Mode";
+            // 
+            // lecsicalAnalyzerToolStripMenuItem
+            // 
+            this.lecsicalAnalyzerToolStripMenuItem.Checked = true;
+            this.lecsicalAnalyzerToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lecsicalAnalyzerToolStripMenuItem.Enabled = false;
+            this.lecsicalAnalyzerToolStripMenuItem.Name = "lecsicalAnalyzerToolStripMenuItem";
+            this.lecsicalAnalyzerToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.lecsicalAnalyzerToolStripMenuItem.Text = "Lecsical Analyzer";
+            // 
+            // syntax_mode
+            // 
+            this.syntax_mode.Checked = true;
+            this.syntax_mode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.syntax_mode.Name = "syntax_mode";
+            this.syntax_mode.Size = new System.Drawing.Size(176, 22);
+            this.syntax_mode.Text = "Syntax Analyzer";
+            this.syntax_mode.Click += new System.EventHandler(this.syntaxAnalyzerToolStripMenuItem_Click);
+            // 
+            // semantics_mode
+            // 
+            this.semantics_mode.Checked = true;
+            this.semantics_mode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.semantics_mode.Name = "semantics_mode";
+            this.semantics_mode.Size = new System.Drawing.Size(176, 22);
+            this.semantics_mode.Text = "Semantics Analyzer";
+            this.semantics_mode.Click += new System.EventHandler(this.semantics_mode_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(173, 6);
+            // 
+            // codeTranslatedToolStripMenuItem
+            // 
+            this.codeTranslatedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generatedCode,
+            this.consoleOutput});
+            this.codeTranslatedToolStripMenuItem.Name = "codeTranslatedToolStripMenuItem";
+            this.codeTranslatedToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.codeTranslatedToolStripMenuItem.Text = "Developer Options";
+            // 
+            // generatedCode
+            // 
+            this.generatedCode.Name = "generatedCode";
+            this.generatedCode.Size = new System.Drawing.Size(159, 22);
+            this.generatedCode.Text = "Generated Code";
+            this.generatedCode.Click += new System.EventHandler(this.generatedCode_Click);
+            // 
+            // consoleOutput
+            // 
+            this.consoleOutput.Checked = true;
+            this.consoleOutput.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.consoleOutput.Name = "consoleOutput";
+            this.consoleOutput.Size = new System.Drawing.Size(159, 22);
+            this.consoleOutput.Text = "Console Output";
+            this.consoleOutput.Click += new System.EventHandler(this.consoleOutput_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipTitle = "Execute Program";
+            // 
+            // DataSyntaxError
+            // 
+            this.DataSyntaxError.AllowUserToAddRows = false;
+            this.DataSyntaxError.AllowUserToDeleteRows = false;
+            this.DataSyntaxError.AllowUserToResizeColumns = false;
+            this.DataSyntaxError.AllowUserToResizeRows = false;
+            this.DataSyntaxError.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.DataSyntaxError.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataSyntaxError.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.Line,
+            this.Col,
+            this.dataGridViewTextBoxColumn4});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataSyntaxError.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DataSyntaxError.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DataSyntaxError.Location = new System.Drawing.Point(794, 549);
+            this.DataSyntaxError.Name = "DataSyntaxError";
+            this.DataSyntaxError.RowHeadersVisible = false;
+            this.DataSyntaxError.RowTemplate.Height = 70;
+            this.DataSyntaxError.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataSyntaxError.Size = new System.Drawing.Size(438, 94);
+            this.DataSyntaxError.TabIndex = 3;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // Line
+            // 
+            this.Line.HeaderText = "Ln";
+            this.Line.Name = "Line";
+            this.Line.ReadOnly = true;
+            this.Line.Width = 30;
+            // 
+            // Col
+            // 
+            this.Col.HeaderText = "Col";
+            this.Col.Name = "Col";
+            this.Col.ReadOnly = true;
+            this.Col.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Errors";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Width = 330;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.DarkCyan;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label4.Location = new System.Drawing.Point(794, 526);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(438, 21);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "SYNTAX ERRORS";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.DarkCyan;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label5.Location = new System.Drawing.Point(12, 526);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(431, 21);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "RUNTIME OUTPUT";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.DarkCyan;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label7.Location = new System.Drawing.Point(4, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(338, 21);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "SYNTAX TABLE";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Grid_Syntax
+            // 
+            this.Grid_Syntax.AllowUserToAddRows = false;
+            this.Grid_Syntax.AllowUserToDeleteRows = false;
+            this.Grid_Syntax.AllowUserToResizeColumns = false;
+            this.Grid_Syntax.AllowUserToResizeRows = false;
+            this.Grid_Syntax.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Grid_Syntax.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Grid_Syntax.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8});
+            this.Grid_Syntax.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Grid_Syntax.Location = new System.Drawing.Point(3, 27);
+            this.Grid_Syntax.Name = "Grid_Syntax";
+            this.Grid_Syntax.ReadOnly = true;
+            this.Grid_Syntax.RowHeadersVisible = false;
+            this.Grid_Syntax.Size = new System.Drawing.Size(340, 229);
+            this.Grid_Syntax.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn3.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Production";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn5.Width = 140;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "->";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn7.Width = 20;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Set";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn8.Width = 140;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.Grid_Syntax);
+            this.panel1.Location = new System.Drawing.Point(890, 86);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(346, 256);
+            this.panel1.TabIndex = 11;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.Grid_Dec);
+            this.panel2.Location = new System.Drawing.Point(540, 342);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(346, 184);
+            this.panel2.TabIndex = 12;
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.DarkCyan;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label8.Location = new System.Drawing.Point(4, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(338, 21);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "DECLARATIONS";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Grid_Dec
+            // 
+            this.Grid_Dec.AllowUserToAddRows = false;
+            this.Grid_Dec.AllowUserToDeleteRows = false;
+            this.Grid_Dec.AllowUserToResizeColumns = false;
+            this.Grid_Dec.AllowUserToResizeRows = false;
+            this.Grid_Dec.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Grid_Dec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Grid_Dec.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12,
+            this.Scope});
+            this.Grid_Dec.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Grid_Dec.Location = new System.Drawing.Point(4, 27);
+            this.Grid_Dec.Name = "Grid_Dec";
+            this.Grid_Dec.ReadOnly = true;
+            this.Grid_Dec.RowHeadersVisible = false;
+            this.Grid_Dec.Size = new System.Drawing.Size(340, 150);
+            this.Grid_Dec.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "#";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn9.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Identifier";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn10.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Datatype";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn11.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn12.Width = 70;
+            // 
+            // Scope
+            // 
+            this.Scope.HeaderText = "Scope";
+            this.Scope.Name = "Scope";
+            this.Scope.ReadOnly = true;
+            this.Scope.Width = 80;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.Grid_Array);
+            this.panel3.Location = new System.Drawing.Point(889, 342);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(346, 184);
+            this.panel3.TabIndex = 13;
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.DarkCyan;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label9.Location = new System.Drawing.Point(4, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(338, 21);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "ARRAY BUILDS";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Grid_Array
+            // 
+            this.Grid_Array.AllowUserToAddRows = false;
+            this.Grid_Array.AllowUserToDeleteRows = false;
+            this.Grid_Array.AllowUserToResizeColumns = false;
+            this.Grid_Array.AllowUserToResizeRows = false;
+            this.Grid_Array.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Grid_Array.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Grid_Array.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn14,
+            this.dataGridViewTextBoxColumn15,
+            this.dataGridViewTextBoxColumn16,
+            this.index_1,
+            this.index_2});
+            this.Grid_Array.GridColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Grid_Array.Location = new System.Drawing.Point(4, 27);
+            this.Grid_Array.Name = "Grid_Array";
+            this.Grid_Array.ReadOnly = true;
+            this.Grid_Array.RowHeadersVisible = false;
+            this.Grid_Array.Size = new System.Drawing.Size(340, 150);
+            this.Grid_Array.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.HeaderText = "Identifier";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            this.dataGridViewTextBoxColumn14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.HeaderText = "Datatype";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            this.dataGridViewTextBoxColumn15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn15.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            this.dataGridViewTextBoxColumn16.ReadOnly = true;
+            this.dataGridViewTextBoxColumn16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn16.Width = 60;
+            // 
+            // index_1
+            // 
+            this.index_1.HeaderText = "idx1";
+            this.index_1.Name = "index_1";
+            this.index_1.ReadOnly = true;
+            this.index_1.Width = 40;
+            // 
+            // index_2
+            // 
+            this.index_2.HeaderText = "idx2";
+            this.index_2.Name = "index_2";
+            this.index_2.ReadOnly = true;
+            this.index_2.Width = 40;
+            // 
+            // Code
+            // 
+            this.Code.AcceptsTab = true;
+            this.Code.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Code.Location = new System.Drawing.Point(12, 87);
+            this.Code.Name = "Code";
+            this.Code.NumberAlignment = System.Drawing.StringAlignment.Near;
+            this.Code.NumberBackground1 = System.Drawing.SystemColors.ControlLightLight;
+            this.Code.NumberBackground2 = System.Drawing.SystemColors.ActiveCaption;
+            this.Code.NumberBorder = System.Drawing.SystemColors.ActiveCaption;
+            this.Code.NumberBorderThickness = 0F;
+            this.Code.NumberColor = System.Drawing.Color.DarkCyan;
+            this.Code.NumberFont = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Code.NumberLeadingZeroes = false;
+            this.Code.NumberLineCounting = Lexicom.WinForms.RichTextBoxEx.LineCounting.CRLF;
+            this.Code.NumberPadding = 2;
+            this.Code.ShowLineNumbers = true;
+            this.Code.Size = new System.Drawing.Size(523, 430);
+            this.Code.TabIndex = 6;
+            this.Code.Text = resources.GetString("Code.Text");
+            // 
             // LexiCom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 593);
+            this.ClientSize = new System.Drawing.Size(1240, 673);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.DataLexicalError);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.DataSyntaxError);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.LexPanel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.Code);
@@ -258,14 +746,21 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Output);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximumSize = new System.Drawing.Size(1079, 632);
             this.MinimumSize = new System.Drawing.Size(1079, 632);
             this.Name = "LexiCom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.LexGrid)).EndInit();
             this.LexPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataLexicalError)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataSyntaxError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Syntax)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Dec)).EndInit();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Grid_Array)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -289,6 +784,47 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Lexeme_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn Token_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn Attribute_col;
+        private System.Windows.Forms.ToolStripMenuItem semantics_mode;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView DataSyntaxError;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView DataLexicalError;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.ToolStripButton ClearButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView Grid_Syntax;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Line;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridView Grid_Dec;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Scope;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridView Grid_Array;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index_1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index_2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem codeTranslatedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generatedCode;
+        private System.Windows.Forms.ToolStripMenuItem consoleOutput;
     }
 }
 
